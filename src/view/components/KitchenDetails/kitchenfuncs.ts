@@ -125,6 +125,11 @@ export function formatDate(dateString: string): string {
   return `${day}.${month}.${year}`;
 }
 
+export function formatDate2(dateString: string): string {
+  const [day, month, year] = dateString.split('.');
+  return `${year}-${month}-${day}`;
+}
+
 export function formatToDateString(dateString: string): string {
   const date = new Date(dateString); // Створюємо об'єкт Date
   const day = date.getDate().toString().padStart(2, '0'); // Додаємо провідний нуль для дня

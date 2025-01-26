@@ -8,6 +8,7 @@ import {
   filterByDate,
   filterLatestEntries,
   formatDate,
+  formatDate2,
   formatToDateString,
   KitchenOrder,
   OrderItemProps,
@@ -48,7 +49,12 @@ function KitchenDetails({ data }: OrderItemProps) {
       <div className={classes.picture} />
       <div>
         <label htmlFor="datePicker">Дата:</label>
-        <input id="datePicker" type="date" value={selectedDate} onChange={handleDateChange} />
+        <input
+          id="datePicker"
+          type="date"
+          value={formatDate2(selectedDate)}
+          onChange={handleDateChange}
+        />
       </div>
       <div>Працівників: {newData?.workers.length ?? 0}</div>
       <div>
@@ -77,7 +83,7 @@ function KitchenDetails({ data }: OrderItemProps) {
 
       <div>
         <a
-          href="https://docs.google.com/spreadsheets/d/${1GdKOPBo_NJ9xSXrp6xKluEGYedrQuMX4cfym5llxemU}"
+          href="https://docs.google.com/spreadsheets/d/1GdKOPBo_NJ9xSXrp6xKluEGYedrQuMX4cfym5llxemU"
           target="_blank"
           rel="noreferrer">
           <br />
