@@ -37,6 +37,11 @@ async function transformPhotoFunction(inputString: string, apiKey: string) {
   return null;
 }
 
+const tableKitchen = {
+  tableName: process.env.GOOGLESHEETS_TABLE_KITCHEN as string,
+  sheetName: process.env.GOOGLESHEETS_TABLE_KITCHEN_SHEET as string
+};
+
 const tableNews = {
   tableName: process.env.GOOGLESHEETS_TABLE_NEWS as string,
   sheetName: process.env.GOOGLESHEETS_TABLE_NEWS_SHEET as string
@@ -68,6 +73,23 @@ async function processNewsArray(newsArray: DataObject[], apiKey: string): Promis
   });
 
   return Promise.all(updatedNewsArrayPromises);
+}
+
+export async function getOrder(force: boolean) {
+  if (force) {
+    const searchString = '';
+    try {
+      const response = await axios.get(
+        `${process.env.PYTHONANYWHERE_SERVER_URL}/getdata/${tableKitchen.tableName}/${tableKitchen.sheetName}/A1:AS10000${searchString}`
+      );
+      const kitchenData = response.data;
+      return kitchenData;
+    } catch (err) {
+      console.error('Error fetching news:', err);
+      return null;
+    }
+  }
+  return null;
 }
 
 async function getNews(force: boolean, apiKey: string) {

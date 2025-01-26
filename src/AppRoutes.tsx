@@ -17,6 +17,7 @@ import FileInfoTest from './view/components/FileInfoTest/FileInfoTest';
 import FacebookPost from './view/components/FacebookPost/FacebookPost';
 import GoogleDriveImage from './view/components/GoogleDriveImage/GoogleDriveImage';
 import Tabels from './view/pages/Tabels/Tabels';
+import Kitchen from './view/pages/Kitchen/kitchen';
 
 interface RedirectToPageProps {
   path: string;
@@ -51,6 +52,7 @@ function AppRoutes() {
       <Route path="/news" element={<News />} />
       <Route path="/page" element={<Page />} />
       <Route path="/about" element={<About />} />
+      <Route path="/kitchen" element={<Kitchen />} />
       <Route path="/documents" element={<Documents />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/logout" element={<Logout />} />
