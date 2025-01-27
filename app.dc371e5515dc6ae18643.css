@@ -2600,6 +2600,8 @@ img.сourses-module__portrait___PuKjL {
     align-items: center;
     /* background: #9cc8c3; */
     width: 80%;
+    max-width: 500px;
+
     height: 100%;
     padding: 10px;
     overflow-y: auto;
@@ -2614,8 +2616,10 @@ img.сourses-module__portrait___PuKjL {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   width: 95%;
+
   .kitchendetails-module__datePicker___l0bfS {
     width: 100%;
     display: flex;
@@ -2656,11 +2660,27 @@ img.сourses-module__portrait___PuKjL {
       font-size: 1.5rem;
       font-weight: 600;
       /* color: blue; */
+      cursor: pointer;
     }
   }
 }
 
 .kitchendetails-module__textContent___a1dOn {
+}
+
+.kitchendetails-module__modal___uJnjH {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f1f1ee;
+  border-radius: 5px;
+  padding: 20px;
 }
 
 /*!*****************************************************************!*\
