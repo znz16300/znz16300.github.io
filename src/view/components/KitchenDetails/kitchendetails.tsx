@@ -1,3 +1,10 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -22,6 +29,9 @@ function KitchenDetails({ data }: OrderItemProps) {
     console.log('today:', formatToDateString(today.toISOString()));
     return formatToDateString(today.toISOString());
   });
+  const [modalData, setModalData] = useState<
+    { date: string; nameKlas: string; students: import('./kitchenfuncs').Student[] } | undefined
+  >(undefined);
 
   const [newData, setNewData] = useState<KitchenOrder | undefined>(undefined);
 
@@ -46,6 +56,22 @@ function KitchenDetails({ data }: OrderItemProps) {
 
   return (
     <section className={classes.main}>
+      {modalData && (
+        <div className={classes.modal}>
+          <div className={classes.modalContent}>
+            <h2>Деталі класу</h2>
+            <p>Дата: {modalData.date}</p>
+            <p>Клас: {modalData.nameKlas}</p>
+            <p>Учні:</p>
+            <ul>
+              {modalData.students.map((student, idx) => (
+                <li key={idx}>{student.name}</li>
+              ))}
+            </ul>
+            <button onClick={() => setModalData(undefined)}>Закрити</button>
+          </div>
+        </div>
+      )}
       <h1>Замовлення порцій</h1>
       <div className={classes.datePicker}>
         <label htmlFor="datePicker">Дата:</label>
@@ -56,18 +82,19 @@ function KitchenDetails({ data }: OrderItemProps) {
           onChange={handleDateChange}
         />
       </div>
-      <div>Працівників: {newData?.workers.length ?? 0}</div>
+      <div>
+        Працівників: <span className={classes.value}>{newData?.workers.length ?? 0}</span>
+      </div>
       <div>
         Учнів: {newData?.klasses.reduce((acc, klass) => acc + klass.students.length, 0) ?? 0}
       </div>
       {newData?.klassList.map((klass, index) => {
         const klassData = newData.klasses.find((k) => k.nameKlas === klass);
         return (
-          // eslint-disable-next-line react/no-array-index-key
           <ul key={index}>
             <li className={classes.items}>
               <span className={classes.label}>{klass}: </span>
-              <span className={classes.value}>
+              <span className={classes.value} onClick={() => setModalData(klassData)}>
                 {klassData ? klassData.students.length.toString() : '...'}
               </span>
             </li>

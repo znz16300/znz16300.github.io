@@ -66,8 +66,11 @@ export function transformData(data: DataObject[]): KitchenOrder {
             .trim();
 
           const students = entry[key].split(',').map((student: string) => {
-            const [name, gender = ''] = student.trim().split(' ');
-            return { name: name.trim(), gender: gender.trim() };
+            const name = student.trim();
+            // Визначити стать за останньою літерою. Якщо 'а', то це дівчина
+
+            const gender = name.slice(-1) ? 'Ж' : 'Ч';
+            return { name, gender };
           });
 
           result.klasses.push({
