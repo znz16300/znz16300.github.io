@@ -32,6 +32,9 @@ function KitchenDetails({ data }: OrderItemProps) {
   const [modalData, setModalData] = useState<
     { date: string; nameKlas: string; students: import('./kitchenfuncs').Student[] } | undefined
   >(undefined);
+  const [modalDataWorker, setModalDataWorker] = useState<
+    { date: string; workers: string[] } | undefined
+  >(undefined);
 
   const [newData, setNewData] = useState<KitchenOrder | undefined>(undefined);
 
@@ -56,6 +59,20 @@ function KitchenDetails({ data }: OrderItemProps) {
 
   return (
     <section className={classes.main}>
+      {modalDataWorker && (
+        <div className={classes.modal}>
+          <div className={classes.modalContent}>
+            <h2>Список працівників</h2>
+            <p>Дата: {modalDataWorker.date}</p>
+            <ul>
+              {modalDataWorker.workers.map((worker, idx) => (
+                <li key={idx}>{worker}</li>
+              ))}
+            </ul>
+            <button onClick={() => setModalDataWorker(undefined)}>Закрити</button>
+          </div>
+        </div>
+      )}
       {modalData && (
         <div className={classes.modal}>
           <div className={classes.modalContent}>
@@ -83,7 +100,20 @@ function KitchenDetails({ data }: OrderItemProps) {
         />
       </div>
       <div>
-        Працівників: <span className={classes.value}>{newData?.workers.length ?? 0}</span>
+        Працівників:{' '}
+        <span
+          className={classes.value}
+          onClick={() => {
+            const workers = newData?.workers.filter((w) => w.date.includes(selectedDate));
+            if (workers) {
+              setModalDataWorker({
+                date: selectedDate,
+                workers: workers.map((w) => w.name)
+              });
+            }
+          }}>
+          {newData?.workers.length ?? 0}
+        </span>
       </div>
       <div>
         Учнів: {newData?.klasses.reduce((acc, klass) => acc + klass.students.length, 0) ?? 0}
