@@ -2681,6 +2681,7 @@ img.сourses-module__portrait___PuKjL {
   background: #f1f1ee;
   border-radius: 5px;
   padding: 20px;
+  overflow-y: auto;
 }
 
 /*!*****************************************************************!*\
