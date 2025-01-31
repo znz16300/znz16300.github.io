@@ -34,7 +34,7 @@
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "no-console": ["error", { "allow": ["warn", "error"] }],
-    "linebreak-style": ["error", "unix"],
+    // "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "never"],

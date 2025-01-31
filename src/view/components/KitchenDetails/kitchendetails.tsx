@@ -66,9 +66,7 @@ function KitchenDetails({ data }: OrderItemProps) {
             <p>Дата: {modalDataWorker.date}</p>
             <ul>
               {modalDataWorker.workers.map((worker, idx) => (
-                <li key={idx}>
-                  {idx + 1}. {worker}
-                </li>
+                <li key={idx}>{worker}</li>
               ))}
             </ul>
             <button onClick={() => setModalDataWorker(undefined)}>Закрити</button>
@@ -84,9 +82,7 @@ function KitchenDetails({ data }: OrderItemProps) {
             <p>Учні:</p>
             <ul>
               {modalData.students.map((student, idx) => (
-                <li key={idx}>
-                  {idx + 1}. {student.name}
-                </li>
+                <li key={idx}>{student.name}</li>
               ))}
             </ul>
             <button onClick={() => setModalData(undefined)}>Закрити</button>
