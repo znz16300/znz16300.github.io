@@ -62,6 +62,7 @@ function KitchenDetails({ data }: OrderItemProps) {
       {modalDataWorker && (
         <div className={classes.modal}>
           <div className={classes.modalContent}>
+            <button onClick={() => setModalDataWorker(undefined)}>Закрити</button>
             <h2>Список працівників</h2>
             <p>Дата: {modalDataWorker.date}</p>
             <ul>
@@ -69,13 +70,13 @@ function KitchenDetails({ data }: OrderItemProps) {
                 <li key={idx}>{worker}</li>
               ))}
             </ul>
-            <button onClick={() => setModalDataWorker(undefined)}>Закрити</button>
           </div>
         </div>
       )}
       {modalData && (
         <div className={classes.modal}>
           <div className={classes.modalContent}>
+            <button onClick={() => setModalData(undefined)}>Закрити</button>
             <h2>Деталі класу</h2>
             <p>Дата: {modalData.date}</p>
             <p>Клас: {modalData.nameKlas}</p>
@@ -85,7 +86,6 @@ function KitchenDetails({ data }: OrderItemProps) {
                 <li key={idx}>{student.name}</li>
               ))}
             </ul>
-            <button onClick={() => setModalData(undefined)}>Закрити</button>
           </div>
         </div>
       )}
