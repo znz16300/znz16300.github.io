@@ -2667,22 +2667,22 @@ img.сourses-module__portrait___PuKjL {
 
 .kitchendetails-module__textContent___a1dOn {
 }
-
 .kitchendetails-module__modal___uJnjH {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   position: fixed;
   width: calc(100% - 40px);
   height: calc(100vh - 40px);
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   background: #f1f1ee;
   border-radius: 5px;
   padding: 20px;
   overflow-y: auto;
 }
+
 
 /*!*****************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
