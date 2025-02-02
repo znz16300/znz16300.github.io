@@ -30,7 +30,12 @@ function KitchenDetails({ data }: OrderItemProps) {
     return formatToDateString(today.toISOString());
   });
   const [modalData, setModalData] = useState<
-    { date: string; nameKlas: string; students: import('./kitchenfuncs').Student[] } | undefined
+    | {
+        date: string;
+        nameKlas: string;
+        students: import('./kitchenfuncs').Student[];
+      }
+    | undefined
   >(undefined);
   const [modalDataWorker, setModalDataWorker] = useState<
     { date: string; workers: string[] } | undefined
@@ -89,6 +94,7 @@ function KitchenDetails({ data }: OrderItemProps) {
           </div>
         </div>
       )}
+      <p className={classes.red}>Останнє оновлення: {newData?.lastDate}</p>
       <h1>Замовлення порцій</h1>
       <div className={classes.datePicker}>
         <label htmlFor="datePicker">Дата:</label>

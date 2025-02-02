@@ -6,6 +6,10 @@
 
   width: 95%;
 
+  .red {
+    color: red;
+  }
+
   .datePicker {
     width: 100%;
     display: flex;

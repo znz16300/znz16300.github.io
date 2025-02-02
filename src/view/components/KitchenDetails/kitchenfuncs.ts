@@ -9,6 +9,7 @@ export interface Student {
 }
 
 export interface KitchenOrder {
+  lastDate: string;
   klassList: string[];
   workers: { date: string; name: string }[];
   klasses: {
@@ -20,6 +21,7 @@ export interface KitchenOrder {
 
 export function transformData(data: DataObject[]): KitchenOrder {
   const result: KitchenOrder = {
+    lastDate: '---',
     klassList: [],
     workers: [],
     klasses: []
@@ -44,10 +46,11 @@ export function transformData(data: DataObject[]): KitchenOrder {
   // Додати всі можливі класи до result.klassList
   result.klassList = Array.from(klassSet);
 
+  let lastDateT = '';
   // Обробити дані
   data.forEach((entry) => {
     const date = entry['Позначка часу'];
-
+    lastDateT = date;
     if (entry['Підрозділ'] === 'Працівники') {
       // Додати працівників
       const workerNames = entry['Прізвище, імʼя, по батькові']?.split(',') || [];
@@ -82,12 +85,14 @@ export function transformData(data: DataObject[]): KitchenOrder {
       });
     }
   });
+  result.lastDate = lastDateT;
 
   return result;
 }
 
 export function filterByDate(data: KitchenOrder, selectedDate: string): KitchenOrder {
   return {
+    lastDate: data.lastDate,
     klassList: data.klassList,
     workers: data.workers.filter((worker) => worker.date.includes(selectedDate)),
     klasses: data.klasses
