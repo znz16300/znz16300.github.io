@@ -2660,17 +2660,15 @@ img.сourses-module__portrait___PuKjL {
       font-size: 1.5rem;
       font-weight: 600;
     }
-    .kitchendetails-module__value___taOxo {
-      font-size: 1.5rem;
-      font-weight: 600;
-      /* color: blue; */
-      cursor: pointer;
-    }
   }
 }
 
-.kitchendetails-module__textContent___a1dOn {
+.kitchendetails-module__value___taOxo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
 }
+
 .kitchendetails-module__modal___uJnjH {
   display: flex;
   align-items: flex-start;
@@ -2678,6 +2676,7 @@ img.сourses-module__portrait___PuKjL {
   position: fixed;
   width: calc(100% - 40px);
   height: calc(100vh - 40px);
+  max-width: 500px;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -2685,8 +2684,25 @@ img.сourses-module__portrait___PuKjL {
   border-radius: 5px;
   padding: 20px;
   overflow-y: auto;
+  z-index: 2000;
 }
 
+.kitchendetails-module__closeButton___Jt_zV {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: url(6c222a42920c18d7ed37.svg) no-repeat center center;
+  background-size: contain;
+  border: none;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
 
 /*!*****************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
