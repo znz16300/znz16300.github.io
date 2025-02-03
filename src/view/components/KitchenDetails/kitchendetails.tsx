@@ -62,12 +62,24 @@ function KitchenDetails({ data }: OrderItemProps) {
     console.log('selectedDate:', selectedDate);
   };
 
+  const groupLabels = [
+    { grades: [1, 2], label: 'По 1 та 2 разом' },
+    { grades: [3, 4], label: 'По 3 та 4 разом' },
+    { grades: [5, 6], label: 'По 5 та 6 разом' },
+    { grades: [7, 8], label: 'По 7 та 8 разом' },
+    { grades: [9, 10, 11], label: 'По 9, 10 та 11 разом' }
+  ];
+
   return (
     <section className={classes.main}>
       {modalDataWorker && (
         <div className={classes.modal}>
           <div className={classes.modalContent}>
-            <button onClick={() => setModalDataWorker(undefined)}>Закрити</button>
+            <button
+              className={classes.closeButton}
+              onClick={() => setModalDataWorker(undefined)}
+              aria-label="Close"
+            />
             <h2>Список працівників</h2>
             <p>Дата: {modalDataWorker.date}</p>
             <ul>
@@ -81,7 +93,11 @@ function KitchenDetails({ data }: OrderItemProps) {
       {modalData && (
         <div className={classes.modal}>
           <div className={classes.modalContent}>
-            <button onClick={() => setModalData(undefined)}>Закрити</button>
+            <button
+              className={classes.closeButton}
+              onClick={() => setModalData(undefined)}
+              aria-label="Close"
+            />
             <h2>Деталі класу</h2>
             <p>Дата: {modalData.date}</p>
             <p>Клас: {modalData.nameKlas}</p>
@@ -124,22 +140,42 @@ function KitchenDetails({ data }: OrderItemProps) {
       <div>
         Учнів: {newData?.klasses.reduce((acc, klass) => acc + klass.students.length, 0) ?? 0}
       </div>
-      {newData?.klassList.map((klass, index) => {
-        const klassData = newData.klasses.find((k) => k.nameKlas === klass);
+      {groupLabels.map(({ grades, label }) => {
+        let groupTotal = 0;
         return (
-          <ul key={index}>
-            <li className={classes.items}>
-              <span className={classes.label}>{klass}: </span>
-              <span className={classes.value} onClick={() => setModalData(klassData)}>
-                {klassData ? klassData.students.length.toString() : '...'}
-              </span>
-            </li>
-          </ul>
+          <div key={label}>
+            {newData?.klassList.map((klass, index) => {
+              const klassGrade = parseInt(klass.split('-')[0], 10);
+              if (!grades.includes(klassGrade)) return null;
+
+              const klassData = newData.klasses.find((k) => k.nameKlas === klass);
+              const studentCount = klassData ? klassData.students.length : 0;
+              groupTotal += studentCount;
+
+              return (
+                <ul key={index}>
+                  <li className={classes.items}>
+                    <span className={classes.label}>{klass}: </span>
+                    <span className={classes.value} onClick={() => setModalData(klassData)}>
+                      {studentCount}
+                    </span>
+                  </li>
+                </ul>
+              );
+            })}
+            {groupTotal > 0 && (
+              <p className={classes.groupTotal}>
+                <strong>
+                  {label}: {groupTotal}
+                </strong>
+              </p>
+            )}
+          </div>
         );
       })}
 
       <div>Всього класів: {newData?.klasses.length ?? 0}</div>
-      <br />
+
       <div>
         Не надіслали класи:{' '}
         {newData?.klassList

@@ -46,17 +46,16 @@
       font-size: 1.5rem;
       font-weight: 600;
     }
-    .value {
-      font-size: 1.5rem;
-      font-weight: 600;
-      /* color: blue; */
-      cursor: pointer;
-    }
   }
 }
 
-.textContent {
+.value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  
 }
+
 .modal {
   display: flex;
   align-items: flex-start;
@@ -64,6 +63,7 @@
   position: fixed;
   width: calc(100% - 40px);
   height: calc(100vh - 40px);
+  max-width: 500px;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -71,5 +71,22 @@
   border-radius: 5px;
   padding: 20px;
   overflow-y: auto;
+  z-index: 2000;
 }
 
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: url('../../../assets/icons/cross.svg') no-repeat center center;
+  background-size: contain;
+  border: none;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
