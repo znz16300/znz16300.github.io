@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import Footer from '../../components/common/footer/footer';
 import * as classes from './kitchen.module.css';
@@ -17,24 +16,32 @@ interface DataObject {
 }
 
 function Kitchen() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { state, setState } = useAppContext();
   const [data, setData] = useState<DataObject[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       const responseData: DataObject[] | null = await getOrder(true);
-      if (responseData) {
+      if (isMounted && JSON.stringify(responseData) !== JSON.stringify(data)) {
         // eslint-disable-next-line no-console
         console.log('Kitchen responseData', responseData);
         setData(responseData);
       }
+      setLoading(false);
     };
-    setLoading(true);
+
     fetchData();
-    setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const interval = setInterval(fetchData, 60000); // Оновлення щохвилини
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [data]);
 
   return (
     <div className={classes.wrapper}>
