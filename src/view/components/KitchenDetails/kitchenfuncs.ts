@@ -50,7 +50,8 @@ export function transformData(data: DataObject[]): KitchenOrder {
   // Обробити дані
   data.forEach((entry) => {
     const date = entry['Дата харчування'];
-    lastDateT = date;
+    const dateInput = entry['Позначка часу'];
+    lastDateT = dateInput;
 
     if (entry['Підрозділ'] === 'Працівники') {
       // Додати працівників
