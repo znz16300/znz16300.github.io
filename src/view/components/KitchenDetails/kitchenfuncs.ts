@@ -28,6 +28,7 @@ export function transformData(data: DataObject[]): KitchenOrder {
   };
 
   const klassSet = new Set<string>(); // Використовуємо Set для унікальних класів
+  let lastDateT = '';
 
   // Знайти всі можливі класи
   data.forEach((entry) => {
@@ -46,11 +47,11 @@ export function transformData(data: DataObject[]): KitchenOrder {
   // Додати всі можливі класи до result.klassList
   result.klassList = Array.from(klassSet);
 
-  let lastDateT = '';
   // Обробити дані
   data.forEach((entry) => {
-    const date = entry['Позначка часу'];
+    const date = entry['Дата харчування'];
     lastDateT = date;
+
     if (entry['Підрозділ'] === 'Працівники') {
       // Додати працівників
       const workerNames = entry['Прізвище, імʼя, по батькові']?.split(',') || [];
@@ -70,16 +71,14 @@ export function transformData(data: DataObject[]): KitchenOrder {
 
           const students = entry[key].split(',').map((student: string) => {
             const name = student.trim();
-            // Визначити стать за останньою літерою. Якщо 'а', то це дівчина
-
-            const gender = name.slice(-1) ? 'Ж' : 'Ч';
+            const gender = name.slice(-1) === 'а' ? 'Ж' : 'Ч';
             return { name, gender };
           });
 
           result.klasses.push({
-            date: date.split(' ')[0], // Відкидаємо час
+            date,
             nameKlas,
-            students: students.filter((s: Student) => s.name) // Фільтрація порожніх імен
+            students: students.filter((s: Student) => s.name)
           });
         }
       });
@@ -92,6 +91,7 @@ export function transformData(data: DataObject[]): KitchenOrder {
 
 export function filterByDate(data: KitchenOrder, selectedDate: string): KitchenOrder {
   return {
+    // feedingDate: data.feedingDate,
     lastDate: data.lastDate,
     klassList: data.klassList,
     workers: data.workers.filter((worker) => worker.date.includes(selectedDate)),
