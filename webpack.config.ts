@@ -1,15 +1,21 @@
 import path from 'path';
-import { Configuration } from 'webpack';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import type { Configuration } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import EslintPlugin from 'eslint-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-const Dotenv = require('dotenv-webpack');
+import Dotenv from 'dotenv-webpack';
 import 'webpack-dev-server';
 
+// Отримання __dirname для ES-модулів
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const config: Configuration = {
-  mode: (process.env.NODE_ENV as 'production' | 'development') ?? 'development',
+  mode: (process.env.NODE_ENV as 'production' | 'development') || 'development',
   entry: { app: './src/index.tsx' },
 
   module: {

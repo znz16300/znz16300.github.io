@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export interface DataObject {
   id: string;
   [key: string]: string;
@@ -46,6 +47,7 @@ export function transformData(data: DataObject[]): KitchenOrder {
 
   // Додати всі можливі класи до result.klassList
   result.klassList = Array.from(klassSet);
+  console.log('data', data);
 
   // Обробити дані
   data.forEach((entry) => {
@@ -55,12 +57,33 @@ export function transformData(data: DataObject[]): KitchenOrder {
 
     if (entry['Підрозділ'] === 'Працівники') {
       // Додати працівників
-      const workerNames = entry['Прізвище, імʼя, по батькові']?.split(',') || [];
-      workerNames.forEach((name: string) => {
-        if (name.trim()) {
-          result.workers.push({ date, name: name.trim() });
+      const workerName = entry['Прізвище, імʼя, по батькові'] || '';
+      const undoOrder =
+        entry['Оберіть працівника і поставте тут відмітку, якщо бажаєте відмінити замовлення'] ||
+        '';
+      if (workerName.trim()) {
+        if (!undoOrder.trim()) {
+          if (
+            !result.workers.some(
+              (worker) => worker.name === workerName.trim() && worker.date === date
+            )
+          ) {
+            result.workers.push({ date, name: workerName.trim() });
+          }
         }
-      });
+      }
+      console.log('undoOrder', undoOrder);
+      console.log('result.workers', result.workers);
+      if (undoOrder.trim() !== '') {
+        console.log('undoOrder', undoOrder);
+        console.log('result.workers', result.workers);
+        console.log('workerNames', workerName);
+        console.log('date', date);
+        result.workers = result.workers.filter(
+          (worker) => !(worker.date === date && worker.name.trim() === workerName.trim())
+        );
+        console.log('result.workers', result.workers);
+      }
     } else {
       // Додати класи з учнями
       Object.keys(entry).forEach((key) => {

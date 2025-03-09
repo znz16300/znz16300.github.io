@@ -80,7 +80,7 @@ export async function getOrder(force: boolean) {
     const searchString = '';
     try {
       const response = await axios.get(
-        `${process.env.PYTHONANYWHERE_SERVER_URL}/getdata/${tableKitchen.tableName}/${tableKitchen.sheetName}/A1:AT10000${searchString}`
+        `${process.env.PYTHONANYWHERE_SERVER_URL}/getdata/${tableKitchen.tableName}/${tableKitchen.sheetName}/A1:AT100000${searchString}`
       );
       const kitchenData = response.data;
       return kitchenData;

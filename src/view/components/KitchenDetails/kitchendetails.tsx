@@ -46,20 +46,20 @@ function KitchenDetails({ data }: OrderItemProps) {
   useEffect(() => {
     if (data) {
       const allData = transformData(data);
-      console.log('Усі дані:', allData);
+      // console.log('Усі дані:', allData);
       const filteredData = filterLatestEntries(filterByDate(allData, selectedDate));
-      console.log('Фільтровані дані:', filteredData);
+      // console.log('Фільтровані дані:', filteredData);
       setNewData(filteredData);
       setSelectedDate(selectedDate);
-      console.log('Нові дані:', newData);
+      // console.log('Нові дані:', newData);
     }
   }, [data, selectedDate]); // Переобчислюємо, коли змінюється `data` або `selectedDate`
 
   // Оновлюємо selectedDate при зміні значення в полі введення
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(formatDate(event.target.value));
-    console.log('Нова дата:', event.target.value);
-    console.log('selectedDate:', selectedDate);
+    // console.log('Нова дата:', event.target.value);
+    // console.log('selectedDate:', selectedDate);
   };
 
   const groupLabels = [
