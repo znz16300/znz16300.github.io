@@ -1299,11 +1299,12 @@
   .NewsCard-module__image___F3yVL {
     height: 25rem;
     width: 100%;
-
+    
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
     border-radius: 0.3rem;
+
   }
 
   .NewsCard-module__cardTitle___DULqa {
