@@ -124,7 +124,8 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/view/components/Greeteng/greeting.module.css ***!
   \********************************************************************************************************************************/
 .greeting-module__greeting___xqHUh {
-  background: url(e39085ad3889bd9f99c7.png),
+  background:
+    url(e39085ad3889bd9f99c7.png),
     linear-gradient(to right, #47a4b4 0%, #02282b 100%), #48336e;
   color: var(--light-text-color);
   display: flex;
@@ -903,7 +904,8 @@
   }
 
   .navbar-module__menuMain___SH7iH {
-    background: url(e39085ad3889bd9f99c7.png),
+    background:
+      url(e39085ad3889bd9f99c7.png),
       linear-gradient(to right, #47a4b4 0%, #02282b 100%), #48336e;
   }
 
@@ -1164,7 +1166,8 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/view/components/common/header/header.module.css ***!
   \***********************************************************************************************************************************/
 .header-module__headerMain___cOEZ7 {
-  background: url(e39085ad3889bd9f99c7.png),
+  background:
+    url(e39085ad3889bd9f99c7.png),
     linear-gradient(to right, #47a4b4 0%, #02282b 100%), #48336e;
 }
 .header-module__header___QLiW3 {
@@ -1299,12 +1302,11 @@
   .NewsCard-module__image___F3yVL {
     height: 25rem;
     width: 100%;
-    
+
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
     border-radius: 0.3rem;
-
   }
 
   .NewsCard-module__cardTitle___DULqa {
