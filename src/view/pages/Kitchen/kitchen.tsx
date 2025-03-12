@@ -35,7 +35,7 @@ function Kitchen() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 60000); // Оновлення щохвилини
+    const interval = setInterval(fetchData, 300000); // Оновлення щохвилини
 
     return () => {
       isMounted = false;

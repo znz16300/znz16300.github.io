@@ -1,5 +1,6 @@
 .greeting {
-  background: url('../../../assets/images/noise_transparent@2x.png'),
+  background:
+    url('../../../assets/images/noise_transparent@2x.png'),
     linear-gradient(to right, #47a4b4 0%, #02282b 100%), #48336e;
   color: var(--light-text-color);
   display: flex;
