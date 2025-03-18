@@ -58,8 +58,6 @@ function KitchenDetails({ data }: OrderItemProps) {
   // Оновлюємо selectedDate при зміні значення в полі введення
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(formatDate(event.target.value));
-    // console.log('Нова дата:', event.target.value);
-    // console.log('selectedDate:', selectedDate);
   };
 
   const groupLabels = [
@@ -134,7 +132,7 @@ function KitchenDetails({ data }: OrderItemProps) {
               });
             }
           }}>
-          {newData?.workers.length ?? 0}
+          {newData ? newData.workers.length : 0}
         </span>
       </div>
       <div>
