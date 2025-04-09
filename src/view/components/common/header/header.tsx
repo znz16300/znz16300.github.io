@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-cycle
 import Navbar from '../navbar/navbar';
-import LogoSVG from '../../../../assets/icons/logo.svg';
-import LogoWhiteSVG from '../../../../assets/icons/logo-white.svg';
+import LogoPNG from '../../../../assets/icons/logo.png';
+// import LogoSVG from '../../../../assets/icons/logo.svg';
+// import LogoWhiteSVG from '../../../../assets/icons/logo-white.svg';
 import NologinMessage from '../NologinMessage/NologinMessage';
 import * as classes from './header.module.css';
 // eslint-disable-next-line import/no-cycle
@@ -24,13 +25,14 @@ function Header({ page }: HeaderProps) {
         <Link to="/">
           <div className={classes.logoWrapper}>
             <img
-              src={page !== 'main' ? LogoSVG : LogoWhiteSVG}
+              src={LogoPNG}
+              // src={page !== 'main' ? LogoSVG : LogoWhiteSVG}
               alt="rs school Logo"
               className={classes.logo}
             />
-            <div className={classes.title} style={{ color }}>
+            {/* <div className={classes.title} style={{ color }}>
               Куликівський ліцей
-            </div>
+            </div> */}
           </div>
         </Link>
         <Navbar page={page} />
