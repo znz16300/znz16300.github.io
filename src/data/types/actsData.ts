@@ -9,7 +9,7 @@ const actsData = [
     id: '2',
     title: 'Меню',
     image: 'menu1.png',
-    url: './menu'
+    url: '/page?titlePages=Харчування&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI'
   },
   {
     id: '3',
