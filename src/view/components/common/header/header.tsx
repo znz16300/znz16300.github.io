@@ -27,7 +27,7 @@ function Header({ page }: HeaderProps) {
             <img
               src={LogoPNG}
               // src={page !== 'main' ? LogoSVG : LogoWhiteSVG}
-              alt="rs school Logo"
+              alt="school Logo"
               className={classes.logo}
             />
             {/* <div className={classes.title} style={{ color }}>
