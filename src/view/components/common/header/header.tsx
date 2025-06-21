@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-cycle
 import Navbar from '../navbar/navbar';
-import LogoPNG from '../../../../assets/icons/logo.png';
+// import LogoPNG from '../../../../assets/icons/logo.png';
 // import LogoMainSVG from '../../../../assets/icons/logo_g.svg';
 import LogoSVG from '../../../../assets/icons/logo_black.svg';
+import LogoWhiteSVG from '../../../../assets/icons/logo_white.svg';
 // import LogoWhiteSVG from '../../../../assets/icons/logo_white.svg';
 import NologinMessage from '../NologinMessage/NologinMessage';
 import * as classes from './header.module.css';
@@ -27,7 +28,7 @@ function Header({ page }: HeaderProps) {
           <div className={classes.logoWrapper}>
             <img
               // src={LogoPNG}
-              src={page !== 'main' ? LogoSVG : LogoPNG}
+              src={page !== 'main' ? LogoSVG : LogoWhiteSVG}
               alt="school Logo"
               className={classes.logo}
             />
