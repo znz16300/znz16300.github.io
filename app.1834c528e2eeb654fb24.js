@@ -535,7 +535,7 @@ eval("module.exports = __webpack_require__.p + \"3b7e87f650d73de5cd70.svg\";\n\n
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-eval("module.exports = __webpack_require__.p + \"83eddde28f9292a1d1c0.svg\";\n\n//# sourceURL=webpack://Kulykivsky_lyceum_site/./src/assets/icons/logo_black.svg?");
+eval("module.exports = __webpack_require__.p + \"3b2f1c6ba9008b64e74a.svg\";\n\n//# sourceURL=webpack://Kulykivsky_lyceum_site/./src/assets/icons/logo_black.svg?");
 
 /***/ }),
 
@@ -546,7 +546,7 @@ eval("module.exports = __webpack_require__.p + \"83eddde28f9292a1d1c0.svg\";\n\n
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-eval("module.exports = __webpack_require__.p + \"84767d18ef9116e0213e.svg\";\n\n//# sourceURL=webpack://Kulykivsky_lyceum_site/./src/assets/icons/logo_white.svg?");
+eval("module.exports = __webpack_require__.p + \"a87ec836965790fc321d.svg\";\n\n//# sourceURL=webpack://Kulykivsky_lyceum_site/./src/assets/icons/logo_white.svg?");
 
 /***/ }),
 
