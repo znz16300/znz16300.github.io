@@ -72,7 +72,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       } catch (error) {
         console.error(
           `Error fetching data from table ${table.idTable}:`,
-          error
+          error,
         );
         return [];
       }
@@ -214,9 +214,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                 }}
               />
             ) : (
-              <div className="line-clamp-3">
-                {item["Текст новини"]}
-              </div>
+              <div className="line-clamp-3">{item["Текст новини"]}</div>
             ))}
         </div>
 
@@ -245,8 +243,8 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
             // Тут компонент для сторінок
             <Link
               to={`/page?titlePages=${encodeURIComponent(
-                item.Розділ
-              )}&keyPages=${item['idTable']}`}
+                item.Розділ,
+              )}&keyPages=${item["idTable"]}`}
               className="text-blue-600 hover:underline"
             >
               Перейти →
@@ -357,7 +355,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                   </Link>
                 ) : (
                   <div key={item.id}>{article(item)}</div>
-                )
+                ),
               )}
             </div>
           )}

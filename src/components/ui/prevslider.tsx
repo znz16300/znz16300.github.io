@@ -1,33 +1,33 @@
-import React, { useState } from "react"
-import { NewsItem } from "@/type/newsItem"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import React, { useState } from "react";
+import { NewsItem } from "@/type/newsItem";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Slider({ item }: { item: NewsItem }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const images = item["Фото"]
     .split(/(?:\n|, |,)/)
     .map((url) => url.trim())
-    .filter(Boolean)
+    .filter(Boolean);
 
   const openModal = (index: number) => {
-    setActiveIndex(index)
-    setIsOpen(true)
-  }
+    setActiveIndex(index);
+    setIsOpen(true);
+  };
 
   const closeModal = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   const nextImage = () => {
-    setActiveIndex((prev) => (prev + 1) % images.length)
-  }
+    setActiveIndex((prev) => (prev + 1) % images.length);
+  };
 
   const prevImage = () => {
-    setActiveIndex((prev) => (prev - 1 + images.length) % images.length)
-  }
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <div className="mb-4">
@@ -74,8 +74,8 @@ export function Slider({ item }: { item: NewsItem }) {
               {/* Prev Button */}
               <button
                 onClick={(e) => {
-                  e.stopPropagation()
-                  prevImage()
+                  e.stopPropagation();
+                  prevImage();
                 }}
                 className="absolute top-1/2 left-0 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 rounded-r p-3"
               >
@@ -84,8 +84,8 @@ export function Slider({ item }: { item: NewsItem }) {
               {/* Next Button */}
               <button
                 onClick={(e) => {
-                  e.stopPropagation()
-                  nextImage()
+                  e.stopPropagation();
+                  nextImage();
                 }}
                 className="absolute top-1/2 right-0 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/60 rounded-l p-3"
               >
@@ -96,5 +96,5 @@ export function Slider({ item }: { item: NewsItem }) {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

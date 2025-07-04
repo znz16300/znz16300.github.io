@@ -28,7 +28,9 @@ const preferredCategoryOrder = [
 ];
 
 const Documents = () => {
-  const [documentCategories, setDocumentCategories] = useState<GroupedDocument[]>([]);
+  const [documentCategories, setDocumentCategories] = useState<
+    GroupedDocument[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]); // 👈 нове
@@ -37,10 +39,9 @@ const Documents = () => {
     setExpandedCategories((prev) =>
       prev.includes(categoryName)
         ? prev.filter((name) => name !== categoryName)
-        : [...prev, categoryName]
+        : [...prev, categoryName],
     );
   };
-
 
   useEffect(() => {
     const fetchAndGroupDocuments = async () => {
@@ -56,7 +57,9 @@ const Documents = () => {
         const category = doc["Категорія"]?.trim() || "Інше";
         const url =
           doc["Файл(и) документу"]?.trim() ||
-          doc["Посилання на документ (якщо більше одного, то через кому)"]?.split(",")[0].trim();
+          doc["Посилання на документ (якщо більше одного, то через кому)"]
+            ?.split(",")[0]
+            .trim();
 
         if (!url) continue;
 
@@ -65,7 +68,7 @@ const Documents = () => {
           url,
           title: doc["info"],
           type: doc["type"],
-          size: doc["size"] != '--'?`${doc["size"]} МБ`: "",
+          size: doc["size"] != "--" ? `${doc["size"]} МБ` : "",
         };
 
         if (!map.has(category)) {
@@ -79,7 +82,10 @@ const Documents = () => {
       grouped.sort((a, b) => {
         const indexA = preferredCategoryOrder.indexOf(a.name);
         const indexB = preferredCategoryOrder.indexOf(b.name);
-        return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
+        return (
+          (indexA === -1 ? Infinity : indexA) -
+          (indexB === -1 ? Infinity : indexB)
+        );
       });
 
       setDocumentCategories(grouped);
@@ -90,13 +96,20 @@ const Documents = () => {
   }, []);
 
   if (loading) {
-    return <div className="p-8 text-center text-gray-600">Завантаження документів…</div>;
+    return (
+      <div className="p-8 text-center text-gray-600">
+        Завантаження документів…
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-
-      <Header title={"Документи"} description={"Нормативна база та документація ліцею"} className="bg-emerald-600 text-white py-8" />
+      <Header
+        title={"Документи"}
+        description={"Нормативна база та документація ліцею"}
+        className="bg-emerald-600 text-white py-8"
+      />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-8">
@@ -116,7 +129,9 @@ const Documents = () => {
                   <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
                     <FolderOpen className="w-6 h-6 text-emerald-600" />
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900">{category.name}</h2>
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {category.name}
+                  </h2>
                 </div>
 
                 <div className="grid gap-4 mb-4">
@@ -125,7 +140,10 @@ const Documents = () => {
                       key={doc.name}
                       className="flex flex-wrap items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors group"
                     >
-                      <div className="flex items-center space-x-3" title={doc.title}>
+                      <div
+                        className="flex items-center space-x-3"
+                        title={doc.title}
+                      >
                         <FileText className="w-5 h-5 text-gray-400" />
                         <div>
                           <h3 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors">

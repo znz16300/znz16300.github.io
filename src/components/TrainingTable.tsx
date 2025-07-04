@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -6,21 +5,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 interface TrainingItem {
-  "Працівник, який пройшов курсову підготовку": string
-  "Назва курсів, семінару, вебінару тощо": string
-  "Кількість годин": string
-  "З них з інклюзії": string
-  "З них з надання психологічної підтримки учасникам освітнього процесу": string
-  "Тип документа": string
-  "Номер документа (якщо номера немає, вкажіть \"бн\" без лапок)": string
-  "Дата видачі документа": string
+  "Працівник, який пройшов курсову підготовку": string;
+  "Назва курсів, семінару, вебінару тощо": string;
+  "Кількість годин": string;
+  "З них з інклюзії": string;
+  "З них з надання психологічної підтримки учасникам освітнього процесу": string;
+  "Тип документа": string;
+  'Номер документа (якщо номера немає, вкажіть "бн" без лапок)': string;
+  "Дата видачі документа": string;
 }
 
 interface TrainingTableProps {
-  visibleItems: TrainingItem[]
+  visibleItems: TrainingItem[];
 }
 
 export function TrainingTable({ visibleItems }: TrainingTableProps) {
@@ -55,21 +54,25 @@ export function TrainingTable({ visibleItems }: TrainingTableProps) {
                 {item["З них з інклюзії"]}
               </TableCell>
               <TableCell className="text-center">
-                {item["З них з надання психологічної підтримки учасникам освітнього процесу"]}
+                {
+                  item[
+                    "З них з надання психологічної підтримки учасникам освітнього процесу"
+                  ]
+                }
               </TableCell>
+              <TableCell>{item["Тип документа"]}</TableCell>
               <TableCell>
-                {item["Тип документа"]}
+                {
+                  item[
+                    'Номер документа (якщо номера немає, вкажіть "бн" без лапок)'
+                  ]
+                }
               </TableCell>
-              <TableCell>
-                {item["Номер документа (якщо номера немає, вкажіть \"бн\" без лапок)"]}
-              </TableCell>
-              <TableCell>
-                {item["Дата видачі документа"]}
-              </TableCell>
+              <TableCell>{item["Дата видачі документа"]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

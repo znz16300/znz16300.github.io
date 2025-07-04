@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -6,58 +5,62 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { Checkbox } from "@/components/ui/checkbox"
-import { useState } from "react"
+} from "@/components/ui/tooltip";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 
 interface TrainingItem {
-  id: string
-  "Працівник, який пройшов курсову підготовку": string
-  "Назва курсів, семінару, вебінару тощо": string
-  "Кількість годин": string
-  "З них з інклюзії": string
-  "З них з надання психологічної підтримки учасникам освітнього процесу": string
-  "Тип документа": string
-  "Номер документа (якщо номера немає, вкажіть \"бн\" без лапок)": string
-  "Дата видачі документа": string
+  id: string;
+  "Працівник, який пройшов курсову підготовку": string;
+  "Назва курсів, семінару, вебінару тощо": string;
+  "Кількість годин": string;
+  "З них з інклюзії": string;
+  "З них з надання психологічної підтримки учасникам освітнього процесу": string;
+  "Тип документа": string;
+  'Номер документа (якщо номера немає, вкажіть "бн" без лапок)': string;
+  "Дата видачі документа": string;
 }
 
 interface TrainingTableWithTooltipProps {
-  visibleItems: TrainingItem[]
-  selectedItems?: string[]
-  onSelectionChange?: (selectedIds: string[]) => void
+  visibleItems: TrainingItem[];
+  selectedItems?: string[];
+  onSelectionChange?: (selectedIds: string[]) => void;
 }
 
-export function TrainingTableWithTooltip({ 
-  visibleItems, 
-  selectedItems = [], 
-  onSelectionChange 
+export function TrainingTableWithTooltip({
+  visibleItems,
+  selectedItems = [],
+  onSelectionChange,
 }: TrainingTableWithTooltipProps) {
-  const [internalSelected, setInternalSelected] = useState<string[]>(selectedItems)
-  
+  const [internalSelected, setInternalSelected] =
+    useState<string[]>(selectedItems);
+
   const handleItemToggle = (itemId: string, checked: boolean) => {
-    const newSelected = checked 
+    const newSelected = checked
       ? [...internalSelected, itemId]
-      : internalSelected.filter(id => id !== itemId)
-    
-    setInternalSelected(newSelected)
-    onSelectionChange?.(newSelected)
-  }
+      : internalSelected.filter((id) => id !== itemId);
+
+    setInternalSelected(newSelected);
+    onSelectionChange?.(newSelected);
+  };
 
   const handleSelectAll = (checked: boolean) => {
-    const newSelected = checked ? visibleItems.map(item => item.id) : []
-    setInternalSelected(newSelected)
-    onSelectionChange?.(newSelected)
-  }
+    const newSelected = checked ? visibleItems.map((item) => item.id) : [];
+    setInternalSelected(newSelected);
+    onSelectionChange?.(newSelected);
+  };
 
-  const isAllSelected = visibleItems.length > 0 && internalSelected.length === visibleItems.length
-  const isPartiallySelected = internalSelected.length > 0 && internalSelected.length < visibleItems.length
+  const isAllSelected =
+    visibleItems.length > 0 && internalSelected.length === visibleItems.length;
+  const isPartiallySelected =
+    internalSelected.length > 0 &&
+    internalSelected.length < visibleItems.length;
 
   return (
     <TooltipProvider>
@@ -75,7 +78,9 @@ export function TrainingTableWithTooltip({
               <TableHead className="min-w-[250px]">Назва курсів</TableHead>
               <TableHead className="w-[100px]">Години</TableHead>
               <TableHead className="w-[100px]">Інклюзія</TableHead>
-              <TableHead className="w-[120px]">Психологічна підтримка</TableHead>
+              <TableHead className="w-[120px]">
+                Психологічна підтримка
+              </TableHead>
               <TableHead className="w-[120px]">Тип документа</TableHead>
               <TableHead className="min-w-[200px]">Номер документа</TableHead>
               <TableHead className="w-[120px]">Дата видачі</TableHead>
@@ -89,7 +94,9 @@ export function TrainingTableWithTooltip({
                     <TableCell>
                       <Checkbox
                         checked={internalSelected.includes(item.id)}
-                        onCheckedChange={(checked) => handleItemToggle(item.id, checked as boolean)}
+                        onCheckedChange={(checked) =>
+                          handleItemToggle(item.id, checked as boolean)
+                        }
                         onClick={(e) => e.stopPropagation()}
                       />
                     </TableCell>
@@ -106,27 +113,53 @@ export function TrainingTableWithTooltip({
                       {item["З них з інклюзії"]}
                     </TableCell>
                     <TableCell className="text-center">
-                      {item["З них з надання психологічної підтримки учасникам освітнього процесу"]}
+                      {
+                        item[
+                          "З них з надання психологічної підтримки учасникам освітнього процесу"
+                        ]
+                      }
                     </TableCell>
+                    <TableCell>{item["Тип документа"]}</TableCell>
                     <TableCell>
-                      {item["Тип документа"]}
+                      {
+                        item[
+                          'Номер документа (якщо номера немає, вкажіть "бн" без лапок)'
+                        ]
+                      }
                     </TableCell>
-                    <TableCell>
-                      {item["Номер документа (якщо номера немає, вкажіть \"бн\" без лапок)"]}
-                    </TableCell>
-                    <TableCell>
-                      {item["Дата видачі документа"]}
-                    </TableCell>
+                    <TableCell>{item["Дата видачі документа"]}</TableCell>
                   </TableRow>
                 </TooltipTrigger>
                 <TooltipContent className="max-w-sm p-4">
                   <div className="space-y-2 text-sm">
-                    <div><strong>Працівник:</strong> {item["Працівник, який пройшов курсову підготовку"]}</div>
-                    <div><strong>Курс:</strong> {item["Назва курсів, семінару, вебінару тощо"]}</div>
-                    <div><strong>Загальна кількість годин:</strong> {item["Кількість годин"]}</div>
-                    <div><strong>Години з інклюзії:</strong> {item["З них з інклюзії"]}</div>
-                    <div><strong>Документ:</strong> {item["Тип документа"]} №{item["Номер документа (якщо номера немає, вкажіть \"бн\" без лапок)"]}</div>
-                    <div><strong>Дата видачі:</strong> {item["Дата видачі документа"]}</div>
+                    <div>
+                      <strong>Працівник:</strong>{" "}
+                      {item["Працівник, який пройшов курсову підготовку"]}
+                    </div>
+                    <div>
+                      <strong>Курс:</strong>{" "}
+                      {item["Назва курсів, семінару, вебінару тощо"]}
+                    </div>
+                    <div>
+                      <strong>Загальна кількість годин:</strong>{" "}
+                      {item["Кількість годин"]}
+                    </div>
+                    <div>
+                      <strong>Години з інклюзії:</strong>{" "}
+                      {item["З них з інклюзії"]}
+                    </div>
+                    <div>
+                      <strong>Документ:</strong> {item["Тип документа"]} №
+                      {
+                        item[
+                          'Номер документа (якщо номера немає, вкажіть "бн" без лапок)'
+                        ]
+                      }
+                    </div>
+                    <div>
+                      <strong>Дата видачі:</strong>{" "}
+                      {item["Дата видачі документа"]}
+                    </div>
                   </div>
                 </TooltipContent>
               </Tooltip>
@@ -135,5 +168,5 @@ export function TrainingTableWithTooltip({
         </Table>
       </div>
     </TooltipProvider>
-  )
+  );
 }

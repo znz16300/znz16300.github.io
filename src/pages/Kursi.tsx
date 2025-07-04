@@ -48,7 +48,9 @@ const Kursi = () => {
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [pageItems, setPageItems] = useState<TrainingItem[] | PageItem [] | DataObject[]>([]);
+  const [pageItems, setPageItems] = useState<
+    TrainingItem[] | PageItem[] | DataObject[]
+  >([]);
   const [allTeachers, setAllTeachers] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [topic, setTopic] = useState("all");
@@ -113,7 +115,7 @@ const Kursi = () => {
   const handleSelectAll = (checked: boolean) => {
     const newSelected = checked
       ? visibleItems.map((item) =>
-          String(item.id ?? visibleItems.indexOf(item))
+          String(item.id ?? visibleItems.indexOf(item)),
         )
       : [];
     setSelectedItems(newSelected);
@@ -128,9 +130,10 @@ const Kursi = () => {
     <>
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <Header 
-            title={topic === "all" ? "Всі працівники" : topic} 
-            description={"Перегляд підвищення кваліфікації, формування клопотань"} />
+        <Header
+          title={topic === "all" ? "Всі працівники" : topic}
+          description={"Перегляд підвищення кваліфікації, формування клопотань"}
+        />
         {loading ? (
           <p className="text-center py-10 text-gray-500">Завантаження...</p>
         ) : (
@@ -172,17 +175,24 @@ const Kursi = () => {
                   <Button
                     className="ml-4"
                     onClick={() => {
-                      console.log("Forming request for selected items:", selectedItems);
+                      console.log(
+                        "Forming request for selected items:",
+                        selectedItems,
+                      );
                       getClopot(
                         Array.from(
                           new Set(
                             pageItems.filter((item) =>
-                              selectedItems.includes(String(item.id))
-                            )
-                          )
-                        ) as DataObject[])}}>
-                      Сформувати клопотання ({selectedItems.length})
-                    </Button>)}
+                              selectedItems.includes(String(item.id)),
+                            ),
+                          ),
+                        ) as DataObject[],
+                      );
+                    }}
+                  >
+                    Сформувати клопотання ({selectedItems.length})
+                  </Button>
+                )}
               </Select>
             </div>
 
@@ -192,15 +202,12 @@ const Kursi = () => {
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-[50px]">
-                            Вибір ({selectedItems.length})
-                          </TableHead>
+                        Вибір ({selectedItems.length})
+                      </TableHead>
                       {topic === "all" && (
-
-                          
-                          <TableHead className="min-w-[200px]">
-                            Працівник
-                          </TableHead>
-
+                        <TableHead className="min-w-[200px]">
+                          Працівник
+                        </TableHead>
                       )}
 
                       <TableHead className="min-w-[250px]">
@@ -227,12 +234,12 @@ const Kursi = () => {
                               <TableCell>
                                 <Checkbox
                                   checked={selectedItems.includes(
-                                    String(itemId)
+                                    String(itemId),
                                   )}
                                   onCheckedChange={(checked) =>
                                     handleItemToggle(
                                       String(itemId),
-                                      checked as boolean
+                                      checked as boolean,
                                     )
                                   }
                                   onClick={(e) => e.stopPropagation()}
@@ -259,14 +266,17 @@ const Kursi = () => {
                                 ] || "0"}
                               </TableCell>
                               <TableCell>
-                                <Link 
-                                  to={item["Фотокопія сертифікату, свідоцтва тощо"].split(", ")[0]}
+                                <Link
+                                  to={
+                                    item[
+                                      "Фотокопія сертифікату, свідоцтва тощо"
+                                    ].split(", ")[0]
+                                  }
                                   className="hover:underline"
                                   target="_blank"
                                 >
                                   {item["Тип документа"]}
                                 </Link>
-                                
                               </TableCell>
                               <TableCell>
                                 {

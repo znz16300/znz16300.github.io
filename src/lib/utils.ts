@@ -1,16 +1,21 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function extractDriveFileId(url: string): string {
   if (url.startsWith("https://drive.google.com/open?id=")) {
     return url.split("id=")[1];
-  } else if (url.startsWith("https://drive.google.com/file/d/") && url.includes("/view")) {
+  } else if (
+    url.startsWith("https://drive.google.com/file/d/") &&
+    url.includes("/view")
+  ) {
     return url.split("/d/")[1].split("/view")[0];
-  } else if (url.startsWith("https://drive.google.com/uc?export=download&id=")) {
+  } else if (
+    url.startsWith("https://drive.google.com/uc?export=download&id=")
+  ) {
     return url.split("id=")[1];
   } else if (url.startsWith("http://drive.google.com/uc?export=view&id=")) {
     return url.split("id=")[1];
@@ -38,24 +43,24 @@ export function extractDriveFileId(url: string): string {
 
 export function extractDriveFileId2(url: string): string {
   const match = url.match(
-    /(?:\/d\/|id=|folders\/|spreadsheets\/d\/|document\/d\/)([a-zA-Z0-9_-]+)/
+    /(?:\/d\/|id=|folders\/|spreadsheets\/d\/|document\/d\/)([a-zA-Z0-9_-]+)/,
   );
   return match ? match[1] : "";
 }
 
-
-
 export function convertUrl(link) {
-  if (link.startsWith('https://drive.google.com') || link.startsWith('http://drive.google.com')){
-    const id =  extractDriveFileId2(link);
+  if (
+    link.startsWith("https://drive.google.com") ||
+    link.startsWith("http://drive.google.com")
+  ) {
+    const id = extractDriveFileId2(link);
     console.log(`Extracted ID: ${id}`);
-    
+
     const newUrl = `https://lh3.googleusercontent.com/d/${id}=w1000`;
     return newUrl;
   } else {
     return link;
   }
-  
 }
 
 export function convertDriveLink(link) {
@@ -71,16 +76,27 @@ export function updateImgSrcsInHtml(html) {
 }
 
 export function convertGoogleDriveUrls(text) {
-    // Регулярний вираз для знаходження Google Drive URLs
-    const driveUrlRegex = /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view\?usp=sharing/g;
-    const driveUrlRegex2 = /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view/g;
-    const driveUrlRegex3 = /https:\/\/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)&usp=drive_fs/g;
-    
-    // Заміняємо URLs на download URLs
-    let convertedText = text.replace(driveUrlRegex, 'https://drive.google.com/uc?export=download&id=$1');
-    convertedText = convertedText.replace(driveUrlRegex2, 'https://drive.google.com/uc?export=download&id=$1');
-    convertedText = convertedText.replace(driveUrlRegex3, 'https://drive.google.com/uc?export=download&id=$1');
-    
-    return convertedText;
-}
+  // Регулярний вираз для знаходження Google Drive URLs
+  const driveUrlRegex =
+    /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view\?usp=sharing/g;
+  const driveUrlRegex2 =
+    /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view/g;
+  const driveUrlRegex3 =
+    /https:\/\/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)&usp=drive_fs/g;
 
+  // Заміняємо URLs на download URLs
+  let convertedText = text.replace(
+    driveUrlRegex,
+    "https://drive.google.com/uc?export=download&id=$1",
+  );
+  convertedText = convertedText.replace(
+    driveUrlRegex2,
+    "https://drive.google.com/uc?export=download&id=$1",
+  );
+  convertedText = convertedText.replace(
+    driveUrlRegex3,
+    "https://drive.google.com/uc?export=download&id=$1",
+  );
+
+  return convertedText;
+}

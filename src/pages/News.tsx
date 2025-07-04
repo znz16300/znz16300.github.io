@@ -58,7 +58,10 @@ const News = () => {
   };
 
   // Генерація номерів сторінок для пагінації
-  const getPageNumbers = (totalPages: number, currentPage: number): (number | string)[] => {
+  const getPageNumbers = (
+    totalPages: number,
+    currentPage: number,
+  ): (number | string)[] => {
     const pages: (number | string)[] = [];
 
     if (totalPages <= 5) {
@@ -100,7 +103,7 @@ const News = () => {
         onClick={() => handleCardClick(String(item.id))}
       >
         <img
-          src={item["Фото"].split(/(?:\n|, |,)/)[0]} 
+          src={item["Фото"].split(/(?:\n|, |,)/)[0]}
           alt={item["Назва новини"]}
           className={`w-full transition-all duration-500 ${
             expandedId === item.id
@@ -168,14 +171,16 @@ const News = () => {
       ) : (
         <div className="min-h-screen bg-gray-50">
           {/* Header */}
-          <Header title={"Новини ліцею"} description={"Останні події та оновлення"} className="bg-lime-600 text-white py-8" />
+          <Header
+            title={"Новини ліцею"}
+            description={"Останні події та оновлення"}
+            className="bg-lime-600 text-white py-8"
+          />
 
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="space-y-8">
               {visibleItems.length > 0 ? (
-                visibleItems.map((item, index) => (
-                  <>{article(item, index)}</>
-                ))
+                visibleItems.map((item, index) => <>{article(item, index)}</>)
               ) : (
                 <p className="text-center text-gray-600">
                   Новину з id={newsId} не знайдено.

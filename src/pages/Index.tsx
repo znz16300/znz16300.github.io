@@ -151,7 +151,7 @@ const Index = () => {
   const handleSearch = (
     e:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLInputElement>
+      | React.KeyboardEvent<HTMLInputElement>,
   ) => {
     e.preventDefault();
     setIsSearchOpen(false);
@@ -212,7 +212,7 @@ const Index = () => {
                         <item.icon className="w-4 h-4" />
                         <span className="font-medium">{item.title}</span>
                       </button>
-                    )
+                    ),
                   )}
                 </nav>
                 <button
@@ -288,24 +288,20 @@ const Index = () => {
           </header>
 
           {/* Hero Section */}
-          <section 
+          <section
             className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20"
-            // style={{ 
+            // style={{
             //   backgroundImage: "url('/assets/images/school.png')",
             //   backgroundSize: "cover",
             //   backgroundPosition: "center",
             //   backgroundRepeat: "no-repeat",
             //   minHeight: "400px",
             //   position: "relative",
-            
-            // }}
 
-            >
-            
+            // }}
+          >
             <div className="absolute inset-0 bg-black opacity-10"></div>
-            <div 
-              className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-                          >
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
                 Куликівський ліцей
               </h2>
@@ -332,7 +328,6 @@ const Index = () => {
                   ></Link>
                 </button>
               </div>
-              
             </div>
             {/* <div className="flex-1 max-w-[40%] md:max-w-[40%] w-full">
                 <img
@@ -360,11 +355,13 @@ const Index = () => {
                     <div className="absolute bottom-4 left-4 text-white">
                       <div className="flex items-center space-x-2">
                         <MapPin className="w-5 h-5" />
-                        <span className="text-sm font-medium">вул. Шевченка, 4, Куликівка</span>
+                        <span className="text-sm font-medium">
+                          вул. Шевченка, 4, Куликівка
+                        </span>
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Floating Stats Card */}
                   <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-6 border border-gray-100">
                     <div className="flex items-center space-x-4">
@@ -372,8 +369,12 @@ const Index = () => {
                         <Award className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-gray-900">25+</div>
-                        <div className="text-sm text-gray-600">Років досвіду</div>
+                        <div className="text-2xl font-bold text-gray-900">
+                          25+
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          Років досвіду
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -386,8 +387,9 @@ const Index = () => {
                       Наш навчальний заклад
                     </h3>
                     <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                      Куликівський ліцей - це місце, де традиції поєднуються з інноваціями. 
-                      Ми пишаємося нашою історією та прагнемо до постійного розвитку.
+                      Куликівський ліцей - це місце, де традиції поєднуються з
+                      інноваціями. Ми пишаємося нашою історією та прагнемо до
+                      постійного розвитку.
                     </p>
                   </div>
 
@@ -395,12 +397,16 @@ const Index = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer">
                       <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-blue-600">750+</div>
+                      <div className="text-2xl font-bold text-blue-600">
+                        750+
+                      </div>
                       <div className="text-sm text-gray-600">Учнів</div>
                     </div>
                     <div className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer">
                       <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-green-600">80+</div>
+                      <div className="text-2xl font-bold text-green-600">
+                        80+
+                      </div>
                       <div className="text-sm text-gray-600">Викладачів</div>
                     </div>
                   </div>
@@ -413,8 +419,12 @@ const Index = () => {
                           <Clock className="w-5 h-5 text-orange-600" />
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">Режим роботи</div>
-                          <div className="text-sm text-gray-600">Пн-Пт: 8:00 - 17:00</div>
+                          <div className="font-semibold text-gray-900">
+                            Режим роботи
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Пн-Пт: 8:00 - 17:00
+                          </div>
                         </div>
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
@@ -426,8 +436,12 @@ const Index = () => {
                           <Star className="w-5 h-5 text-purple-600" />
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">Рейтинг успішності</div>
-                          <div className="text-sm text-gray-600">95% випускників вступають до ВНЗ</div>
+                          <div className="font-semibold text-gray-900">
+                            Рейтинг успішності
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            95% випускників вступають до ВНЗ
+                          </div>
                         </div>
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
@@ -436,7 +450,10 @@ const Index = () => {
 
                   {/* CTA Button */}
                   <div className="pt-4">
-                    <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Button
+                      asChild
+                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
                       <Link to="/page?titlePages=Про%20ліцей&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI">
                         Дізнатися про ліцей детальніше
                         <ChevronRight className="w-5 h-5 ml-2" />
@@ -447,7 +464,6 @@ const Index = () => {
               </div>
             </div>
           </section>
-
 
           {/* Main Content Blocks */}
           <section className="py-16 bg-gray-50">
@@ -508,9 +524,9 @@ const Index = () => {
               Навчальний простір
             </h3>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Навчальні кабінети, лабораторії та інші ресурси, які ми
-                  пропонуємо для забезпечення якісної освіти
-                </p>
+              Навчальні кабінети, лабораторії та інші ресурси, які ми пропонуємо
+              для забезпечення якісної освіти
+            </p>
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <Carousel
                 opts={{
