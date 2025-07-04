@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prettier": "prettier . --write",
     "prepare": "husky",
-    "predeploy": "npm run build && node copy404.js",
+    "predeploy": "npm run build && node copy404.cjs",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
@@ -51,6 +51,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
     "framer-motion": "^12.20.2",
+    "gh-pages": "^6.3.0",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
