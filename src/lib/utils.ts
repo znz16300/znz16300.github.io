@@ -62,10 +62,36 @@ export function convertUrl(link) {
     return link;
   }
 }
+export function convertUrl2(link) {
+  if (
+    link.startsWith("https://drive.google.com") ||
+    link.startsWith("http://drive.google.com")
+  ) {
+    const id = extractDriveFileId2(link);
+    console.log(`Extracted ID: ${id}`);
+
+    const newUrl = `https://drive.google.com/thumbnail?id=${id}`;
+    return newUrl;
+  } else {
+    return link;
+  }
+}
+//const thumbnailUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+// export function convertDriveLink(link) {
+//   const match = link.match(/[-\w]{25,}/);
+//   return match ? `https://drive.google.com/thumbnail?id=${match[0]}` : link;
+// }
 
 export function convertDriveLink(link) {
   const match = link.match(/[-\w]{25,}/);
   return match ? `https://lh3.googleusercontent.com/d/${match[0]}=w1000` : link;
+}
+
+export function updateImgSrcsInHtml2(html) {
+  return html.replace(/<img[^>]+src="([^"]+)"[^>]*>/g, (imgTag: string, src: string) => {
+    const newSrc = convertUrl2(src);
+    return imgTag.replace(src, newSrc);
+  });
 }
 
 export function updateImgSrcsInHtml(html) {

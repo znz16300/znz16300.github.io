@@ -4,8 +4,10 @@ import { Paginator } from "@/components/ui/paginator";
 import {
   convertDriveLink,
   convertUrl,
+  convertUrl2,
   extractDriveFileId,
   updateImgSrcsInHtml,
+  updateImgSrcsInHtml2,
 } from "@/lib/utils";
 import {
   Table,
@@ -16,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PageItem } from "@/type/pageItem";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import { ArrowLeft, Calendar, Download, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   Link,
@@ -290,7 +292,7 @@ const Kursi = () => {
                               </TableCell>
                             </TableRow>
                           </TooltipTrigger>
-                          <TooltipContent className="max-w-sm p-4">
+                          <TooltipContent className="max-w-md p-4">
                             <div className="space-y-2 text-sm">
                               <div>
                                 <strong>Час уведення:</strong>{" "}
@@ -312,20 +314,7 @@ const Kursi = () => {
                                 <strong>Загальна кількість годин:</strong>{" "}
                                 {item["Кількість годин"]}
                               </div>
-                              <div>
-                                <strong>Години з інклюзії:</strong>{" "}
-                                {item["З них з інклюзії"]}
-                              </div>
-                              <div>
-                                <strong>
-                                  Години з надання психологічної підтримки:
-                                </strong>{" "}
-                                {
-                                  item[
-                                    "З них з надання психологічної підтримки учасникам освітнього процесу"
-                                  ]
-                                }
-                              </div>
+                              
                               <div>
                                 <strong>Документ:</strong>{" "}
                                 {item["Тип документа"]} №
@@ -347,7 +336,34 @@ const Kursi = () => {
                                   ]
                                 }
                               </div>
-                            </div>
+                              
+                              <div className="flex items-center gap-1 justify-between">
+                                <div className="max-w-sm">
+                                  <img
+                                    src={convertUrl2(item["Фотокопія сертифікату, свідоцтва тощо"])}
+                                    alt={item["Тип документа"]}
+                                    onError={(e) => {
+                                      (e.currentTarget as HTMLImageElement).src =
+                                        "/assets/images/no-image.png";
+                                    }}
+                                  />
+                                </div>
+                                <Button
+                                  asChild
+                                  className="flex gap-2 items-center px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                                >
+                                  <Link
+                                    to={item['Фотокопія сертифікату, свідоцтва тощо']}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <Download className="w-4 h-4" />
+                                    Завантажити
+                                  </Link>
+                                </Button>
+
+                              </div>
+                                                          </div>
                           </TooltipContent>
                         </Tooltip>
                       );

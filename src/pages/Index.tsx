@@ -19,6 +19,7 @@ import {
   Star,
   MapPin,
   Clock,
+  MoreHorizontal,
 } from "lucide-react";
 import { link } from "fs";
 import {
@@ -145,6 +146,14 @@ const Index = () => {
       icon: Eye,
       gradient: "from-teal-500 to-teal-600",
       link: "/page?titlePages=Відкритість%20та%20прозорість&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+    },
+    {
+      title: "Більше",
+      description:
+        "Додаткова інформація, корисні посилання та інші матеріали про наш ліцей",
+      icon: MoreHorizontal,
+      gradient: "from-pink-500 to-pink-600",
+      link: "/page?titlePages=Більше&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4",
     },
   ];
 
@@ -290,15 +299,6 @@ const Index = () => {
           {/* Hero Section */}
           <section
             className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20"
-            // style={{
-            //   backgroundImage: "url('/assets/images/school.png')",
-            //   backgroundSize: "cover",
-            //   backgroundPosition: "center",
-            //   backgroundRepeat: "no-repeat",
-            //   minHeight: "400px",
-            //   position: "relative",
-
-            // }}
           >
             <div className="absolute inset-0 bg-black opacity-10"></div>
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -329,14 +329,6 @@ const Index = () => {
                 </button>
               </div>
             </div>
-            {/* <div className="flex-1 max-w-[40%] md:max-w-[40%] w-full">
-                <img
-                  src="/assets/images/school.png"
-                  alt="Фото Куликівського ліцею"
-                  className="rounded-lg shadow-lg w-full h-auto object-cover"
-                  style={{ maxHeight: 350 }}
-                />
-              </div> */}
           </section>
 
           {/* New School Showcase Section */}
@@ -395,20 +387,20 @@ const Index = () => {
 
                   {/* Quick Stats */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer">
+                    <Link to="/page?titlePages=Учні&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"  className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer">
                       <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-2xl font-bold text-green-600">
                         750+
                       </div>
                       <div className="text-sm text-gray-600">Учнів</div>
-                    </div>
-                    <div className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer">
+                    </Link>
+                    <Link to="/page?titlePages=Учительська&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer">
                       <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-green-600">
                         80+
                       </div>
                       <div className="text-sm text-gray-600">Викладачів</div>
-                    </div>
+                    </Link>
                   </div>
 
                   {/* Interactive Highlights */}
