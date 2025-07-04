@@ -1,9 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
-// import { IMenuItem } from './data/types/interfaces/mobileMenu';
-
-/* eslint-disable import/prefer-default-export */
-
 export const REASONS = [
   { title: 'Лікарняний', label: 'ТН' },
   { title: 'Відпустка основна', label: '' },
@@ -27,7 +21,6 @@ export const COURSES_TABLE_COLLS = [
   { field: 'Дата видачі документа', title: 'Дата документу' },
   {
     field: 'Назва організації чи платформи, на базі якої проходила підготовка, навчання',
-    // eslint-disable-next-line prettier/prettier
     title: "Суб'єкт підвищення"
   },
   { field: 'Форма навчання', title: '' },

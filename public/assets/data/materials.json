@@ -1,0 +1,19 @@
+[
+    { "id": 1, "name": "Кабінет початкових класів", "price": "", "image": "/assets/images/rooms/1.jpg" },
+    { "id": 2, "name": "Кабінет початкових класів", "price": "", "image": "/assets/images/rooms/2.jpg" },
+    { "id": 4, "name": "Кабінет захисту України", "price": "", "image": "/assets/images/rooms/4.jpg" },
+    { "id": 5, "name": "Кабінет початкових класів", "price": "", "image": "/assets/images/rooms/5.jpg" },
+    { "id": 6, "name": "Бібліотека", "price": "", "image": "/assets/images/rooms/6.jpg" },
+    { "id": 7, "name": "Кабінет фізики", "price": "", "image": "/assets/images/rooms/7.jpg" },
+    { "id": 8, "name": "Кабінет початкових класів", "price": "", "image": "/assets/images/rooms/8.jpg" },
+    { "id": 9, "name": "Кабінет початкових класів", "price": "", "image": "/assets/images/rooms/9.jpg" },
+    { "id": 10, "name": "Спортивна зала", "price": "", "image": "/assets/images/rooms/10.JPG" },
+    { "id": 11, "name": "Тренажерна зала", "price": "", "image": "/assets/images/rooms/11.JPG" },
+    { "id": 12, "name": "Територія навколо ліцею", "price": "", "image": "/assets/images/rooms/12.JPG" },
+    { "id": 13, "name": "Територія навколо ліцею", "price": "", "image": "/assets/images/rooms/13.JPG" },
+    { "id": 14, "name": "Кабінет безпеки", "price": "", "image": "/assets/images/rooms/14.jpg" },
+    { "id": 15, "name": "Бібліотека", "price": "", "image": "/assets/images/rooms/15.jpg" },
+    { "id": 15, "name": "Кабінет фізики", "price": "", "image": "/assets/images/rooms/16.jpg" },
+    { "id": 15, "name": "Спортивна зала", "price": "", "image": "/assets/images/rooms/17.jpg" },
+    { "id": 15, "name": "Актова зала", "price": "", "image": "/assets/images/rooms/18.jpg" }
+  ]
