@@ -314,7 +314,7 @@ const Kursi = () => {
                                 <strong>Загальна кількість годин:</strong>{" "}
                                 {item["Кількість годин"]}
                               </div>
-                              
+
                               <div>
                                 <strong>Документ:</strong>{" "}
                                 {item["Тип документа"]} №
@@ -336,15 +336,20 @@ const Kursi = () => {
                                   ]
                                 }
                               </div>
-                              
+
                               <div className="flex items-center gap-1 justify-between">
                                 <div className="max-w-sm">
                                   <img
-                                    src={convertUrl2(item["Фотокопія сертифікату, свідоцтва тощо"])}
+                                    src={convertUrl2(
+                                      item[
+                                        "Фотокопія сертифікату, свідоцтва тощо"
+                                      ],
+                                    )}
                                     alt={item["Тип документа"]}
                                     onError={(e) => {
-                                      (e.currentTarget as HTMLImageElement).src =
-                                        "/assets/images/no-image.png";
+                                      (
+                                        e.currentTarget as HTMLImageElement
+                                      ).src = "/assets/images/no-image.png";
                                     }}
                                   />
                                 </div>
@@ -353,7 +358,11 @@ const Kursi = () => {
                                   className="flex gap-2 items-center px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                                 >
                                   <Link
-                                    to={item['Фотокопія сертифікату, свідоцтва тощо']}
+                                    to={
+                                      item[
+                                        "Фотокопія сертифікату, свідоцтва тощо"
+                                      ]
+                                    }
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   >
@@ -361,9 +370,8 @@ const Kursi = () => {
                                     Завантажити
                                   </Link>
                                 </Button>
-
                               </div>
-                                                          </div>
+                            </div>
                           </TooltipContent>
                         </Tooltip>
                       );

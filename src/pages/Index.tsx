@@ -297,9 +297,7 @@ const Index = () => {
           </header>
 
           {/* Hero Section */}
-          <section
-            className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20"
-          >
+          <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
             <div className="absolute inset-0 bg-black opacity-10"></div>
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
@@ -387,14 +385,20 @@ const Index = () => {
 
                   {/* Quick Stats */}
                   <div className="grid grid-cols-2 gap-4">
-                    <Link to="/page?titlePages=Учні&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"  className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer">
+                    <Link
+                      to="/page?titlePages=Учні&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                      className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer"
+                    >
                       <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-green-600">
                         750+
                       </div>
                       <div className="text-sm text-gray-600">Учнів</div>
                     </Link>
-                    <Link to="/page?titlePages=Учительська&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer">
+                    <Link
+                      to="/page?titlePages=Учительська&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                      className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer"
+                    >
                       <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-green-600">
                         80+

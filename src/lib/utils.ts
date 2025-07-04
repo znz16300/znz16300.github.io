@@ -88,10 +88,13 @@ export function convertDriveLink(link) {
 }
 
 export function updateImgSrcsInHtml2(html) {
-  return html.replace(/<img[^>]+src="([^"]+)"[^>]*>/g, (imgTag: string, src: string) => {
-    const newSrc = convertUrl2(src);
-    return imgTag.replace(src, newSrc);
-  });
+  return html.replace(
+    /<img[^>]+src="([^"]+)"[^>]*>/g,
+    (imgTag: string, src: string) => {
+      const newSrc = convertUrl2(src);
+      return imgTag.replace(src, newSrc);
+    },
+  );
 }
 
 export function updateImgSrcsInHtml(html) {
