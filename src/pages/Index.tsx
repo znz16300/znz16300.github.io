@@ -42,6 +42,7 @@ import { getPage } from "@/api/getPage";
 import { PageItem } from "@/type/pageItem";
 import Page from "./Page";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,11 +59,11 @@ const Index = () => {
       href: "/page?titlePages=Діяльність&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
       icon: Activity,
     },
-    {
-      title: "Контакти",
-      href: "/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
-      icon: Phone,
-    },
+    // {
+    //   title: "Контакти",
+    //   href: "/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+    //   icon: Phone,
+    // },
     {
       title: "",
       icon: Search,
@@ -75,6 +76,14 @@ const Index = () => {
       },
     },
   ];
+
+  const seachPopupClick = async () => {
+    // отримуємо дані з API для пошуку
+
+    setSearchValue("");
+    // відкриваємо поповер для пошуку
+    setIsSearchOpen(true);
+  };
 
   const [products, setProducts] = useState<MaterialItem[]>([]);
 
@@ -158,11 +167,11 @@ const Index = () => {
   ];
 
   const handleSearch = (
-    e:
+    e?:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLInputElement>,
+      | React.KeyboardEvent<HTMLInputElement>
   ) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setIsSearchOpen(false);
     setSearchValue("");
     // Зберігаємо результати пошуку в стейті та переходимо на /page через навігацію з параметрами
@@ -186,9 +195,7 @@ const Index = () => {
                 {/* Logo */}
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 rounded-lg flex items-center justify-center">
-                    {/* <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center"> */}
-                    {/* <GraduationCap className="w-7 h-7 text-white" /> */}
-                    <img src="./assets/icons/logo_black.svg" />
+                     <img src="./assets/icons/logo_black.svg" />
                   </div>
                   <div>
                     <h1 className="text-xl font-bold text-gray-900">
@@ -201,28 +208,52 @@ const Index = () => {
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex space-x-8 flex-wrap">
-                  {navigationItems.map((item) =>
-                    item.href ? (
-                      <Link
-                        key={item.title}
-                        to={item.href}
-                        className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
-                      >
-                        <item.icon className="w-4 h-4" />
-                        <span className="font-medium">{item.title}</span>
-                      </Link>
-                    ) : (
-                      <button
-                        key={item.title}
-                        onClick={item.seachPopup}
-                        className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
-                      >
-                        <item.icon className="w-4 h-4" />
-                        <span className="font-medium">{item.title}</span>
-                      </button>
-                    ),
+                <nav className="hidden md:flex space-x-1">
+                  {navigationItems.map(
+                    (item) =>
+                      item.href && (
+                        <Link
+                          key={item.title}
+                          to={item.href}
+                          className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
+                        >
+                          <item.icon className="w-4 h-4" />
+                          <span className="font-medium">{item.title}</span>
+                        </Link>
+                      )
+
                   )}
+                  <div className="flex gap-2 ">
+              <input
+                type="text"
+                placeholder="Пошук..."
+                className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
+                value={searchValue}
+                onChange={handleSearchInput}
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
+                autoFocus
+              />
+
+              <button
+                onClick={() => {
+                  if (!isSearchOpen) {
+                    setIsSearchOpen(true);
+                  } else if (searchValue.trim() !== "") {
+                    handleSearch();
+                  }
+                }}
+                className="flex items-center justify-center 
+                hover:text-blue-600 transition-colors duration-200 
+                "
+              >
+                <Search className="w-6 h-6" />
+                <span className="ml-2" />
+              </button>
+            </div>
                 </nav>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -235,49 +266,10 @@ const Index = () => {
                   )}
                 </button>
               </div>
-              {/* Search Popover */}
-              <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-                <PopoverTrigger asChild>
-                  <button type="button" className="hidden" />
-                </PopoverTrigger>
-                <PopoverContent
-                  className="bg-white shadow-lg rounded-lg p-4 flex items-center justify-center"
-                  side="top"
-                  align="center"
-                  style={{
-                    width: "calc(100vw - 32px)",
-                    position: "absolute",
-                    top: "80px",
-                    marginLeft: "4px",
-                    zIndex: 1000,
-                  }}
-                >
-                  <div className="flex items-center gap-2 w-full">
-                    <input
-                      type="text"
-                      placeholder="Пошук..."
-                      className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
-                      value={searchValue}
-                      onChange={handleSearchInput}
-                      onKeyUp={(e) => {
-                        if (e.key === "Enter") {
-                          handleSearch(e);
-                        }
-                      }}
-                    />
-                    <button
-                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                      onClick={handleSearch}
-                    >
-                      Пошук
-                    </button>
-                  </div>
-                </PopoverContent>
-              </Popover>
 
               {/* Mobile Navigation */}
               {isMenuOpen && (
-                <div className="md:hidden py-4 border-t animate-fade-in">
+                <div className="md:hidden fixed bg-white  py-4 border-t animate-fade-in w-full">
                   <nav className="space-y-2">
                     {navigationItems.map((item) => (
                       <Link
@@ -294,39 +286,43 @@ const Index = () => {
                 </div>
               )}
             </div>
+            
           </header>
 
           {/* Hero Section */}
           <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
-            <div className="absolute inset-0 bg-black opacity-10"></div>
+            {/* панель пошуку */}
+            
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
                 Куликівський ліцей
               </h2>
-                <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in">
+              <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in">
                 Сучасна освіта для успішного майбутнього
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
                 <Link to="/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4">
-                  <button 
-                  style={{ boxSizing: "border-box", minHeight: "52px" }}
-                  className="bg-white text-blue-700 px-8 py-3 rounded-lg 
-                font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg">
-                  Дізнатися більше
+                  <button
+                    style={{ boxSizing: "border-box", minHeight: "52px" }}
+                    className="bg-white text-blue-700 px-8 py-3 rounded-lg 
+                font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg"
+                  >
+                    Дізнатися більше
                   </button>
                 </Link>
                 <Link to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI">
-                  <button 
-                  style={{ boxSizing: "border-box", minHeight: "52px" }}
-                  className="border-2 border-white text-white px-8 py-3 
+                  <button
+                    style={{ boxSizing: "border-box", minHeight: "52px" }}
+                    className="border-2 border-white text-white px-8 py-3 
                   rounded-lg font-semibold hover:bg-white hover:text-blue-700 
                   transition-all duration-300 hover:scale-105"
                   >
-                  Контакти
+                    Контакти
                   </button>
                 </Link>
-                </div>
+              </div>
             </div>
+
           </section>
 
           {/* New School Showcase Section */}
@@ -408,8 +404,11 @@ const Index = () => {
                   </div>
 
                   {/* Interactive Highlights */}
-                  <div  className="space-y-3">
-                    <Link to="/page?titlePages=Розклад%20дзвінків&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
+                  <div className="space-y-3">
+                    <Link
+                      to="/page?titlePages=Розклад%20дзвінків&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                    >
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
                           <Clock className="w-5 h-5 text-orange-600" />
@@ -426,7 +425,10 @@ const Index = () => {
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                     </Link>
 
-                    <Link to="/schedule" className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
+                    <Link
+                      to="/schedule"
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                    >
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                           <Star className="w-5 h-5 text-purple-600" />
@@ -459,8 +461,6 @@ const Index = () => {
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                     </div>
-
-
                   </div>
 
                   {/* CTA Button */}
