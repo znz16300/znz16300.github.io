@@ -11,7 +11,6 @@ import Page from "./pages/Page";
 import Kursi from "./pages/Kursi";
 import Schedule from "./pages/Schedule";
 
-
 const queryClient = new QueryClient();
 
 const App = () => {

@@ -113,7 +113,7 @@ const Index = () => {
         "Куликівський ліцей - сучасний навчальний заклад, що забезпечує якісну освіту та всебічний розвиток особистості",
       icon: GraduationCap,
       gradient: "from-blue-500 to-blue-600",
-      link: "/page?titlePages=Про%20ліцей&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+      link: "/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4",
     },
     {
       title: "Документація",
@@ -129,7 +129,7 @@ const Index = () => {
         "Сучасне обладнання, комп'ютерні класи, лабораторії та спортивні споруди",
       icon: Building,
       gradient: "from-purple-500 to-purple-600",
-      link: "/page?titlePages=Матеріально-технічна%20база&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+      link: "/page?titlePages=Матеріально-технічна%20база&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4",
     },
     {
       title: "Діяльність",
@@ -303,29 +303,29 @@ const Index = () => {
               <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
                 Куликівський ліцей
               </h2>
-              <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in">
+                <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in">
                 Сучасна освіта для успішного майбутнього
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
-                <button className="bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg">
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
+                <Link to="/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4">
+                  <button 
+                  style={{ boxSizing: "border-box", minHeight: "52px" }}
+                  className="bg-white text-blue-700 px-8 py-3 rounded-lg 
+                font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg">
                   Дізнатися більше
-                  <Link
-                    to="/page?titlePages=Про%20ліцей&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
-                    className="absolute inset-0 z-10"
-                    tabIndex={-1}
-                    aria-label="Дізнатися більше"
-                  ></Link>
-                </button>
-                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-700 transition-all duration-300 hover:scale-105">
+                  </button>
+                </Link>
+                <Link to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI">
+                  <button 
+                  style={{ boxSizing: "border-box", minHeight: "52px" }}
+                  className="border-2 border-white text-white px-8 py-3 
+                  rounded-lg font-semibold hover:bg-white hover:text-blue-700 
+                  transition-all duration-300 hover:scale-105"
+                  >
                   Контакти
-                  <Link
-                    to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
-                    className="absolute inset-0 z-10"
-                    tabIndex={-1}
-                    aria-label="Дізнатися більше"
-                  ></Link>
-                </button>
-              </div>
+                  </button>
+                </Link>
+                </div>
             </div>
           </section>
 
@@ -408,8 +408,8 @@ const Index = () => {
                   </div>
 
                   {/* Interactive Highlights */}
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
+                  <div  className="space-y-3">
+                    <Link to="/page?titlePages=Розклад%20дзвінків&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
                           <Clock className="w-5 h-5 text-orange-600" />
@@ -424,7 +424,24 @@ const Index = () => {
                         </div>
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
-                    </div>
+                    </Link>
+
+                    <Link to="/schedule" className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <Star className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900">
+                            Розклад уроків
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Доступний онлайн зі змінами
+                          </div>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                    </Link>
 
                     <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
                       <div className="flex items-center space-x-3">
@@ -442,6 +459,8 @@ const Index = () => {
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                     </div>
+
+
                   </div>
 
                   {/* CTA Button */}
@@ -450,7 +469,7 @@ const Index = () => {
                       asChild
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      <Link to="/page?titlePages=Про%20ліцей&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI">
+                      <Link to="/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4">
                         Дізнатися про ліцей детальніше
                         <ChevronRight className="w-5 h-5 ml-2" />
                       </Link>
