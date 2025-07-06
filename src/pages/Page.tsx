@@ -96,9 +96,9 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
         (item["Назва документу"] &&
           item["Назва документу"].toLowerCase().includes(searchTermLower) &&
           !item["Назва документу"].endsWith("_")) ||
-        (item["Абзац"] &&
-          item["Абзац"].toLowerCase().includes(searchTermLower) &&
-          !item["Абзац"].endsWith("_")) ||
+        // (item["Абзац"] &&
+        //   item["Абзац"].toLowerCase().includes(searchTermLower) &&
+        //   !item["Абзац"].endsWith("_")) ||
         (item["Ключові слова"] &&
           item["Ключові слова"].toLowerCase().includes(searchTermLower) &&
           !item["Ключові слова"].endsWith("_"))
@@ -195,23 +195,26 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
           </div>
         </div>
 
-        <div className="text-gray-700 leading-relaxed">
+        <div
+          className="text-gray-700 leading-relaxed overflow-hidden"
+          style={{ maxHeight: "200px" }}
+        >
           {item["Абзац"] && (
             <div
               className="line-clamp-3"
               dangerouslySetInnerHTML={{
-                __html:
-                  updateImgSrcsInHtml(item["Абзац"]).substring(0, 300) + "...",
+          __html:
+            updateImgSrcsInHtml(item["Абзац"]),
               }}
             />
           )}
           {item["Текст новини"] &&
             (item["Текст новини"].startsWith("<") ? (
               <div
-                className="line-clamp-3"
-                dangerouslySetInnerHTML={{
-                  __html: updateImgSrcsInHtml(item["Текст новини"]),
-                }}
+          className="line-clamp-3"
+          dangerouslySetInnerHTML={{
+            __html: updateImgSrcsInHtml(item["Текст новини"]),
+          }}
               />
             ) : (
               <div className="line-clamp-3">{item["Текст новини"]}</div>

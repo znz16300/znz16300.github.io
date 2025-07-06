@@ -1,3 +1,4 @@
+import { parseDate } from "@/lib/utils";
 import { DataObject, TrainingItem } from "@/type/kursi";
 import { PageItem } from "@/type/pageItem";
 import axios from "axios";
@@ -38,11 +39,7 @@ export async function getKursiFromServ(
       );
 
       allData = response.data.sort((a: TrainingItem, b: TrainingItem) => {
-        const parseDate = (dateStr: string): number => {
-          if (!dateStr) return 0;
-          const [day, month, year] = dateStr.split(".").map(Number);
-          return new Date(year, month - 1, day).getTime();
-        };
+        
 
         const dateA = parseDate(a["Дата видачі документа"] || "");
         const dateB = parseDate(b["Дата видачі документа"] || "");

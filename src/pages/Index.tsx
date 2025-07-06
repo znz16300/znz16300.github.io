@@ -21,7 +21,6 @@ import {
   Clock,
   MoreHorizontal,
 } from "lucide-react";
-import { link } from "fs";
 import {
   Carousel,
   CarouselContent,
@@ -33,48 +32,67 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useEffect } from "react";
 import { getMaterials } from "@/api/getMaterials";
 import { MaterialItem } from "@/type/material";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { getPage } from "@/api/getPage";
-import { PageItem } from "@/type/pageItem";
-import Page from "./Page";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import fixKeyboardLayout from "@/lib/fixKeyboardLayout";
+import { PAGE_TABLE_1, PAGE_TABLE_2 } from "@/constants";
 
 const Index = () => {
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const navigationItems = [
-    { title: "Головна", href: "/", icon: Home },
-    { title: "Новини", href: "/news", icon: Newspaper },
-    { title: "Документи", href: "/documents", icon: FileText },
+    // { title: "Головна", href: "/", icon: Home },
+    { id: 1, title: "Новини", href: "/news", icon: Newspaper },
+    { id: 2,title: "Документи", href: "/documents", icon: FileText },
     {
-      title: "Діяльність",
-      href: "/page?titlePages=Діяльність&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+      id: 3,title: "Діяльність",
+      href: `/page?titlePages=Діяльність&keyPages=${PAGE_TABLE_1}`,
       icon: Activity,
     },
-    // {
-    //   title: "Контакти",
-    //   href: "/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
-    //   icon: Phone,
-    // },
     {
-      title: "",
-      icon: Search,
-      seachPopup: async () => {
-        // отримуємо дані з API для пошуку
-
-        setSearchValue("");
-        // відкриваємо поповер для пошуку
-        setIsSearchOpen(true);
-      },
+      id: 4,title: "Контакти",
+      href: `/page?titlePages=Контакти&keyPages=${PAGE_TABLE_1}`,
+      icon: Phone,
     },
+    {
+      id: 5,title: "Сторінки",
+      href: `/page?titlePages=Більше>&keyPages=${PAGE_TABLE_2}`,
+      icon: Phone,
+    },
+    {
+      id: 6,title: "Учням, батькам",
+      href:  `/page?titlePages=Учням%20та%20батькам&keyPages=${PAGE_TABLE_2}`,
+      icon: Phone,
+    },
+    {
+      id: 7,title: "Курси",
+      href: `/page?titlePages=Курси&keyPages=${PAGE_TABLE_2}`,
+      icon: Phone,
+    },
+    {
+      id: 7,title: "Положення, порядки, інструкції",
+      href: `/page?titlePages=Положення%20та%20порядки&keyPages=${PAGE_TABLE_1}`,
+      icon: Phone,
+    },
+    {
+      id: 7,title: "Харчування",
+      href: `/page?titlePages=Харчування&keyPages=${PAGE_TABLE_1}`,
+      icon: Phone,
+    },
+    // {
+    //   id: 5,title: "",
+    //   icon: Search,
+    //   seachPopup: async () => {
+    //     // отримуємо дані з API для пошуку
+
+    //     id: 6,setSearchValue("");
+    //     // відкриваємо поповер для пошуку
+    //     setIsSearchOpen(true);
+    //   },
+    // },
   ];
 
   const seachPopupClick = async () => {
@@ -122,7 +140,7 @@ const Index = () => {
         "Куликівський ліцей - сучасний навчальний заклад, що забезпечує якісну освіту та всебічний розвиток особистості",
       icon: GraduationCap,
       gradient: "from-blue-500 to-blue-600",
-      link: "/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4",
+      link: `/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`,
     },
     {
       title: "Документація",
@@ -138,7 +156,7 @@ const Index = () => {
         "Сучасне обладнання, комп'ютерні класи, лабораторії та спортивні споруди",
       icon: Building,
       gradient: "from-purple-500 to-purple-600",
-      link: "/page?titlePages=Матеріально-технічна%20база&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4",
+      link: `/page?titlePages=Матеріально-технічна%20база&keyPages=${PAGE_TABLE_2}`,
     },
     {
       title: "Діяльність",
@@ -146,7 +164,7 @@ const Index = () => {
         "Освітня, виховна та науково-методична діяльність нашого навчального закладу",
       icon: Activity,
       gradient: "from-orange-500 to-orange-600",
-      link: "/page?titlePages=Діяльність&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+      link: `/page?titlePages=Діяльність&keyPages=${PAGE_TABLE_1}`,
     },
     {
       title: "Публічна інформація",
@@ -154,7 +172,7 @@ const Index = () => {
         "Відкрита звітність, результати діяльності та публічні документи ліцею",
       icon: Eye,
       gradient: "from-teal-500 to-teal-600",
-      link: "/page?titlePages=Відкритість%20та%20прозорість&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI",
+      link: `/page?titlePages=Відкритість%20та%20прозорість&keyPages=${PAGE_TABLE_1}`,
     },
     {
       title: "Більше",
@@ -162,20 +180,20 @@ const Index = () => {
         "Додаткова інформація, корисні посилання та інші матеріали про наш ліцей",
       icon: MoreHorizontal,
       gradient: "from-pink-500 to-pink-600",
-      link: "/page?titlePages=Більше&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4",
+      link: `/page?titlePages=Більше&keyPages=${PAGE_TABLE_2}`,
     },
   ];
 
   const handleSearch = (
     e?:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLInputElement>
+      | React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (e) e.preventDefault();
     setIsSearchOpen(false);
     setSearchValue("");
     // Зберігаємо результати пошуку в стейті та переходимо на /page через навігацію з параметрами
-    window.location.href = `/page?search=${encodeURIComponent(searchValue)}`;
+    window.location.href = `/page?search=${encodeURIComponent(fixKeyboardLayout(searchValue))}`;
   };
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,7 +213,7 @@ const Index = () => {
                 {/* Logo */}
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 rounded-lg flex items-center justify-center">
-                     <img src="./assets/icons/logo_black.svg" />
+                    <img src="./assets/icons/logo_black.svg" />
                   </div>
                   <div>
                     <h1 className="text-xl font-bold text-gray-900">
@@ -209,7 +227,7 @@ const Index = () => {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-1">
-                  {navigationItems.map(
+                  {navigationItems.filter(i => i.id < 5).map(
                     (item) =>
                       item.href && (
                         <Link
@@ -220,40 +238,33 @@ const Index = () => {
                           <item.icon className="w-4 h-4" />
                           <span className="font-medium">{item.title}</span>
                         </Link>
-                      )
-
+                      ),
                   )}
-                  <div className="flex gap-2 ">
-              <input
-                type="text"
-                placeholder="Пошук..."
-                className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
-                value={searchValue}
-                onChange={handleSearchInput}
-                onKeyUp={(e) => {
-                  if (e.key === "Enter") {
-                    handleSearch();
-                  }
-                }}
-                autoFocus
-              />
+                    <div className="flex gap-4 p-2" style={{ marginLeft: "16px" }}>
+                    <input
+                      type="text"
+                      placeholder="Пошук..."
+                      className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
+                      value={searchValue}
+                      onChange={handleSearchInput}
+                      onKeyUp={(e) => {
+                      if (e.key === "Enter") {
+                        handleSearch();
+                      }
+                      }}
+                      autoFocus
+                    />
 
-              <button
-                onClick={() => {
-                  if (!isSearchOpen) {
-                    setIsSearchOpen(true);
-                  } else if (searchValue.trim() !== "") {
-                    handleSearch();
-                  }
-                }}
-                className="flex items-center justify-center 
-                hover:text-blue-600 transition-colors duration-200 
-                "
-              >
-                <Search className="w-6 h-6" />
-                <span className="ml-2" />
-              </button>
-            </div>
+                    <button
+                      onClick={handleSearch}
+                      className="flex items-center justify-center 
+                  hover:text-blue-600 transition-colors duration-200 
+                  "
+                    >
+                      <Search className="w-5 h-5" />
+                      <span className="ml-2" />
+                    </button>
+                    </div>
                 </nav>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -282,17 +293,31 @@ const Index = () => {
                         <span className="font-medium">{item.title}</span>
                       </Link>
                     ))}
+                    <div className="flex gap-2 p-2" style={{ width: "95%" }}>
+                      <input
+                        type="text"
+                        placeholder="Пошук..."
+                        className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
+                        value={searchValue}
+                        onChange={handleSearchInput}
+                        onKeyUp={(e) => {
+                          if (e.key === "Enter") {
+                            handleSearch();
+                          }
+                        }}
+
+                      />
+                    </div>
                   </nav>
                 </div>
               )}
             </div>
-            
           </header>
 
           {/* Hero Section */}
           <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
             {/* панель пошуку */}
-            
+
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
                 Куликівський ліцей
@@ -301,7 +326,7 @@ const Index = () => {
                 Сучасна освіта для успішного майбутнього
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
-                <Link to="/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4">
+                <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
                     className="bg-white text-blue-700 px-8 py-3 rounded-lg 
@@ -310,7 +335,7 @@ const Index = () => {
                     Дізнатися більше
                   </button>
                 </Link>
-                <Link to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI">
+                <Link to={`/page?titlePages=Контакти&keyPages=${PAGE_TABLE_1}`}>
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
                     className="border-2 border-white text-white px-8 py-3 
@@ -322,7 +347,6 @@ const Index = () => {
                 </Link>
               </div>
             </div>
-
           </section>
 
           {/* New School Showcase Section */}
@@ -333,7 +357,8 @@ const Index = () => {
                 <div className="relative">
                   <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                     <img
-                      src="/assets/images/school.png"
+                      src="/assets/images/school_summer.jpg"
+                      // src="/assets/images/school.png"
                       alt="Куликівський ліцей"
                       className="w-full h-96 object-cover transform hover:scale-105 transition-transform duration-500"
                     />
@@ -382,7 +407,7 @@ const Index = () => {
                   {/* Quick Stats */}
                   <div className="grid grid-cols-2 gap-4">
                     <Link
-                      to="/page?titlePages=Учні&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                      to={`/page?titlePages=Учні&keyPages=${PAGE_TABLE_1}`}
                       className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer"
                     >
                       <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
@@ -392,7 +417,7 @@ const Index = () => {
                       <div className="text-sm text-gray-600">Учнів</div>
                     </Link>
                     <Link
-                      to="/page?titlePages=Учительська&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                      to={`/page?titlePages=Учительська&keyPages=${PAGE_TABLE_1}`}
                       className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer"
                     >
                       <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
@@ -406,7 +431,7 @@ const Index = () => {
                   {/* Interactive Highlights */}
                   <div className="space-y-3">
                     <Link
-                      to="/page?titlePages=Розклад%20дзвінків&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                      to={`/page?titlePages=Розклад%20дзвінків&keyPages=${PAGE_TABLE_1}`}
                       className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
                     >
                       <div className="flex items-center space-x-3">
@@ -469,7 +494,7 @@ const Index = () => {
                       asChild
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      <Link to="/page?titlePages=Про%20ліцей&keyPages=12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4">
+                      <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
                         Дізнатися про ліцей детальніше
                         <ChevronRight className="w-5 h-5 ml-2" />
                       </Link>
@@ -534,7 +559,7 @@ const Index = () => {
           </section>
 
           {/* Products Carousel Section */}
-          <section className="text-center py-16 mb-12 overflow-x-hidden w-full p-10">
+          <section className="text-center py-16 mb-12 overflow-x-hidden w-full p-10 bg-white">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
               Навчальний простір
             </h3>
@@ -585,7 +610,7 @@ const Index = () => {
           </section>
 
           {/* Stats Section */}
-          <section className="py-16 bg-white">
+          <section className="py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
@@ -632,7 +657,7 @@ const Index = () => {
                   <h4 className="text-lg font-semibold mb-4">
                     Швидкі посилання
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 flex flex-col flex-wrap">
                     {navigationItems.slice(1).map((item) => (
                       <li key={item.title}>
                         <Link

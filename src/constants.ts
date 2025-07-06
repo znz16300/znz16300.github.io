@@ -1,3 +1,6 @@
+export const PAGE_TABLE_1 = "1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"; 
+export const PAGE_TABLE_2 = "12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4";
+
 export const REASONS = [
   { title: "Лікарняний", label: "ТН" },
   { title: "Відпустка основна", label: "" },

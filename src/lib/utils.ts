@@ -43,7 +43,7 @@ export function extractDriveFileId(url: string): string {
 
 export function extractDriveFileId2(url: string): string {
   const match = url.match(
-    /(?:\/d\/|id=|folders\/|spreadsheets\/d\/|document\/d\/)([a-zA-Z0-9_-]+)/,
+    /(?:\/d\/|id=|folders\/|spreadsheets\/d\/|document\/d\/)([a-zA-Z0-9_-]+)/
   );
   return match ? match[1] : "";
 }
@@ -93,7 +93,7 @@ export function updateImgSrcsInHtml2(html) {
     (imgTag: string, src: string) => {
       const newSrc = convertUrl2(src);
       return imgTag.replace(src, newSrc);
-    },
+    }
   );
 }
 
@@ -116,16 +116,41 @@ export function convertGoogleDriveUrls(text) {
   // Заміняємо URLs на download URLs
   let convertedText = text.replace(
     driveUrlRegex,
-    "https://drive.google.com/uc?export=download&id=$1",
+    "https://drive.google.com/uc?export=download&id=$1"
   );
   convertedText = convertedText.replace(
     driveUrlRegex2,
-    "https://drive.google.com/uc?export=download&id=$1",
+    "https://drive.google.com/uc?export=download&id=$1"
   );
   convertedText = convertedText.replace(
     driveUrlRegex3,
-    "https://drive.google.com/uc?export=download&id=$1",
+    "https://drive.google.com/uc?export=download&id=$1"
   );
 
   return convertedText;
 }
+
+export const parseDate = (dateStr: string): number => {
+  if (!dateStr) return 0;
+  const [day, month, year] = dateStr.split(".").map(Number);
+  return new Date(year, month - 1, day).getTime();
+};
+
+export const parseDate2 = (dateStr: string): number => {
+  if (!dateStr) return 0;
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).getTime();
+};
+
+export function shortenFullName(fullName: string): string {
+  const parts = fullName.trim().split(/\s+/); // розділяємо по пробілах
+
+  if (parts.length < 2) return fullName; // якщо недостатньо частин — повертаємо як є
+
+  const lastName = parts[0];
+  const firstInitial = parts[1]?.[0] || "";
+  const middleInitial = parts[2]?.[0] || "";
+
+  return `${lastName} ${firstInitial}.${middleInitial}.`;
+}
+

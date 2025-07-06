@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Clock, Users, GraduationCap } from "lucide-react";
+import { parseDate, parseDate2, shortenFullName } from "@/lib/utils";
 
 type ScheduleData = {
   templFile: string;
@@ -33,6 +34,7 @@ type DayInfo = {
 };
 
 type LessonData = {
+  substitute: string;
   time: string;
   lesson: string;
   className?: string;
@@ -69,7 +71,7 @@ const Schedule = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get<ScheduleData[]>(
-          `${SERVER}getmultiblock/${KEY}`,
+          `${SERVER}getmultiblock/${KEY}`
         );
         setGlData(res.data);
         console.log("Дані завантажено", res.data);
@@ -129,7 +131,7 @@ const Schedule = () => {
   const updateUrl = (
     teacher: string,
     className: string,
-    currentDate: string,
+    currentDate: string
   ) => {
     const params = new URLSearchParams();
     if (teacher) params.set("teacher", teacher);
@@ -162,6 +164,11 @@ const Schedule = () => {
   const showSchedule = (name: string, mode: "teacher" | "class") => {
     const weekData =
       getData(mode === "teacher" ? "week1" : "week1 (clas)")?.data || [];
+    const missingData =
+      getData("missingbook").data.filter(
+        (data) => parseDate(data[1]) === parseDate2(date)
+      ) || [];
+    console.log("missingData:", missingData);
 
     const dayInfo = getDayInfo();
     console.log("dayInfo:", dayInfo);
@@ -170,6 +177,7 @@ const Schedule = () => {
     if (dayInfo.chZn === 1 && dayInfo.dWeek === 1 && !hasWorkdayData()) {
       const timeSlots = getData("Час початку уроків")?.header?.[0] || [];
       const freeHours: LessonData[] = timeSlots.map((time) => ({
+        substitute: "",
         time,
         lesson: "-",
         className: undefined,
@@ -190,7 +198,16 @@ const Schedule = () => {
       // Для вчителя додаємо інформацію про клас
       const lessonData: LessonData[] = timeSlots.map((time, i) => {
         const subject = row[offset + i + 1] || "-";
+        let substitute = "";
         let className = "";
+        const substituteTeacher = missingData.find(
+          (data) =>
+            data[6] === shortenFullName(selectedTeacher) &&
+            String(data[9]) === String(i + 1)
+        );
+        if (substituteTeacher) {
+          substitute = `${substituteTeacher[5]}/${substituteTeacher[8]}`;
+        }
 
         // Знаходимо клас для цього уроку
         if (subject !== "-") {
@@ -200,17 +217,33 @@ const Schedule = () => {
         return {
           time,
           lesson: subject,
-          className: className || undefined,
+          substitute: substitute || "-",
+          className: className || '',
         };
       });
 
       setLessons(lessonData);
     } else {
       // Для класу залишаємо як було
-      const lessonData: LessonData[] = timeSlots.map((time, i) => ({
-        time,
-        lesson: row[offset + i + 1] || "-",
-      }));
+
+      const lessonData: LessonData[] = timeSlots.map((time, i) => {
+        const substitute =
+          missingData.find(
+            (data) =>
+              data[5].trim() === selectedClass.trim() &&
+              String(data[9]) === String(i + 1)
+          ) || "-";
+        console.log("substitute:", substitute);
+
+        const lesson = row[offset + i + 1] || "-";
+        const substituteReport = substitute[8] + "/" + substitute[6] || "-";
+        return {
+          time,
+          lesson: lesson,
+          substitute: substituteReport,
+          className: selectedClass,
+        };
+      });
 
       setLessons(lessonData);
     }
@@ -350,11 +383,13 @@ const Schedule = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-32">Час</TableHead>
-                    <TableHead className="w-16">Урок</TableHead>
-                    <TableHead>Предмет</TableHead>
-                    {selectedTeacher && (
-                      <TableHead className="w-32">Клас</TableHead>
+                    <TableHead className="w-32">Урок</TableHead>
+                    {selectedTeacher ? (
+                      <TableHead className="w-64">Предмет/Клас</TableHead>
+                    ) : (
+                      <TableHead className="w-64">Предмет/Вчитель</TableHead>
                     )}
+                    <TableHead className="w-32">Заміна</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -369,20 +404,42 @@ const Schedule = () => {
                       <TableCell className="font-medium text-blue-600">
                         <div className="flex items-center">{index + 1}</div>
                       </TableCell>
-                      <TableCell
-                        className={
-                          lesson.lesson === "-" ? "text-gray-400 italic" : ""
-                        }
-                      >
-                        {lesson.lesson === "-"
-                          ? "Вільна година"
-                          : lesson.lesson}
-                      </TableCell>
-                      {selectedTeacher && (
-                        <TableCell className="text-sm text-gray-600">
-                          {lesson.className || "-"}
+
+                      {selectedTeacher ? (
+                        <TableCell
+                          className={
+                            lesson.lesson === "-" ? "text-gray-400 italic" : ""
+                          }
+                        >
+                          {lesson.lesson === "-"
+                            ? "Вільна година"
+                            : (<><p>{lesson.className}</p>
+                            <p>{lesson.lesson}</p></>)
+                          }
+                        </TableCell>
+                      ) : (
+                        <TableCell
+                          className={
+                            lesson.lesson === "-" ? "text-gray-400 italic" : ""
+                          }
+                        >
+                          {lesson.lesson === "-"
+                            ? "Вільна година"
+                            : lesson.lesson
+                                .split(/\/|\|/)
+                                .map((item: string, index: number) => (
+                                  <p key={index}>{item}</p>
+                                ))}
                         </TableCell>
                       )}
+                      <TableCell className="font-medium text-blue-600">
+                        <div className="text-red-600">
+                          {lesson.substitute.split(/\/|\|/)
+                                .map((item: string, index: number) => (
+                                  <p key={index}>{item !== 'undefined' ? item : ''}</p>
+                                ))}
+                        </div>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

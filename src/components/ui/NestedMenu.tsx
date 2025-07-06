@@ -1,14 +1,14 @@
-import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
-import { ChevronRight } from "lucide-react"
-import { NavItem } from "@/type/navItem"
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
+import { NavItem } from "@/type/navItem";
 
 interface Props {
-  items: NavItem[]
-  onLinkClick?: () => void
-  className?: string
-  itemClassName?: string
-  activeItemClassName?: string
+  items: NavItem[];
+  onLinkClick?: () => void;
+  className?: string;
+  itemClassName?: string;
+  activeItemClassName?: string;
 }
 
 export default function NestedMenu({
@@ -18,18 +18,18 @@ export default function NestedMenu({
   itemClassName = "",
   activeItemClassName = "bg-blue-100 text-blue-700",
 }: Props) {
-  const location = useLocation()
-  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({})
+  const location = useLocation();
+  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
 
   const toggleSubmenu = (title: string) => {
-    setOpenMenus((prev) => ({ ...prev, [title]: !prev[title] }))
-  }
+    setOpenMenus((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
 
   return (
     <nav className={`space-y-2 relative ${className}`}>
       {items.map((item) => {
-        const isActive = location.pathname === item.href
-        const hasChildren = item.children && item.children.length > 0
+        const isActive = location.pathname === item.href;
+        const hasChildren = item.children && item.children.length > 0;
 
         return (
           <div key={item.title} className="relative group">
@@ -72,8 +72,8 @@ export default function NestedMenu({
               </Link>
             )}
           </div>
-        )
+        );
       })}
     </nav>
-  )
+  );
 }
