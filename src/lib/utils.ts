@@ -43,7 +43,7 @@ export function extractDriveFileId(url: string): string {
 
 export function extractDriveFileId2(url: string): string {
   const match = url.match(
-    /(?:\/d\/|id=|folders\/|spreadsheets\/d\/|document\/d\/)([a-zA-Z0-9_-]+)/
+    /(?:\/d\/|id=|folders\/|spreadsheets\/d\/|document\/d\/)([a-zA-Z0-9_-]+)/,
   );
   return match ? match[1] : "";
 }
@@ -93,7 +93,7 @@ export function updateImgSrcsInHtml2(html) {
     (imgTag: string, src: string) => {
       const newSrc = convertUrl2(src);
       return imgTag.replace(src, newSrc);
-    }
+    },
   );
 }
 
@@ -116,15 +116,15 @@ export function convertGoogleDriveUrls(text) {
   // Заміняємо URLs на download URLs
   let convertedText = text.replace(
     driveUrlRegex,
-    "https://drive.google.com/uc?export=download&id=$1"
+    "https://drive.google.com/uc?export=download&id=$1",
   );
   convertedText = convertedText.replace(
     driveUrlRegex2,
-    "https://drive.google.com/uc?export=download&id=$1"
+    "https://drive.google.com/uc?export=download&id=$1",
   );
   convertedText = convertedText.replace(
     driveUrlRegex3,
-    "https://drive.google.com/uc?export=download&id=$1"
+    "https://drive.google.com/uc?export=download&id=$1",
   );
 
   return convertedText;
@@ -142,6 +142,56 @@ export const parseDate2 = (dateStr: string): number => {
   return new Date(year, month - 1, day).getTime();
 };
 
+export function getCurrentDateTime(): { date: Date; time: number } {
+  const now = new Date()
+  const pad = (n: number) => n.toString().padStart(2, '0')
+  const year = now.getFullYear()
+  const month = pad(now.getMonth() + 1)
+  const day = pad(now.getDate())
+  const hours = parseInt(pad(now.getHours()))
+  const minutes = parseInt(pad(now.getMinutes()))
+  const seconds = parseInt(pad(now.getSeconds()))
+  return {date: new Date(`${year}-${month}-${day}`), time: hours + minutes * 60 + seconds}
+}
+
+export function getTime(time: string): number  {
+  const now = new Date()
+  const hours = parseInt(time.split(':')[0] || '00');
+  const minutes = parseInt(time.split(':')[1] || '00');
+  const seconds = parseInt(time.split(':')[2] || '00');
+  return hours * 3600 + minutes * 60 + seconds
+}
+
+export function getCurentTime(): number  {
+  const now = new Date()
+  const pad = (n: number) => n.toString().padStart(2, '0')
+  const hours = parseInt(pad(now.getHours()))
+  const minutes = parseInt(pad(now.getMinutes()))
+  const seconds = parseInt(pad(now.getSeconds()))
+  return hours * 3600 + minutes * 60 + seconds
+}
+
+export function inIntervalTime(t1: string, t2: string): boolean {
+  return getTime(t1) <= getCurentTime() && getCurentTime() <= getTime(t2);
+}
+
+export function inIntervalTime2(t1: string): boolean {
+  const currentTime = getCurentTime() 
+  const t = getTime(t1);
+  console.log('t', t);
+  
+  return t <= currentTime && currentTime <= t + 45 * 60; // 45 хвилин
+}
+
+export function getCurentDate(): Date  {
+  const now = new Date();
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const year = now.getFullYear();
+  const month = pad(now.getMonth() + 1);
+  const day = pad(now.getDate());
+  return new Date (`${year}-${month}-${day}`);
+}
+
 export function shortenFullName(fullName: string): string {
   const parts = fullName.trim().split(/\s+/); // розділяємо по пробілах
 
@@ -153,4 +203,3 @@ export function shortenFullName(fullName: string): string {
 
   return `${lastName} ${firstInitial}.${middleInitial}.`;
 }
-

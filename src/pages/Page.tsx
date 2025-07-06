@@ -203,18 +203,17 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
             <div
               className="line-clamp-3"
               dangerouslySetInnerHTML={{
-          __html:
-            updateImgSrcsInHtml(item["Абзац"]),
+                __html: updateImgSrcsInHtml(item["Абзац"]),
               }}
             />
           )}
           {item["Текст новини"] &&
             (item["Текст новини"].startsWith("<") ? (
               <div
-          className="line-clamp-3"
-          dangerouslySetInnerHTML={{
-            __html: updateImgSrcsInHtml(item["Текст новини"]),
-          }}
+                className="line-clamp-3"
+                dangerouslySetInnerHTML={{
+                  __html: updateImgSrcsInHtml(item["Текст новини"]),
+                }}
               />
             ) : (
               <div className="line-clamp-3">{item["Текст новини"]}</div>

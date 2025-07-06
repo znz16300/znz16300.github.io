@@ -39,8 +39,6 @@ export async function getKursiFromServ(
       );
 
       allData = response.data.sort((a: TrainingItem, b: TrainingItem) => {
-        
-
         const dateA = parseDate(a["Дата видачі документа"] || "");
         const dateB = parseDate(b["Дата видачі документа"] || "");
         return dateB - dateA; // За спаданням

@@ -37,7 +37,6 @@ import fixKeyboardLayout from "@/lib/fixKeyboardLayout";
 import { PAGE_TABLE_1, PAGE_TABLE_2 } from "@/constants";
 
 const Index = () => {
-  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -46,39 +45,46 @@ const Index = () => {
   const navigationItems = [
     // { title: "Головна", href: "/", icon: Home },
     { id: 1, title: "Новини", href: "/news", icon: Newspaper },
-    { id: 2,title: "Документи", href: "/documents", icon: FileText },
+    { id: 2, title: "Документи", href: "/documents", icon: FileText },
     {
-      id: 3,title: "Діяльність",
+      id: 3,
+      title: "Діяльність",
       href: `/page?titlePages=Діяльність&keyPages=${PAGE_TABLE_1}`,
       icon: Activity,
     },
     {
-      id: 4,title: "Контакти",
+      id: 4,
+      title: "Контакти",
       href: `/page?titlePages=Контакти&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
     {
-      id: 5,title: "Сторінки",
+      id: 5,
+      title: "Сторінки",
       href: `/page?titlePages=Більше>&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
-      id: 6,title: "Учням, батькам",
-      href:  `/page?titlePages=Учням%20та%20батькам&keyPages=${PAGE_TABLE_2}`,
+      id: 6,
+      title: "Учням, батькам",
+      href: `/page?titlePages=Учням%20та%20батькам&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
-      id: 7,title: "Курси",
+      id: 7,
+      title: "Курси",
       href: `/page?titlePages=Курси&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
-      id: 7,title: "Положення, порядки, інструкції",
+      id: 7,
+      title: "Положення, порядки, інструкції",
       href: `/page?titlePages=Положення%20та%20порядки&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
     {
-      id: 7,title: "Харчування",
+      id: 7,
+      title: "Харчування",
       href: `/page?titlePages=Харчування&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
@@ -227,20 +233,25 @@ const Index = () => {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-1">
-                  {navigationItems.filter(i => i.id < 5).map(
-                    (item) =>
-                      item.href && (
-                        <Link
-                          key={item.title}
-                          to={item.href}
-                          className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
-                        >
-                          <item.icon className="w-4 h-4" />
-                          <span className="font-medium">{item.title}</span>
-                        </Link>
-                      ),
-                  )}
-                    <div className="flex gap-4 p-2" style={{ marginLeft: "16px" }}>
+                  {navigationItems
+                    .filter((i) => i.id < 5)
+                    .map(
+                      (item) =>
+                        item.href && (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
+                          >
+                            <item.icon className="w-4 h-4" />
+                            <span className="font-medium">{item.title}</span>
+                          </Link>
+                        ),
+                    )}
+                  <div
+                    className="flex gap-4 p-2"
+                    style={{ marginLeft: "16px" }}
+                  >
                     <input
                       type="text"
                       placeholder="Пошук..."
@@ -248,9 +259,9 @@ const Index = () => {
                       value={searchValue}
                       onChange={handleSearchInput}
                       onKeyUp={(e) => {
-                      if (e.key === "Enter") {
-                        handleSearch();
-                      }
+                        if (e.key === "Enter") {
+                          handleSearch();
+                        }
                       }}
                       autoFocus
                     />
@@ -264,7 +275,7 @@ const Index = () => {
                       <Search className="w-5 h-5" />
                       <span className="ml-2" />
                     </button>
-                    </div>
+                  </div>
                 </nav>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -305,7 +316,6 @@ const Index = () => {
                             handleSearch();
                           }
                         }}
-
                       />
                     </div>
                   </nav>
@@ -326,7 +336,9 @@ const Index = () => {
                 Сучасна освіта для успішного майбутнього
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
-                <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
+                <Link
+                  to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}
+                >
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
                     className="bg-white text-blue-700 px-8 py-3 rounded-lg 
@@ -494,7 +506,9 @@ const Index = () => {
                       asChild
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
+                      <Link
+                        to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}
+                      >
                         Дізнатися про ліцей детальніше
                         <ChevronRight className="w-5 h-5 ml-2" />
                       </Link>

@@ -1,12 +1,54 @@
 const enToUaMap: Record<string, string> = {
-  "q": "й", "w": "ц", "e": "у", "r": "к", "t": "е", "y": "н", "u": "г", "i": "ш", "o": "щ", "p": "з", "[": "х", "]": "ї",
-  "a": "ф", "s": "і", "d": "в", "f": "а", "g": "п", "h": "р", "j": "о", "k": "л", "l": "д", ";": "ж", "'": "є",
-  "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю", "/": ".",
-  "`": "ʼ", "~": "ʼ",
+  q: "й",
+  w: "ц",
+  e: "у",
+  r: "к",
+  t: "е",
+  y: "н",
+  u: "г",
+  i: "ш",
+  o: "щ",
+  p: "з",
+  "[": "х",
+  "]": "ї",
+  a: "ф",
+  s: "і",
+  d: "в",
+  f: "а",
+  g: "п",
+  h: "р",
+  j: "о",
+  k: "л",
+  l: "д",
+  ";": "ж",
+  "'": "є",
+  z: "я",
+  x: "ч",
+  c: "с",
+  v: "м",
+  b: "и",
+  n: "т",
+  m: "ь",
+  ",": "б",
+  ".": "ю",
+  "/": ".",
+  "`": "ʼ",
+  "~": "ʼ",
 };
 
 const englishWords = new Set([
-  "hello", "world", "test", "function", "keyboard", "language", "input", "switch", "translate", "text", "example", "code"
+  "hello",
+  "world",
+  "test",
+  "function",
+  "keyboard",
+  "language",
+  "input",
+  "switch",
+  "translate",
+  "text",
+  "example",
+  "code",
   // Додай сюди потрібні справжні англійські слова
 ]);
 
@@ -27,10 +69,13 @@ function fixKeyboardLayout(text: string): string {
     return text; // справжнє англійське слово — залишаємо
   }
 
-  return text.split("").map(char => {
-    const isUpper = char === char.toUpperCase();
-    const mapped = enToUaMap[char.toLowerCase()] || char;
-    return isUpper ? mapped.toUpperCase() : mapped;
-  }).join("");
+  return text
+    .split("")
+    .map((char) => {
+      const isUpper = char === char.toUpperCase();
+      const mapped = enToUaMap[char.toLowerCase()] || char;
+      return isUpper ? mapped.toUpperCase() : mapped;
+    })
+    .join("");
 }
 export default fixKeyboardLayout;
