@@ -20,7 +20,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Clock, Users, GraduationCap } from "lucide-react";
-import { inIntervalTime, inIntervalTime2, parseDate, parseDate2, shortenFullName } from "@/lib/utils";
+import {
+  inIntervalTime,
+  inIntervalTime2,
+  parseDate,
+  parseDate2,
+  shortenFullName,
+} from "@/lib/utils";
 
 type ScheduleData = {
   templFile: string;
@@ -394,11 +400,12 @@ const Schedule = () => {
                 </TableHeader>
                 <TableBody>
                   {lessons.map((lesson, index) => (
-                    <TableRow 
-                    key={index} 
-                    className={`hover:bg-white dark:bg-gray-900 text-black dark:text-white border ${
-                    inIntervalTime2(lesson.time) ? "bg-red-200" : ""
-                      }`}>  
+                    <TableRow
+                      key={index}
+                      className={`hover:bg-white dark:bg-gray-900 text-black dark:text-white border ${
+                        inIntervalTime2(lesson.time) ? "bg-red-200" : ""
+                      }`}
+                    >
                       <TableCell className="font-medium text-blue-600">
                         <div className="flex items-center">
                           <Clock className="w-4 h-4 mr-2" />
@@ -420,7 +427,9 @@ const Schedule = () => {
                           ) : (
                             <>
                               <p>{lesson.className}</p>
-                              <p style={{fontSize: "10px"}}>{lesson.lesson}</p>
+                              <p style={{ fontSize: "10px" }}>
+                                {lesson.lesson}
+                              </p>
                             </>
                           )}
                         </TableCell>
@@ -435,7 +444,16 @@ const Schedule = () => {
                             : lesson.lesson
                                 .split(/\/|\|/)
                                 .map((item: string, index: number) => (
-                                  <p key={index} style={index % 2 === 1 ? { fontSize: "10px" } : undefined}>{item}</p>
+                                  <p
+                                    key={index}
+                                    style={
+                                      index % 2 === 1
+                                        ? { fontSize: "10px" }
+                                        : undefined
+                                    }
+                                  >
+                                    {item}
+                                  </p>
                                 ))}
                         </TableCell>
                       )}
@@ -444,7 +462,14 @@ const Schedule = () => {
                           {lesson.substitute
                             .split(/\/|\|/)
                             .map((item: string, index: number) => (
-                              <p key={index} style={index % 2 === 1 ? { fontSize: "10px" } : undefined}>
+                              <p
+                                key={index}
+                                style={
+                                  index % 2 === 1
+                                    ? { fontSize: "10px" }
+                                    : undefined
+                                }
+                              >
                                 {item !== "undefined" ? item : ""}
                               </p>
                             ))}
@@ -452,7 +477,7 @@ const Schedule = () => {
                       </TableCell>
                     </TableRow>
                   ))}
-                  </TableBody>
+                </TableBody>
               </Table>
             </div>
           )}
