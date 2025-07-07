@@ -48,7 +48,7 @@ export default function NestedMenu({
 
                 {/* Підменю як dropdown праворуч */}
                 <div
-                  className={`absolute top-0 left-full ml-2 hidden group-hover:block bg-white border rounded-lg shadow-md z-50 min-w-[180px] py-2`}
+                  className={`absolute top-0 left-full ml-2 hidden group-hover:block bg-white dark:bg-gray-900 text-black dark:text-white border rounded-lg shadow-md z-50 min-w-[180px] py-2`}
                 >
                   <NestedMenu
                     items={item.children!}

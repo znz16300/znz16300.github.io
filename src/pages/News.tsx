@@ -98,7 +98,7 @@ const News = () => {
     return (
       <article
         key={`${item.id}-${item["Позначка часу"]}`}
-        className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in cursor-pointer"
+        className="bg-white dark:bg-gray-900 text-black dark:text-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in cursor-pointer"
         style={{ animationDelay: `${index * 150}ms` }}
         onClick={() => handleCardClick(String(item.id))}
       >
@@ -169,7 +169,7 @@ const News = () => {
       {loading ? (
         <p className="text-center py-10 text-gray-500">Завантаження новин...</p>
       ) : (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
           {/* Header */}
           <Header
             title={"Новини ліцею"}

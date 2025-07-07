@@ -104,7 +104,7 @@ const Documents = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
       <Header
         title={"Документи"}
         description={"Нормативна база та документація ліцею"}
@@ -122,7 +122,7 @@ const Documents = () => {
             return (
               <div
                 key={category.name}
-                className="bg-white rounded-xl shadow-lg p-6 animate-fade-in"
+                className="bg-white dark:bg-gray-900 text-black dark:text-white rounded-xl shadow-lg p-6 animate-fade-in"
                 style={{ animationDelay: `${categoryIndex * 200}ms` }}
               >
                 <div className="flex items-center space-x-3 mb-6">
@@ -138,7 +138,7 @@ const Documents = () => {
                   {visibleDocuments.map((doc) => (
                     <div
                       key={doc.name}
-                      className="flex flex-wrap items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors group"
+                      className="flex flex-wrap items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-white dark:bg-gray-900 text-black dark:text-white transition-colors group"
                     >
                       <div
                         className="flex items-center space-x-3"

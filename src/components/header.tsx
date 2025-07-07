@@ -12,7 +12,7 @@ function Header({
 }) {
   return (
     <header
-      className={className ? className : "bg-emerald-600 text-white py-8"}
+      className={className ? className : "bg-white dark:bg-gray-900 text-black dark:text-white py-8"}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link

@@ -130,7 +130,7 @@ const Kursi = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
         {/* Header */}
         <Header
           title={topic === "all" ? "Всі працівники" : topic}

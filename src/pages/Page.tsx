@@ -172,7 +172,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
 
   const renderSearchResult = (item: PageItem) => {
     return (
-      <div className="bg-white rounded-lg shadow p-6 mb-4 hover:shadow-md transition-shadow">
+      <div className="bg-white dark:bg-gray-900 text-black dark:text-white rounded-lg shadow p-6 mb-4 hover:shadow-md transition-shadow">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -265,7 +265,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <article
         className={
           item["Тип (1 - картки, 2- абзаци)"] === "1"
-            ? "bg-white text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all"
+            ? "bg-white dark:bg-gray-900 text-black dark:text-white text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all"
             : ""
         }
       >
@@ -305,7 +305,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       {loading ? (
         <p className="text-center py-10 text-gray-500">Завантаження...</p>
       ) : (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
           <Header
             title={topic}
             description={

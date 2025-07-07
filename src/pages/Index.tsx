@@ -35,6 +35,7 @@ import { MaterialItem } from "@/type/material";
 import { Button } from "@/components/ui/button";
 import fixKeyboardLayout from "@/lib/fixKeyboardLayout";
 import { PAGE_TABLE_1, PAGE_TABLE_2 } from "@/constants";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -211,9 +212,9 @@ const Index = () => {
       {loading ? (
         <p className="text-center py-10 text-gray-500">Завантаження...</p>
       ) : (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
           {/* Header */}
-          <header className="bg-white shadow-lg sticky top-0 z-50">
+          <header className="bg-white dark:bg-gray-900 text-black dark:text-white shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-4">
                 {/* Logo */}
@@ -291,7 +292,7 @@ const Index = () => {
 
               {/* Mobile Navigation */}
               {isMenuOpen && (
-                <div className="md:hidden fixed bg-white  py-4 border-t animate-fade-in w-full">
+                <div className="md:hidden fixed bg-white dark:bg-gray-900 text-black dark:text-white  py-4 border-t animate-fade-in w-full">
                   <nav className="space-y-2">
                     {navigationItems.map((item) => (
                       <Link
@@ -341,7 +342,7 @@ const Index = () => {
                 >
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
-                    className="bg-white text-blue-700 px-8 py-3 rounded-lg 
+                    className="bg-white dark:bg-gray-900 text-black dark:text-white text-blue-700 px-8 py-3 rounded-lg 
                 font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg"
                   >
                     Дізнатися більше
@@ -351,7 +352,7 @@ const Index = () => {
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
                     className="border-2 border-white text-white px-8 py-3 
-                  rounded-lg font-semibold hover:bg-white hover:text-blue-700 
+                  rounded-lg font-semibold hover:bg-white dark:bg-gray-900 text-black dark:text-white hover:text-blue-700 
                   transition-all duration-300 hover:scale-105"
                   >
                     Контакти
@@ -362,7 +363,7 @@ const Index = () => {
           </section>
 
           {/* New School Showcase Section */}
-          <section className="py-16 bg-white">
+          <section className="py-16 bg-white dark:bg-gray-900 text-black dark:text-white dark:bg-gray-900 text-black dark:text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* School Image */}
@@ -386,7 +387,7 @@ const Index = () => {
                   </div>
 
                   {/* Floating Stats Card */}
-                  <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                  <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-900 text-black dark:text-white rounded-xl shadow-lg p-6 border border-gray-100">
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                         <Award className="w-6 h-6 text-blue-600" />
@@ -444,7 +445,7 @@ const Index = () => {
                   <div className="space-y-3">
                     <Link
                       to={`/page?titlePages=Розклад%20дзвінків&keyPages=${PAGE_TABLE_1}`}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                      className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 text-black dark:text-white rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -464,7 +465,7 @@ const Index = () => {
 
                     <Link
                       to="/schedule"
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                      className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 text-black dark:text-white rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -482,7 +483,7 @@ const Index = () => {
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                     </Link>
 
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
+                    <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 text-black dark:text-white rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                           <Star className="w-5 h-5 text-purple-600" />
@@ -520,7 +521,7 @@ const Index = () => {
           </section>
 
           {/* Main Content Blocks */}
-          <section className="py-16 bg-gray-50">
+          <section className="py-16 bg-white dark:bg-gray-900 text-black dark:text-white dark:bg-gray-900 text-black dark:text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-12">
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -536,7 +537,7 @@ const Index = () => {
                 {infoBlocks.map((block, index) => (
                   <div
                     key={block.title}
-                    className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
+                    className="group bg-white dark:bg-gray-900 text-black dark:text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div
@@ -573,7 +574,7 @@ const Index = () => {
           </section>
 
           {/* Products Carousel Section */}
-          <section className="text-center py-16 mb-12 overflow-x-hidden w-full p-10 bg-white">
+          <section className="bg-white dark:bg-gray-900 text-black dark:text-white dark:bg-gray-900 text-black dark:text-white text-center py-16 mb-12 overflow-x-hidden w-full p-10 bg-white dark:bg-gray-900 text-black dark:text-white">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
               Навчальний простір
             </h3>
@@ -607,7 +608,7 @@ const Index = () => {
                               {product.name}
                             </h3>
                             <p className="text-xl font-bold text-primary">
-                              {/* <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-700 transition-all duration-300 hover:scale-105"> */}
+                              {/* <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white dark:bg-gray-900 text-black dark:text-white hover:text-blue-700 transition-all duration-300 hover:scale-105"> */}
                               {product.price}
                               {/* </button> */}
                             </p>
@@ -624,7 +625,7 @@ const Index = () => {
           </section>
 
           {/* Stats Section */}
-          <section className="py-16">
+          <section className="bg-white dark:bg-gray-900 text-black dark:text-white dark:bg-gray-900 text-black dark:text-white py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
@@ -651,6 +652,7 @@ const Index = () => {
           </section>
 
           {/* Footer */}
+          {/* <footer className="bg-white dark:bg-gray-900 text-black dark:text-white dark:bg-gray-900 text-black dark:text-white py-12"> */}
           <footer className="bg-gray-900 text-white py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -683,6 +685,7 @@ const Index = () => {
                       </li>
                     ))}
                   </ul>
+                  <ThemeToggle />
                 </div>
 
                 <div>
