@@ -35,6 +35,7 @@ import { MaterialItem } from "@/type/material";
 import { Button } from "@/components/ui/button";
 import fixKeyboardLayout from "@/lib/fixKeyboardLayout";
 import { PAGE_TABLE_1, PAGE_TABLE_2 } from "@/constants";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -657,7 +658,7 @@ const Index = () => {
           </section>
 
           {/* Footer */}
-          <footer className="bg-gray-900 text-white py-12">
+          <footer className="bg-blue-500 text-black py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -667,22 +668,23 @@ const Index = () => {
                     </div>
                     <h3 className="text-xl font-bold">Куликівський ліцей</h3>
                   </div>
-                  <p className="text-gray-400">
+                  <p className="text-black-400">
                     Забезпечуємо якісну освіту та всебічний розвиток особистості
                     кожного учня.
                   </p>
+                  <ThemeToggle  />
                 </div>
 
                 <div>
                   <h4 className="text-lg font-semibold mb-4">
                     Швидкі посилання
                   </h4>
-                  <ul className="space-y-2 flex flex-col flex-wrap">
+                  <ul className="space-y-2 columns-2 ">
                     {navigationItems.slice(1).map((item) => (
                       <li key={item.title}>
                         <Link
                           to={item.href}
-                          className="text-gray-400 hover:text-white transition-colors"
+                          className="text-white-400 hover:text-white transition-colors"
                         >
                           {item.title}
                         </Link>
@@ -693,7 +695,7 @@ const Index = () => {
 
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Контакти</h4>
-                  <div className="space-y-2 text-gray-400">
+                  <div className="space-y-2 text-white-400">
                     <p>📍 вул. Шевченка, 4, Куликівка</p>
                     <p>📞 +38 (046) 432-12-08</p>
                     <p>📞 +38 (046) 432-12-91</p>
@@ -702,7 +704,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+              <div className="border-t border-gray-800 mt-8 pt-8 text-center text-white-500">
                 <p>&copy; 2025 Куликівський ліцей. Всі права захищені.</p>
               </div>
             </div>

@@ -9,7 +9,7 @@ import {
   updateImgSrcsInHtml,
 } from "@/lib/utils";
 import { PageItem } from "@/type/pageItem";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Calendar, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 
@@ -216,7 +216,10 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                 }}
               />
             ) : (
-              <div className="line-clamp-3">{item["Текст новини"]}</div>
+              <div className="flex gap-2">
+                <img className="w-1/4 h-auto object-contain" src={item['Фото'].split(/(?:\n|, |,)/)[0]} alt="" />
+                <div className="line-clamp-3">{item["Текст новини"]}</div>
+              </div>
             ))}
         </div>
 
@@ -265,7 +268,11 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <article
         className={
           item["Тип (1 - картки, 2- абзаци)"] === "1"
+            // ? `bg-white text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all
+            //     ${item["Кнопка з посиланням"]?.startsWith("/page") ? "bg-gradient-to-br from-white to-gray-200" : ""
+            //         }`
             ? "bg-white text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all"
+  
             : ""
         }
       >
@@ -281,6 +288,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
               className="object-contain w-full h-full rounded-lg"
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
+            
           </div>
         ) : (
           ""
@@ -294,8 +302,15 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
             }}
           />
         ) : (
+          <div className="relative">
           <div className="text-sm text-gray-700">{item["Абзац"]}</div>
-        )}
+          <ArrowUpRight
+            className={`absolute bottom right-0 rotate-90 w-4 h-4 ${item["Кнопка з посиланням"]?.startsWith("/page") || item["Кнопка з посиланням"]?.startsWith("./page") ? "" : "hidden"}`}
+            // className="absolute bottom-1 right-1 w-4 h-4 text-red-500 group-hover:text-blue-600 transition"
+
+          />
+                 </div> )}
+                  
       </article>
     );
   };
@@ -351,8 +366,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                   <Link
                     key={item.id}
                     to={item["Кнопка з посиланням"].replace(/^\.\//, "/")}
-                    className="text-gray-900 hover:text-blue-600 transition-colors no-underline "
-                  >
+                    className={`text-gray-900 hover:text-blue-600 transition-colors no-underline`}                  >
                     {article(item)}
                   </Link>
                 ) : (
