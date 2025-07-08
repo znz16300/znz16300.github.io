@@ -54,7 +54,7 @@ export function convertUrl(link) {
     link.startsWith("http://drive.google.com")
   ) {
     const id = extractDriveFileId2(link);
-    console.log(`Extracted ID: ${id}`);
+    // console.log(`Extracted ID: ${id}`);
 
     const newUrl = `https://lh3.googleusercontent.com/d/${id}=w1000`;
     return newUrl;
@@ -68,7 +68,7 @@ export function convertUrl2(link) {
     link.startsWith("http://drive.google.com")
   ) {
     const id = extractDriveFileId2(link);
-    console.log(`Extracted ID: ${id}`);
+    // console.log(`Extracted ID: ${id}`);
 
     const newUrl = `https://drive.google.com/thumbnail?id=${id}`;
     return newUrl;
@@ -143,32 +143,35 @@ export const parseDate2 = (dateStr: string): number => {
 };
 
 export function getCurrentDateTime(): { date: Date; time: number } {
-  const now = new Date()
-  const pad = (n: number) => n.toString().padStart(2, '0')
-  const year = now.getFullYear()
-  const month = pad(now.getMonth() + 1)
-  const day = pad(now.getDate())
-  const hours = parseInt(pad(now.getHours()))
-  const minutes = parseInt(pad(now.getMinutes()))
-  const seconds = parseInt(pad(now.getSeconds()))
-  return {date: new Date(`${year}-${month}-${day}`), time: hours + minutes * 60 + seconds}
+  const now = new Date();
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const year = now.getFullYear();
+  const month = pad(now.getMonth() + 1);
+  const day = pad(now.getDate());
+  const hours = parseInt(pad(now.getHours()));
+  const minutes = parseInt(pad(now.getMinutes()));
+  const seconds = parseInt(pad(now.getSeconds()));
+  return {
+    date: new Date(`${year}-${month}-${day}`),
+    time: hours + minutes * 60 + seconds,
+  };
 }
 
-export function getTime(time: string): number  {
-  const now = new Date()
-  const hours = parseInt(time.split(':')[0] || '00');
-  const minutes = parseInt(time.split(':')[1] || '00');
-  const seconds = parseInt(time.split(':')[2] || '00');
-  return hours * 3600 + minutes * 60 + seconds
+export function getTime(time: string): number {
+  const now = new Date();
+  const hours = parseInt(time.split(":")[0] || "00");
+  const minutes = parseInt(time.split(":")[1] || "00");
+  const seconds = parseInt(time.split(":")[2] || "00");
+  return hours * 3600 + minutes * 60 + seconds;
 }
 
-export function getCurentTime(): number  {
-  const now = new Date()
-  const pad = (n: number) => n.toString().padStart(2, '0')
-  const hours = parseInt(pad(now.getHours()))
-  const minutes = parseInt(pad(now.getMinutes()))
-  const seconds = parseInt(pad(now.getSeconds()))
-  return hours * 3600 + minutes * 60 + seconds
+export function getCurentTime(): number {
+  const now = new Date();
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const hours = parseInt(pad(now.getHours()));
+  const minutes = parseInt(pad(now.getMinutes()));
+  const seconds = parseInt(pad(now.getSeconds()));
+  return hours * 3600 + minutes * 60 + seconds;
 }
 
 export function inIntervalTime(t1: string, t2: string): boolean {
@@ -176,20 +179,18 @@ export function inIntervalTime(t1: string, t2: string): boolean {
 }
 
 export function inIntervalTime2(t1: string): boolean {
-  const currentTime = getCurentTime() 
+  const currentTime = getCurentTime();
   const t = getTime(t1);
-  console.log('t', t);
-  
   return t <= currentTime && currentTime <= t + 45 * 60; // 45 хвилин
 }
 
-export function getCurentDate(): Date  {
+export function getCurentDate(): Date {
   const now = new Date();
-  const pad = (n: number) => n.toString().padStart(2, '0');
+  const pad = (n: number) => n.toString().padStart(2, "0");
   const year = now.getFullYear();
   const month = pad(now.getMonth() + 1);
   const day = pad(now.getDate());
-  return new Date (`${year}-${month}-${day}`);
+  return new Date(`${year}-${month}-${day}`);
 }
 
 export function shortenFullName(fullName: string): string {

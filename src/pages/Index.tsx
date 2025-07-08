@@ -61,13 +61,13 @@ const Index = () => {
     {
       id: 5,
       title: "Сторінки",
-      href: `/page?titlePages=Більше>&keyPages=${PAGE_TABLE_2}`,
+      href: `/page?titlePages=Більше&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
       id: 6,
       title: "Учням, батькам",
-      href: `/page?titlePages=Учням%20та%20батькам&keyPages=${PAGE_TABLE_2}`,
+      href: `/page?titlePages=Учням,%20батькам&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
@@ -86,6 +86,12 @@ const Index = () => {
       id: 7,
       title: "Харчування",
       href: `/page?titlePages=Харчування&keyPages=${PAGE_TABLE_1}`,
+      icon: Phone,
+    },
+    {
+      id: 7,
+      title: "Закупівлі",
+      href: `/page?titlePages=Закупівлі&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
     // {
