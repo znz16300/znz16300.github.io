@@ -35,11 +35,20 @@ const Documents = () => {
 
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]); // 👈 нове
 
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    return (localStorage.getItem("theme") as "light" | "dark") || "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const toggleCategory = (categoryName: string) => {
     setExpandedCategories((prev) =>
       prev.includes(categoryName)
         ? prev.filter((name) => name !== categoryName)
-        : [...prev, categoryName],
+        : [...prev, categoryName]
     );
   };
 
@@ -104,14 +113,22 @@ const Documents = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-700">
       <Header
         title={"Документи"}
         description={"Нормативна база та документація ліцею"}
-        className="bg-emerald-600 text-white py-8"
+        className="bg-emerald-600 text-white py-8 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
+          text-white py-20
+          dark:text-emerald-800  
+          dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
+          "
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12
+        dark:bg-gray-700
+      "
+      >
         <div className="space-y-8">
           {documentCategories.map((category, categoryIndex) => {
             const isExpanded = expandedCategories.includes(category.name);
@@ -122,31 +139,47 @@ const Documents = () => {
             return (
               <div
                 key={category.name}
-                className="bg-white rounded-xl shadow-lg p-6 animate-fade-in"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 animate-fade-in"
                 style={{ animationDelay: `${categoryIndex * 200}ms` }}
               >
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
                     <FolderOpen className="w-6 h-6 text-emerald-600" />
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-gray-400">
                     {category.name}
                   </h2>
                 </div>
 
-                <div className="grid gap-4 mb-4">
+                <div
+                  className="grid gap-4 mb-4 dark:bg-gray-800
+                  
+                "
+                >
                   {visibleDocuments.map((doc) => (
                     <div
                       key={doc.name}
-                      className="flex flex-wrap items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors group"
+                      className="flex flex-wrap items-center justify-between p-4 
+                      border 
+                      border-gray-200 
+                      dark:border-gray-600 
+                      rounded-lg 
+                      hover:bg-gray-50 
+                      dark:hover:bg-gray-700
+                      transition-colors group"
                     >
                       <div
-                        className="flex items-center space-x-3"
+                        className="flex items-center space-x-3 w-full md:w-2/3 "
                         title={doc.title}
                       >
                         <FileText className="w-5 h-5 text-gray-400" />
                         <div>
-                          <h3 className="font-medium text-gray-900 group-hover:text-emerald-600 transition-colors">
+                          <h3
+                            className="font-medium text-gray-900 dark:text-gray-400 
+                              group-hover:text-emerald-600 transition-colors
+                              
+                              "
+                          >
                             {doc.name}
                           </h3>
                           <p className="text-sm text-gray-500">
@@ -154,7 +187,21 @@ const Documents = () => {
                           </p>
                         </div>
                       </div>
-                      <a
+                      <div className="flex flex-row flex-wrap flex-end gap-2">
+                        {doc.url.split(", ").map((url) => (
+                          <a
+                            href={url}
+                            target="_blank"
+                            title="Завантажити"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                          >
+                            <Download className="w-4 h-4" />
+                            <span>Завантажити</span>
+                          </a>
+                        ))}
+                      </div>
+                      {/* <a
                         href={doc.url}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -162,7 +209,7 @@ const Documents = () => {
                       >
                         <Download className="w-4 h-4" />
                         <span>Завантажити</span>
-                      </a>
+                      </a> */}
                     </div>
                   ))}
                 </div>

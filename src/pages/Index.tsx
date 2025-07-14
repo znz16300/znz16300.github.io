@@ -20,6 +20,7 @@ import {
   MapPin,
   Clock,
   MoreHorizontal,
+  Mail,
 } from "lucide-react";
 import {
   Carousel,
@@ -200,13 +201,15 @@ const Index = () => {
   const handleSearch = (
     e?:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLInputElement>,
+      | React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (e) e.preventDefault();
     setIsSearchOpen(false);
     setSearchValue("");
     // Зберігаємо результати пошуку в стейті та переходимо на /page через навігацію з параметрами
-    window.location.href = `/page?search=${encodeURIComponent(fixKeyboardLayout(searchValue))}`;
+    window.location.href = `/page?search=${encodeURIComponent(
+      fixKeyboardLayout(searchValue)
+    )}`;
   };
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -218,9 +221,9 @@ const Index = () => {
       {loading ? (
         <p className="text-center py-10 text-gray-500">Завантаження...</p>
       ) : (
-        <div className="min-h-screen bg-gray-50">
+        <div className="bg-white dark:bg-gray-900 min-h-screen bg-gray-50">
           {/* Header */}
-          <header className="bg-white shadow-lg sticky top-0 z-50">
+          <header className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-4">
                 {/* Logo */}
@@ -229,10 +232,10 @@ const Index = () => {
                     <img src="./assets/icons/logo_black.svg" />
                   </div>
                   <div>
-                    <h1 className="text-xl font-bold text-gray-900">
+                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-400 ">
                       Куликівський ліцей
                     </h1>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-500 ">
                       Якісна освіта для майбутнього
                     </p>
                   </div>
@@ -248,12 +251,12 @@ const Index = () => {
                           <Link
                             key={item.title}
                             to={item.href}
-                            className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
+                            className="flex items-center space-x-2 text-gray-700 dark:text-gray-400 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
                           >
                             <item.icon className="w-4 h-4" />
                             <span className="font-medium">{item.title}</span>
                           </Link>
-                        ),
+                        )
                     )}
                   <div
                     className="flex gap-4 p-2"
@@ -262,7 +265,7 @@ const Index = () => {
                     <input
                       type="text"
                       placeholder="Пошук..."
-                      className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
+                      className="bg-white dark:bg-gray-900 flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
                       value={searchValue}
                       onChange={handleSearchInput}
                       onKeyUp={(e) => {
@@ -298,7 +301,7 @@ const Index = () => {
 
               {/* Mobile Navigation */}
               {isMenuOpen && (
-                <div className="md:hidden fixed bg-white  py-4 border-t animate-fade-in w-full">
+                <div className="md:hidden fixed bg-white dark:bg-gray-900  py-4 border-t animate-fade-in w-full">
                   <nav className="space-y-2">
                     {navigationItems.map((item) => (
                       <Link
@@ -332,14 +335,19 @@ const Index = () => {
           </header>
 
           {/* Hero Section */}
-          <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
-            {/* панель пошуку */}
+          <section
+            className="relative 
+            bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
+          text-white py-20
+          dark:from-gray-700 dark:via-gray-750 dark:to-gray-800
+          "
+          >
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in dark:text-gray-400">
                 Куликівський ліцей
               </h2>
-              <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in">
+              <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in dark:text-gray-500">
                 Сучасна освіта для успішного майбутнього
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
@@ -348,8 +356,11 @@ const Index = () => {
                 >
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
-                    className="bg-white text-blue-700 px-8 py-3 rounded-lg 
-                font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg"
+                    className="bg-white 
+                    dark:bg-gray-900 
+                    text-blue-700 
+                    dark:text-gray-400 px-8 py-3 rounded-lg 
+                    font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg"
                   >
                     Дізнатися більше
                   </button>
@@ -357,8 +368,11 @@ const Index = () => {
                 <Link to={`/page?titlePages=Контакти&keyPages=${PAGE_TABLE_1}`}>
                   <button
                     style={{ boxSizing: "border-box", minHeight: "52px" }}
-                    className="border-2 border-white text-white px-8 py-3 
-                  rounded-lg font-semibold hover:bg-white hover:text-blue-700 
+                    className="border-2 border-white 
+                    dark:border-none text-white px-8 py-3 
+                  rounded-lg font-semibold hover:bg-white 
+                  dark:bg-gray-900 hover:text-blue-700
+                  dark:text-gray-400 
                   transition-all duration-300 hover:scale-105"
                   >
                     Контакти
@@ -369,7 +383,7 @@ const Index = () => {
           </section>
 
           {/* New School Showcase Section */}
-          <section className="py-16 bg-white">
+          <section className="py-16 bg-white dark:bg-gray-900 ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* School Image */}
@@ -393,16 +407,29 @@ const Index = () => {
                   </div>
 
                   {/* Floating Stats Card */}
-                  <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                  <div className="
+    absolute -bottom-6 -right-6 
+    bg-white 
+    dark:bg-gray-900 
+    rounded-xl 
+    shadow-[0_4px_12px_rgba(0,0,0,0.15)]        /* Темна тінь для світлої теми */
+    dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)] /* Світла тінь для темної теми */
+    p-6 
+    border 
+    border-gray-100
+    dark:border-gray-700
+  "
+                  >
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <div className="w-12 h-12 bg-blue-100 rounded-lg 
+                      flex items-center justify-center">
                         <Award className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-gray-900">
+                        <div className="text-2xl font-bold text-gray-900  dark:text-gray-400">
                           25+
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-gray-600  dark:text-gray-500">
                           Років досвіду
                         </div>
                       </div>
@@ -413,10 +440,10 @@ const Index = () => {
                 {/* Interactive Content */}
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-400">
                       Наш навчальний заклад
                     </h3>
-                    <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                    <p className="text-lg text-gray-600 leading-relaxed mb-6 dark:text-gray-400">
                       Куликівський ліцей - це місце, де традиції поєднуються з
                       інноваціями. Ми пишаємося нашою історією та прагнемо до
                       постійного розвитку.
@@ -427,23 +454,27 @@ const Index = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <Link
                       to={`/page?titlePages=Учні&keyPages=${PAGE_TABLE_1}`}
-                      className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer"
+                      className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer
+                      dark:bg-gray-700
+                      "
                     >
                       <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-green-600">
                         750+
                       </div>
-                      <div className="text-sm text-gray-600">Учнів</div>
+                      <div className="text-sm text-gray-600  dark:text-gray-500">Учнів</div>
                     </Link>
                     <Link
                       to={`/page?titlePages=Учительська&keyPages=${PAGE_TABLE_1}`}
-                      className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer"
+                      className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer
+                      dark:bg-gray-700
+                      "
                     >
                       <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-green-600">
                         80+
                       </div>
-                      <div className="text-sm text-gray-600">Викладачів</div>
+                      <div className="text-sm text-gray-600  dark:text-gray-500">Викладачів</div>
                     </Link>
                   </div>
 
@@ -451,17 +482,19 @@ const Index = () => {
                   <div className="space-y-3">
                     <Link
                       to={`/page?titlePages=Розклад%20дзвінків&keyPages=${PAGE_TABLE_1}`}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group
+                      dark:bg-gray-700
+                      "
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                          <Clock className="w-5 h-5 text-orange-600" />
+                        <div className="w-10 h-10 bg-orange-100  dark:bg-orange-300 rounded-lg flex items-center justify-center">
+                          <Clock className="w-5 h-5 text-orange-600 " />
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">
+                          <div className="font-semibold text-gray-900 dark:text-gray-400">
                             Режим роботи
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-gray-500">
                             Пн-Пт: 8:00 - 17:00
                           </div>
                         </div>
@@ -471,17 +504,18 @@ const Index = () => {
 
                     <Link
                       to="/schedule"
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group"
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group
+                      dark:bg-gray-700"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <div className="w-10 h-10 bg-purple-100 dark: bg-purple-300 rounded-lg flex items-center justify-center">
                           <Star className="w-5 h-5 text-purple-600" />
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">
+                          <div className="font-semibold text-gray-900 dark:text-gray-400">
                             Розклад уроків
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-gray-500">
                             Доступний онлайн зі змінами
                           </div>
                         </div>
@@ -489,16 +523,24 @@ const Index = () => {
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                     </Link>
 
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group">
+                    <div
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group
+                    dark:bg-gray-700
+                    "
+                    >
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                          <Star className="w-5 h-5 text-purple-600" />
+                        <div
+                          className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center
+                        dark:bg-purple-500
+                        "
+                        >
+                          <Star className="w-5 h-5 text-  -600" />
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">
+                          <div className="font-semibold text-gray-900 dark:text-gray-400">
                             Рейтинг успішності
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 dark:text-gray-500">
                             95% випускників вступають до ВНЗ
                           </div>
                         </div>
@@ -511,7 +553,22 @@ const Index = () => {
                   <div className="pt-4">
                     <Button
                       asChild
-                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full 
+                      bg-gradient-to-r 
+                      from-blue-600 
+                      to-blue-700 
+                      hover:from-blue-700 
+                      hover:to-blue-800 
+  
+                      dark:from-gray-600 
+                      dark:to-gray-700 
+                      dark:hover:from-gray-600 
+                      dark:hover:to-gray-700 
+                      
+                      text-white
+                      dark:text-gray-400
+                      
+                      font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       <Link
                         to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}
@@ -527,13 +584,17 @@ const Index = () => {
           </section>
 
           {/* Main Content Blocks */}
-          <section className="py-16 bg-gray-50">
+          <section
+            className="py-16 bg-gray-50
+          dark:bg-gray-700
+          "
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-12">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4  dark:text-gray-400">
                   Про наш ліцей
                 </h3>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto  dark:text-gray-400">
                   Ознайомтеся з основними напрямками діяльності та інформацією
                   про Куликівський ліцей
                 </p>
@@ -543,25 +604,25 @@ const Index = () => {
                 {infoBlocks.map((block, index) => (
                   <div
                     key={block.title}
-                    className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
+                    className="group bg-white dark:bg-gray-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div
                       className={`h-2 bg-gradient-to-r ${block.gradient}`}
                     ></div>
-                    <div className="p-6">
+                    <div className="p-6 dark:bg-gray-600">
                       <div
                         className={`w-16 h-16 bg-gradient-to-br ${block.gradient} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
                       >
                         <block.icon className="w-8 h-8 text-white" />
                       </div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-gray-400   mb-3 group-hover:text-blue-600 transition-colors">
                         {block.title}
                       </h4>
                       <p className="text-gray-600 leading-relaxed mb-4">
                         {block.description}
                       </p>
-                      <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200 flex items-center space-x-2 group">
+                      <button className="text-blue-600 dark:text-gray-400  font-semibold hover:text-blue-700 transition-colors duration-200 flex items-center space-x-2 group">
                         <Link
                           to={block.link}
                           className="flex items-center space-x-2"
@@ -580,11 +641,11 @@ const Index = () => {
           </section>
 
           {/* Products Carousel Section */}
-          <section className="text-center py-16 mb-12 overflow-x-hidden w-full p-10 bg-white">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+          <section className="text-center py-16 mb-12 overflow-x-hidden w-full p-10 bg-white dark:bg-gray-600">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-400">
               Навчальний простір
             </h3>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto dark:text-gray-400">
               Навчальні кабінети, лабораторії та інші ресурси, які ми пропонуємо
               для забезпечення якісної освіти
             </p>
@@ -604,7 +665,7 @@ const Index = () => {
                     >
                       <div className="p-1">
                         <Card className="hover:shadow-lg transition-shadow">
-                          <CardContent className="p-4">
+                          <CardContent className="p-4 dark:bg-gray-700 dark:text-gray-400">
                             <img
                               src={product.image}
                               alt={product.name}
@@ -614,7 +675,7 @@ const Index = () => {
                               {product.name}
                             </h3>
                             <p className="text-xl font-bold text-primary">
-                              {/* <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-700 transition-all duration-300 hover:scale-105"> */}
+                              {/* <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white dark:bg-gray-900 hover:text-blue-700 transition-all duration-300 hover:scale-105"> */}
                               {product.price}
                               {/* </button> */}
                             </p>
@@ -631,7 +692,7 @@ const Index = () => {
           </section>
 
           {/* Stats Section */}
-          <section className="py-16">
+          <section className="py-16 dark:bg-gray-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
@@ -658,7 +719,12 @@ const Index = () => {
           </section>
 
           {/* Footer */}
-          <footer className="bg-blue-500 text-black py-12">
+          <footer
+            className="bg-blue-500 text-gray-100  bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
+          text-white dark:text-gray-400 py-20
+          dark:from-gray-600 dark:via-gray-700 dark:to-gray-800
+          "
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -672,7 +738,7 @@ const Index = () => {
                     Забезпечуємо якісну освіту та всебічний розвиток особистості
                     кожного учня.
                   </p>
-                  <ThemeToggle  />
+                  <ThemeToggle />
                 </div>
 
                 <div>
@@ -695,11 +761,19 @@ const Index = () => {
 
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Контакти</h4>
-                  <div className="space-y-2 text-white-400">
-                    <p>📍 вул. Шевченка, 4, Куликівка</p>
-                    <p>📞 +38 (046) 432-12-08</p>
-                    <p>📞 +38 (046) 432-12-91</p>
-                    <p>✉️ znz16300@gmail.com</p>
+                  <div className="space-y-2 text-gray-200 dark:text-gray-400">
+                    <p className="flex items-center gap-2">
+                      <MapPin size={18} /> вул. Шевченка, 4, Куликівка
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Phone size={18} /> +38 (046) 432-12-08
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Phone size={18} /> +38 (046) 432-12-91
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Mail size={18} /> znz16300@gmail.com
+                    </p>
                   </div>
                 </div>
               </div>

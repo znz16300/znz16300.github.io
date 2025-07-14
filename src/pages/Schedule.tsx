@@ -297,7 +297,7 @@ const Schedule = () => {
       ) : (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Фільтри */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 mb-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
               <Users className="w-6 h-6 mr-2 text-blue-600" />
               Оберіть параметри перегляду
@@ -377,7 +377,7 @@ const Schedule = () => {
 
           {/* Розклад */}
           {lessons.length > 0 && (
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden">
               <div className="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
                 <h3 className="text-xl font-bold flex items-center">
                   <GraduationCap className="w-6 h-6 mr-2" />
@@ -483,7 +483,7 @@ const Schedule = () => {
           )}
 
           {lessons.length === 0 && (selectedTeacher || selectedClass) && (
-            <div className="bg-white rounded-xl shadow-lg p-12 text-center">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-12 text-center">
               <Clock className="w-16 h-16 mx-auto mb-4 text-gray-300" />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">
                 Розклад не знайдено
@@ -496,7 +496,7 @@ const Schedule = () => {
           )}
 
           {!selectedTeacher && !selectedClass && (
-            <div className="bg-white rounded-xl shadow-lg p-12 text-center">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-12 text-center">
               <Users className="w-16 h-16 mx-auto mb-4 text-gray-300" />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">
                 Оберіть параметри

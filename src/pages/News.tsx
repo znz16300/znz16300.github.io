@@ -20,6 +20,15 @@ const News = () => {
   const [loading, setLoading] = useState(true);
   const [pageItems, setPageItems] = useState<PageItem[]>([]);
 
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    return (localStorage.getItem("theme") as "light" | "dark") || "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   // Завантаження новин з API
   useEffect(() => {
     const fetchData = async () => {
@@ -98,7 +107,10 @@ const News = () => {
     return (
       <article
         key={`${item.id}-${item["Позначка часу"]}`}
-        className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in cursor-pointer"
+        className="bg-white 
+        dark:bg-gray-800 
+        rounded-xl shadow-lg overflow-hidden 
+        hover:shadow-xl transition-shadow duration-300 animate-fade-in cursor-pointer"
         style={{ animationDelay: `${index * 150}ms` }}
         onClick={() => handleCardClick(String(item.id))}
       >
@@ -115,7 +127,11 @@ const News = () => {
           }}
         />
         <div className="p-6">
-          <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
+          <div className="flex items-center space-x-4 text-sm 
+          text-gray-600 
+          dark:text-gray-400 
+          
+          mb-3">
             <div className="flex items-center space-x-1">
               <Calendar className="w-4 h-4" />
               <span>{item["Позначка часу"]}</span>
@@ -126,14 +142,18 @@ const News = () => {
             </div>
           </div>
 
-          <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
+          <h2 className="text-xl font-bold text-gray-900
+          dark:text-gray-400 
+           mb-3 hover:text-blue-600 transition-colors">
             {item["Назва новини"]}
           </h2>
 
           {expandedId === String(item.id) ? (
             <>
               <div
-                className="text-gray-600 leading-relaxed mb-4 whitespace-pre-wrap transition-all duration-300"
+                className="text-gray-600
+                dark:text-gray-400 
+                leading-relaxed mb-4 whitespace-pre-wrap transition-all duration-300"
                 dangerouslySetInnerHTML={{
                   __html: item["Текст новини"],
                 }}
@@ -141,7 +161,9 @@ const News = () => {
               <Slider item={item} />
             </>
           ) : (
-            <p className="text-gray-600 leading-relaxed mb-4 whitespace-pre-wrap line-clamp-2 transition-all duration-300">
+            <p className="text-gray-600 
+            dark:text-gray-400 
+            leading-relaxed mb-4 whitespace-pre-wrap line-clamp-2 transition-all duration-300">
               {item["Текст новини"].replace(/<\/?[^>]+(>|$)/g, "")}
             </p>
           )}
@@ -169,12 +191,16 @@ const News = () => {
       {loading ? (
         <p className="text-center py-10 text-gray-500">Завантаження новин...</p>
       ) : (
-        <div className="min-h-screen bg-gray-50">
+        <div className="bg-white dark:bg-gray-600 min-h-screen bg-gray-50  dark:bg-gray-70">
           {/* Header */}
           <Header
             title={"Новини ліцею"}
             description={"Останні події та оновлення"}
-            className="bg-lime-600 text-white py-8"
+            className="bg-emerald-600 text-white py-8 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
+          text-white py-20
+          dark:text-emerald-800  
+          dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
+          "
           />
 
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -29,6 +29,15 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
   const [topic, setTopic] = useState("");
   const [isSearchMode, setIsSearchMode] = useState(false);
 
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    return (localStorage.getItem("theme") as "light" | "dark") || "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const location = useLocation();
 
   const searchTables = [
@@ -172,7 +181,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
 
   const renderSearchResult = (item: PageItem) => {
     return (
-      <div className="bg-white rounded-lg shadow p-6 mb-4 hover:shadow-md transition-shadow">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow p-6 mb-4 hover:shadow-md transition-shadow">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -217,7 +226,11 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
               />
             ) : (
               <div className="flex gap-2">
-                <img className="w-1/4 h-auto object-contain" src={item['Фото'].split(/(?:\n|, |,)/)[0]} alt="" />
+                <img
+                  className="w-1/4 h-auto object-contain"
+                  src={item["Фото"].split(/(?:\n|, |,)/)[0]}
+                  alt=""
+                />
                 <div className="line-clamp-3">{item["Текст новини"]}</div>
               </div>
             ))}
@@ -268,11 +281,10 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <article
         className={
           item["Тип (1 - картки, 2- абзаци)"] === "1"
-            // ? `bg-white text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all
-            //     ${item["Кнопка з посиланням"]?.startsWith("/page") ? "bg-gradient-to-br from-white to-gray-200" : ""
-            //         }`
-            ? "bg-white text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all"
-  
+            ? // ? `bg-white dark:bg-gray-900 text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all
+              //     ${item["Кнопка з посиланням"]?.startsWith("/page") ? "bg-gradient-to-br from-white to-gray-200" : ""
+              //         }`
+              "bg-white dark:bg-gray-700 dark:text-gray-300 text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all"
             : ""
         }
       >
@@ -288,7 +300,6 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
               className="object-contain w-full h-full rounded-lg"
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
-            
           </div>
         ) : (
           ""
@@ -296,21 +307,20 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
 
         {contentType !== "1" ? (
           <div
-            className="text-sm text-gray-700 leading-snug"
+            className="text-sm leading-snug"
             dangerouslySetInnerHTML={{
               __html: updateImgSrcsInHtml(item["Абзац"]),
             }}
           />
         ) : (
           <div className="relative">
-          <div className="text-sm text-gray-700">{item["Абзац"]}</div>
-          <ArrowUpRight
-            className={`absolute bottom right-0 rotate-90 w-4 h-4 ${item["Кнопка з посиланням"]?.startsWith("/page") || item["Кнопка з посиланням"]?.startsWith("./page") ? "" : "hidden"}`}
-            // className="absolute bottom-1 right-1 w-4 h-4 text-red-500 group-hover:text-blue-600 transition"
-
-          />
-                 </div> )}
-                  
+            <div className="text-sm ">{item["Абзац"]}</div>
+            <ArrowUpRight
+              className={`absolute bottom right-0 rotate-90 w-4 h-4 ${item["Кнопка з посиланням"]?.startsWith("/page") || item["Кнопка з посиланням"]?.startsWith("./page") ? "" : "hidden"}`}
+              // className="absolute bottom-1 right-1 w-4 h-4 text-red-500 group-hover:text-blue-600 transition"
+            />
+          </div>
+        )}
       </article>
     );
   };
@@ -320,13 +330,17 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       {loading ? (
         <p className="text-center py-10 text-gray-500">Завантаження...</p>
       ) : (
-        <div className="min-h-screen bg-gray-50">
+        <div className="bg-white dark:bg-gray-600 min-h-screen bg-gray-50  dark:bg-gray-70">
           <Header
             title={topic}
             description={
               isSearchMode ? `Знайдено результатів: ${pageItems.length}` : ""
             }
-            className="bg-blue-600 text-white py-8"
+            className="bg-emerald-600 text-white py-8 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
+          text-white py-20
+          dark:text-emerald-800  
+          dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
+          "
           />
 
           {isSearchMode ? (
@@ -366,7 +380,8 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                   <Link
                     key={item.id}
                     to={item["Кнопка з посиланням"].replace(/^\.\//, "/")}
-                    className={`text-gray-900 hover:text-blue-600 transition-colors no-underline`}                  >
+                    className={`text-gray-900 hover:text-blue-600 transition-colors no-underline`}
+                  >
                     {article(item)}
                   </Link>
                 ) : (
