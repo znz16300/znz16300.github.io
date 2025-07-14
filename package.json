@@ -10,6 +10,7 @@
     "lint": "eslint . --fix",
     "preview": "vite preview",
     "prettier": "prettier . --write",
+    "format": "prettier --write .",
     "prepare": "husky",
     "predeploy": "npm run build && node copy404.cjs",
     "deploy": "gh-pages -d dist"
@@ -82,6 +83,8 @@
     "globals": "^15.9.0",
     "lovable-tagger": "^1.1.7",
     "postcss": "^8.4.47",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Home,
   Newspaper,
@@ -21,78 +21,78 @@ import {
   Clock,
   MoreHorizontal,
   Mail,
-} from "lucide-react";
+} from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
-import { useEffect } from "react";
-import { getMaterials } from "@/api/getMaterials";
-import { MaterialItem } from "@/type/material";
-import { Button } from "@/components/ui/button";
-import fixKeyboardLayout from "@/lib/fixKeyboardLayout";
-import { PAGE_TABLE_1, PAGE_TABLE_2 } from "@/constants";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+} from '@/components/ui/carousel';
+import { Card, CardContent } from '@/components/ui/card';
+import { useEffect } from 'react';
+import { getMaterials } from '@/api/getMaterials';
+import { MaterialItem } from '@/type/material';
+import { Button } from '@/components/ui/button';
+import fixKeyboardLayout from '@/lib/fixKeyboardLayout';
+import { PAGE_TABLE_1, PAGE_TABLE_2 } from '@/constants';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
   const navigationItems = [
     // { title: "Головна", href: "/", icon: Home },
-    { id: 1, title: "Новини", href: "/news", icon: Newspaper },
-    { id: 2, title: "Документи", href: "/documents", icon: FileText },
+    { id: 1, title: 'Новини', href: '/news', icon: Newspaper },
+    { id: 2, title: 'Документи', href: '/documents', icon: FileText },
     {
       id: 3,
-      title: "Діяльність",
+      title: 'Діяльність',
       href: `/page?titlePages=Діяльність&keyPages=${PAGE_TABLE_1}`,
       icon: Activity,
     },
     {
       id: 4,
-      title: "Контакти",
+      title: 'Контакти',
       href: `/page?titlePages=Контакти&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
     {
       id: 5,
-      title: "Сторінки",
+      title: 'Сторінки',
       href: `/page?titlePages=Більше&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
       id: 6,
-      title: "Учням, батькам",
+      title: 'Учням, батькам',
       href: `/page?titlePages=Учням,%20батькам&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
       id: 7,
-      title: "Курси",
+      title: 'Курси',
       href: `/page?titlePages=Курси&keyPages=${PAGE_TABLE_2}`,
       icon: Phone,
     },
     {
       id: 7,
-      title: "Положення, порядки, інструкції",
+      title: 'Положення, порядки, інструкції',
       href: `/page?titlePages=Положення%20та%20порядки&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
     {
       id: 7,
-      title: "Харчування",
+      title: 'Харчування',
       href: `/page?titlePages=Харчування&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
     {
       id: 7,
-      title: "Закупівлі",
+      title: 'Закупівлі',
       href: `/page?titlePages=Закупівлі&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
@@ -112,7 +112,7 @@ const Index = () => {
   const seachPopupClick = async () => {
     // отримуємо дані з API для пошуку
 
-    setSearchValue("");
+    setSearchValue('');
     // відкриваємо поповер для пошуку
     setIsSearchOpen(true);
   };
@@ -121,10 +121,9 @@ const Index = () => {
 
   useEffect(() => {
     const handleShortcut = (e: KeyboardEvent) => {
-      const isMac = navigator.platform.includes("Mac");
+      const isMac = navigator.platform.includes('Mac');
       const isShortcut =
-        (isMac && e.metaKey && e.key === "f") ||
-        (!isMac && e.ctrlKey && e.key === "f");
+        (isMac && e.metaKey && e.key === 'f') || (!isMac && e.ctrlKey && e.key === 'f');
 
       if (isShortcut) {
         e.preventDefault();
@@ -132,13 +131,13 @@ const Index = () => {
       }
     };
 
-    window.addEventListener("keydown", handleShortcut);
-    return () => window.removeEventListener("keydown", handleShortcut);
+    window.addEventListener('keydown', handleShortcut);
+    return () => window.removeEventListener('keydown', handleShortcut);
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getMaterials({ type: "products", limit: 100 });
+      const result = await getMaterials({ type: 'products', limit: 100 });
       if (result) {
         setProducts(result || []);
         setLoading(false);
@@ -149,67 +148,58 @@ const Index = () => {
 
   const infoBlocks = [
     {
-      title: "Вітаємо",
+      title: 'Вітаємо',
       description:
-        "Куликівський ліцей - сучасний навчальний заклад, що забезпечує якісну освіту та всебічний розвиток особистості",
+        'Куликівський ліцей - сучасний навчальний заклад, що забезпечує якісну освіту та всебічний розвиток особистості',
       icon: GraduationCap,
-      gradient: "from-blue-500 to-blue-600",
+      gradient: 'from-blue-500 to-blue-600',
       link: `/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`,
     },
     {
-      title: "Документація",
-      description:
-        "Повний перелік установчих документів, положень та нормативних актів ліцею",
+      title: 'Документація',
+      description: 'Повний перелік установчих документів, положень та нормативних актів ліцею',
       icon: FileText,
-      gradient: "from-emerald-500 to-emerald-600",
-      link: "/documents",
+      gradient: 'from-emerald-500 to-emerald-600',
+      link: '/documents',
     },
     {
-      title: "Матеріально-технічна база",
-      description:
-        "Сучасне обладнання, комп'ютерні класи, лабораторії та спортивні споруди",
+      title: 'Матеріально-технічна база',
+      description: "Сучасне обладнання, комп'ютерні класи, лабораторії та спортивні споруди",
       icon: Building,
-      gradient: "from-purple-500 to-purple-600",
+      gradient: 'from-purple-500 to-purple-600',
       link: `/page?titlePages=Матеріально-технічна%20база&keyPages=${PAGE_TABLE_2}`,
     },
     {
-      title: "Діяльність",
-      description:
-        "Освітня, виховна та науково-методична діяльність нашого навчального закладу",
+      title: 'Діяльність',
+      description: 'Освітня, виховна та науково-методична діяльність нашого навчального закладу',
       icon: Activity,
-      gradient: "from-orange-500 to-orange-600",
+      gradient: 'from-orange-500 to-orange-600',
       link: `/page?titlePages=Діяльність&keyPages=${PAGE_TABLE_1}`,
     },
     {
-      title: "Публічна інформація",
-      description:
-        "Відкрита звітність, результати діяльності та публічні документи ліцею",
+      title: 'Публічна інформація',
+      description: 'Відкрита звітність, результати діяльності та публічні документи ліцею',
       icon: Eye,
-      gradient: "from-teal-500 to-teal-600",
+      gradient: 'from-teal-500 to-teal-600',
       link: `/page?titlePages=Відкритість%20та%20прозорість&keyPages=${PAGE_TABLE_1}`,
     },
     {
-      title: "Більше",
-      description:
-        "Додаткова інформація, корисні посилання та інші матеріали про наш ліцей",
+      title: 'Більше',
+      description: 'Додаткова інформація, корисні посилання та інші матеріали про наш ліцей',
       icon: MoreHorizontal,
-      gradient: "from-pink-500 to-pink-600",
+      gradient: 'from-pink-500 to-pink-600',
       link: `/page?titlePages=Більше&keyPages=${PAGE_TABLE_2}`,
     },
   ];
 
   const handleSearch = (
-    e?:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLInputElement>
+    e?: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (e) e.preventDefault();
     setIsSearchOpen(false);
-    setSearchValue("");
+    setSearchValue('');
     // Зберігаємо результати пошуку в стейті та переходимо на /page через навігацію з параметрами
-    window.location.href = `/page?search=${encodeURIComponent(
-      fixKeyboardLayout(searchValue)
-    )}`;
+    window.location.href = `/page?search=${encodeURIComponent(fixKeyboardLayout(searchValue))}`;
   };
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,110 +209,100 @@ const Index = () => {
   return (
     <>
       {loading ? (
-        <p className="text-center py-10 text-gray-500">Завантаження...</p>
+        <p className="py-10 text-center text-gray-500">Завантаження...</p>
       ) : (
-        <div className="bg-white dark:bg-gray-900 min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 bg-white dark:bg-gray-900">
           {/* Header */}
-          <header className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center py-4">
+          <header className="sticky top-0 z-50 bg-white shadow-lg dark:bg-gray-900">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between py-4">
                 {/* Logo */}
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg">
                     <img src="./assets/icons/logo_black.svg" />
                   </div>
                   <div>
-                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-400 ">
+                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-400">
                       Куликівський ліцей
                     </h1>
-                    <p className="text-sm text-gray-600 dark:text-gray-500 ">
+                    <p className="text-sm text-gray-600 dark:text-gray-500">
                       Якісна освіта для майбутнього
                     </p>
                   </div>
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex space-x-1">
+                <nav className="hidden space-x-1 md:flex">
                   {navigationItems
-                    .filter((i) => i.id < 5)
+                    .filter(i => i.id < 5)
                     .map(
-                      (item) =>
+                      item =>
                         item.href && (
                           <Link
                             key={item.title}
                             to={item.href}
-                            className="flex items-center space-x-2 text-gray-700 dark:text-gray-400 hover:text-blue-600 transition-colors duration-200 py-2 px-3 rounded-lg hover:bg-blue-50"
+                            className="flex items-center space-x-2 rounded-lg px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-700"
                           >
-                            <item.icon className="w-4 h-4" />
+                            <item.icon className="h-4 w-4" />
                             <span className="font-medium">{item.title}</span>
                           </Link>
                         )
                     )}
-                  <div
-                    className="flex gap-4 p-2"
-                    style={{ marginLeft: "16px" }}
-                  >
+                  <div className="flex gap-4 p-2" style={{ marginLeft: '16px' }}>
                     <input
                       type="text"
                       placeholder="Пошук..."
-                      className="bg-white dark:bg-gray-900 flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
+                      className="w-full flex-1 rounded border bg-white px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring dark:bg-gray-900"
                       value={searchValue}
                       onChange={handleSearchInput}
-                      onKeyUp={(e) => {
-                        if (e.key === "Enter") {
+                      onKeyUp={e => {
+                        if (e.key === 'Enter') {
                           handleSearch();
                         }
                       }}
-                      autoFocus
                     />
 
                     <button
                       onClick={handleSearch}
-                      className="flex items-center justify-center 
-                  hover:text-blue-600 transition-colors duration-200 
-                  "
+                      className="flex items-center justify-center transition-colors duration-200 hover:text-blue-600"
                     >
-                      <Search className="w-5 h-5" />
+                      <Search className="h-5 w-5 stroke-gray-800 dark:stroke-gray-400" />
                       <span className="ml-2" />
                     </button>
                   </div>
                 </nav>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                  className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 md:hidden"
                 >
-                  {isMenuOpen ? (
-                    <X className="w-6 h-6" />
-                  ) : (
-                    <Menu className="w-6 h-6" />
-                  )}
+                  {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
               </div>
 
               {/* Mobile Navigation */}
               {isMenuOpen && (
-                <div className="md:hidden fixed bg-white dark:bg-gray-900  py-4 border-t animate-fade-in w-full">
+                <div className="animate-fade-in fixed w-full border-t bg-white py-4 dark:bg-gray-900 md:hidden">
                   <nav className="space-y-2">
-                    {navigationItems.map((item) => (
+                    {navigationItems.map(item => (
                       <Link
                         key={item.title}
                         to={item.href}
-                        className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 transition-colors duration-200 py-3 px-4 rounded-lg hover:bg-blue-50"
+                        className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        <item.icon className="w-5 h-5" />
+                        <item.icon className="h-5 w-5" />
                         <span className="font-medium">{item.title}</span>
                       </Link>
                     ))}
-                    <div className="flex gap-2 p-2" style={{ width: "95%" }}>
+                    <div className="flex gap-2 p-2" style={{ width: '95%' }}>
                       <input
                         type="text"
                         placeholder="Пошук..."
-                        className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400 text-black w-full"
+                        className="w-full flex-1 rounded border px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring"
                         value={searchValue}
                         onChange={handleSearchInput}
-                        onKeyUp={(e) => {
-                          if (e.key === "Enter") {
+                        onKeyUp={e => {
+                          if (e.key === 'Enter') {
                             handleSearch();
                           }
                         }}
@@ -335,45 +315,27 @@ const Index = () => {
           </header>
 
           {/* Hero Section */}
-          <section
-            className="relative 
-            bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
-          text-white py-20
-          dark:from-gray-700 dark:via-gray-750 dark:to-gray-800
-          "
-          >
-
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in dark:text-gray-400">
+          <section className="dark:via-gray-750 relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 text-white dark:from-gray-700 dark:to-gray-800">
+            <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+              <h2 className="animate-fade-in mb-6 text-4xl font-bold dark:text-gray-400 md:text-6xl">
                 Куликівський ліцей
               </h2>
-              <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-fade-in dark:text-gray-500">
+              <p className="animate-fade-in mb-8 text-xl text-blue-100 dark:text-gray-500 md:text-2xl">
                 Сучасна освіта для успішного майбутнього
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scale-in">
-                <Link
-                  to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}
-                >
+              <div className="animate-scale-in flex flex-col justify-center gap-4 sm:flex-row">
+                <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
                   <button
-                    style={{ boxSizing: "border-box", minHeight: "52px" }}
-                    className="bg-white 
-                    dark:bg-gray-900 
-                    text-blue-700 
-                    dark:text-gray-400 px-8 py-3 rounded-lg 
-                    font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg"
+                    style={{ boxSizing: 'border-box', minHeight: '52px' }}
+                    className="rounded-lg bg-white px-8 py-3 font-semibold text-blue-700 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-50 dark:bg-gray-900 dark:text-gray-400"
                   >
                     Дізнатися більше
                   </button>
                 </Link>
                 <Link to={`/page?titlePages=Контакти&keyPages=${PAGE_TABLE_1}`}>
                   <button
-                    style={{ boxSizing: "border-box", minHeight: "52px" }}
-                    className="border-2 border-white 
-                    dark:border-none text-white px-8 py-3 
-                  rounded-lg font-semibold hover:bg-white 
-                  dark:bg-gray-900 hover:text-blue-700
-                  dark:text-gray-400 
-                  transition-all duration-300 hover:scale-105"
+                    style={{ boxSizing: 'border-box', minHeight: '52px' }}
+                    className="rounded-lg border-2 border-white px-8 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-white hover:text-blue-700 dark:border-none dark:bg-gray-900 dark:text-gray-400"
                   >
                     Контакти
                   </button>
@@ -383,9 +345,9 @@ const Index = () => {
           </section>
 
           {/* New School Showcase Section */}
-          <section className="py-16 bg-white dark:bg-gray-900 ">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <section className="bg-white py-16 dark:bg-gray-900">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
                 {/* School Image */}
                 <div className="relative">
                   <div className="relative overflow-hidden rounded-2xl shadow-2xl">
@@ -393,13 +355,13 @@ const Index = () => {
                       src="/assets/images/school_summer.jpg"
                       // src="/assets/images/school.png"
                       alt="Куликівський ліцей"
-                      className="w-full h-96 object-cover transform hover:scale-105 transition-transform duration-500"
+                      className="h-96 w-full transform object-cover transition-transform duration-500 hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                     <div className="absolute bottom-4 left-4 text-white">
                       <div className="flex items-center space-x-2">
-                        <MapPin className="w-5 h-5" />
-                        <span className="text-sm font-medium">
+                        <MapPin className="h-5 w-5" />
+                        <span className="text-sm font-medium dark:text-gray-400">
                           вул. Шевченка, 4, Куликівка
                         </span>
                       </div>
@@ -407,29 +369,16 @@ const Index = () => {
                   </div>
 
                   {/* Floating Stats Card */}
-                  <div className="
-    absolute -bottom-6 -right-6 
-    bg-white 
-    dark:bg-gray-900 
-    rounded-xl 
-    shadow-[0_4px_12px_rgba(0,0,0,0.15)]        /* Темна тінь для світлої теми */
-    dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)] /* Світла тінь для темної теми */
-    p-6 
-    border 
-    border-gray-100
-    dark:border-gray-700
-  "
-                  >
+                  <div className="/* Темна тінь для світлої теми */ /* Світла тінь для темної теми */ absolute -bottom-6 -right-6 rounded-xl border border-gray-100 bg-white p-6 shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:border-gray-700 dark:bg-gray-900 dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)]">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg 
-                      flex items-center justify-center">
-                        <Award className="w-6 h-6 text-blue-600" />
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+                        <Award className="h-6 w-6 text-blue-600" />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-gray-900  dark:text-gray-400">
+                        <div className="text-2xl font-bold text-gray-900 dark:text-gray-400">
                           25+
                         </div>
-                        <div className="text-sm text-gray-600  dark:text-gray-500">
+                        <div className="text-sm text-gray-600 dark:text-gray-500">
                           Років досвіду
                         </div>
                       </div>
@@ -440,13 +389,12 @@ const Index = () => {
                 {/* Interactive Content */}
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-400">
+                    <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-400">
                       Наш навчальний заклад
                     </h3>
-                    <p className="text-lg text-gray-600 leading-relaxed mb-6 dark:text-gray-400">
-                      Куликівський ліцей - це місце, де традиції поєднуються з
-                      інноваціями. Ми пишаємося нашою історією та прагнемо до
-                      постійного розвитку.
+                    <p className="mb-6 text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+                      Куликівський ліцей - це місце, де традиції поєднуються з інноваціями. Ми
+                      пишаємося нашою історією та прагнемо до постійного розвитку.
                     </p>
                   </div>
 
@@ -454,27 +402,19 @@ const Index = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <Link
                       to={`/page?titlePages=Учні&keyPages=${PAGE_TABLE_1}`}
-                      className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 transition-colors cursor-pointer
-                      dark:bg-gray-700
-                      "
+                      className="cursor-pointer rounded-lg bg-blue-50 p-4 text-center transition-colors hover:bg-blue-100 dark:bg-gray-700"
                     >
-                      <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-green-600">
-                        750+
-                      </div>
-                      <div className="text-sm text-gray-600  dark:text-gray-500">Учнів</div>
+                      <Users className="mx-auto mb-2 h-8 w-8 text-blue-600" />
+                      <div className="text-2xl font-bold text-green-600">750+</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-500">Учнів</div>
                     </Link>
                     <Link
                       to={`/page?titlePages=Учительська&keyPages=${PAGE_TABLE_1}`}
-                      className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 transition-colors cursor-pointer
-                      dark:bg-gray-700
-                      "
+                      className="cursor-pointer rounded-lg bg-green-50 p-4 text-center transition-colors hover:bg-green-100 dark:bg-gray-700"
                     >
-                      <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-green-600">
-                        80+
-                      </div>
-                      <div className="text-sm text-gray-600  dark:text-gray-500">Викладачів</div>
+                      <GraduationCap className="mx-auto mb-2 h-8 w-8 text-green-600" />
+                      <div className="text-2xl font-bold text-green-600">80+</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-500">Викладачів</div>
                     </Link>
                   </div>
 
@@ -482,13 +422,11 @@ const Index = () => {
                   <div className="space-y-3">
                     <Link
                       to={`/page?titlePages=Розклад%20дзвінків&keyPages=${PAGE_TABLE_1}`}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group
-                      dark:bg-gray-700
-                      "
+                      className="group flex cursor-pointer items-center justify-between rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-gray-700"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-orange-100  dark:bg-orange-300 rounded-lg flex items-center justify-center">
-                          <Clock className="w-5 h-5 text-orange-600 " />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-300">
+                          <Clock className="h-5 w-5 text-orange-600" />
                         </div>
                         <div>
                           <div className="font-semibold text-gray-900 dark:text-gray-400">
@@ -499,17 +437,16 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      <ChevronRight className="h-5 w-5 text-gray-400 transition-colors group-hover:text-gray-600" />
                     </Link>
 
                     <Link
                       to="/schedule"
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group
-                      dark:bg-gray-700"
+                      className="group flex cursor-pointer items-center justify-between rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-gray-700"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-purple-100 dark: bg-purple-300 rounded-lg flex items-center justify-center">
-                          <Star className="w-5 h-5 text-purple-600" />
+                        <div className="dark: flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 bg-purple-300">
+                          <Star className="h-5 w-5 text-purple-600" />
                         </div>
                         <div>
                           <div className="font-semibold text-gray-900 dark:text-gray-400">
@@ -520,21 +457,13 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      <ChevronRight className="h-5 w-5 text-gray-400 transition-colors group-hover:text-gray-600" />
                     </Link>
 
-                    <div
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer group
-                    dark:bg-gray-700
-                    "
-                    >
+                    <div className="group flex cursor-pointer items-center justify-between rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-gray-700">
                       <div className="flex items-center space-x-3">
-                        <div
-                          className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center
-                        dark:bg-purple-500
-                        "
-                        >
-                          <Star className="w-5 h-5 text-  -600" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-500">
+                          <Star className="text- -600 h-5 w-5" />
                         </div>
                         <div>
                           <div className="font-semibold text-gray-900 dark:text-gray-400">
@@ -545,7 +474,7 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      <ChevronRight className="h-5 w-5 text-gray-400 transition-colors group-hover:text-gray-600" />
                     </div>
                   </div>
 
@@ -553,28 +482,11 @@ const Index = () => {
                   <div className="pt-4">
                     <Button
                       asChild
-                      className="w-full 
-                      bg-gradient-to-r 
-                      from-blue-600 
-                      to-blue-700 
-                      hover:from-blue-700 
-                      hover:to-blue-800 
-  
-                      dark:from-gray-600 
-                      dark:to-gray-700 
-                      dark:hover:from-gray-600 
-                      dark:hover:to-gray-700 
-                      
-                      text-white
-                      dark:text-gray-400
-                      
-                      font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl dark:from-gray-600 dark:to-gray-700 dark:text-gray-400 dark:hover:from-gray-600 dark:hover:to-gray-700"
                     >
-                      <Link
-                        to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}
-                      >
+                      <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
                         Дізнатися про ліцей детальніше
-                        <ChevronRight className="w-5 h-5 ml-2" />
+                        <ChevronRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
                   </div>
@@ -584,53 +496,40 @@ const Index = () => {
           </section>
 
           {/* Main Content Blocks */}
-          <section
-            className="py-16 bg-gray-50
-          dark:bg-gray-700
-          "
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4  dark:text-gray-400">
+          <section className="bg-gray-50 py-16 dark:bg-gray-700">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="mb-12 text-center">
+                <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-400 md:text-4xl">
                   Про наш ліцей
                 </h3>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto  dark:text-gray-400">
-                  Ознайомтеся з основними напрямками діяльності та інформацією
-                  про Куликівський ліцей
+                <p className="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-400">
+                  Ознайомтеся з основними напрямками діяльності та інформацією про Куликівський
+                  ліцей
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {infoBlocks.map((block, index) => (
                   <div
                     key={block.title}
-                    className="group bg-white dark:bg-gray-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in"
+                    className="animate-fade-in group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl dark:bg-gray-600"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div
-                      className={`h-2 bg-gradient-to-r ${block.gradient}`}
-                    ></div>
+                    <div className={`h-2 bg-gradient-to-r ${block.gradient}`}></div>
                     <div className="p-6 dark:bg-gray-600">
                       <div
-                        className={`w-16 h-16 bg-gradient-to-br ${block.gradient} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                        className={`h-16 w-16 bg-gradient-to-br ${block.gradient} mb-4 flex items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110`}
                       >
-                        <block.icon className="w-8 h-8 text-white" />
+                        <block.icon className="h-8 w-8 text-white" />
                       </div>
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-gray-400   mb-3 group-hover:text-blue-600 transition-colors">
+                      <h4 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-400">
                         {block.title}
                       </h4>
-                      <p className="text-gray-600 leading-relaxed mb-4">
-                        {block.description}
-                      </p>
-                      <button className="text-blue-600 dark:text-gray-400  font-semibold hover:text-blue-700 transition-colors duration-200 flex items-center space-x-2 group">
-                        <Link
-                          to={block.link}
-                          className="flex items-center space-x-2"
-                        >
+                      <p className="mb-4 leading-relaxed text-gray-600">{block.description}</p>
+                      <button className="group flex items-center space-x-2 font-semibold text-blue-600 transition-colors duration-200 hover:text-blue-700 dark:text-gray-400">
+                        <Link to={block.link} className="flex items-center space-x-2">
                           <span>Детальніше</span>
-                          <span className="group-hover:translate-x-1 transition-transform">
-                            →
-                          </span>
+                          <span className="transition-transform group-hover:translate-x-1">→</span>
                         </Link>
                       </button>
                     </div>
@@ -641,39 +540,37 @@ const Index = () => {
           </section>
 
           {/* Products Carousel Section */}
-          <section className="text-center py-16 mb-12 overflow-x-hidden w-full p-10 bg-white dark:bg-gray-600">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-400">
+          <section className="mb-12 w-full overflow-x-hidden bg-white p-10 py-16 text-center dark:bg-gray-600">
+            <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-400">
               Навчальний простір
             </h3>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto dark:text-gray-400">
-              Навчальні кабінети, лабораторії та інші ресурси, які ми пропонуємо
-              для забезпечення якісної освіти
+            <p className="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-400">
+              Навчальні кабінети, лабораторії та інші ресурси, які ми пропонуємо для забезпечення
+              якісної освіти
             </p>
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
               <Carousel
                 opts={{
-                  align: "start",
+                  align: 'start',
                   loop: true,
                 }}
                 className="w-full"
               >
                 <CarouselContent className="-ml-2 md:-ml-4">
-                  {products.map((product) => (
+                  {products.map(product => (
                     <CarouselItem
                       key={`${product.id}-${product.name}`}
-                      className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                      className="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3"
                     >
                       <div className="p-1">
-                        <Card className="hover:shadow-lg transition-shadow">
+                        <Card className="transition-shadow hover:shadow-lg">
                           <CardContent className="p-4 dark:bg-gray-700 dark:text-gray-400">
                             <img
                               src={product.image}
                               alt={product.name}
-                              className="w-full h-48 object-cover rounded-md mb-4"
+                              className="mb-4 h-48 w-full rounded-md object-cover"
                             />
-                            <h3 className="font-semibold text-lg mb-2">
-                              {product.name}
-                            </h3>
+                            <h3 className="mb-2 text-lg font-semibold">{product.name}</h3>
                             <p className="text-xl font-bold text-primary">
                               {/* <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white dark:bg-gray-900 hover:text-blue-700 transition-all duration-300 hover:scale-105"> */}
                               {product.price}
@@ -693,25 +590,23 @@ const Index = () => {
 
           {/* Stats Section */}
           <section className="py-16 dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
                 {[
-                  { number: "750+", label: "Учнів" },
-                  { number: "80+", label: "Викладачів" },
-                  { number: "25", label: "Років досвіду" },
-                  { number: "95%", label: "Успішність" },
+                  { number: '750+', label: 'Учнів' },
+                  { number: '80+', label: 'Викладачів' },
+                  { number: '25', label: 'Років досвіду' },
+                  { number: '95%', label: 'Успішність' },
                 ].map((stat, index) => (
                   <div
                     key={stat.label}
-                    className="text-center animate-scale-in"
+                    className="animate-scale-in text-center"
                     style={{ animationDelay: `${index * 150}ms` }}
                   >
-                    <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                    <div className="mb-2 text-3xl font-bold text-blue-600 md:text-4xl">
                       {stat.number}
                     </div>
-                    <div className="text-gray-600 font-medium">
-                      {stat.label}
-                    </div>
+                    <div className="font-medium text-gray-600">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -719,38 +614,30 @@ const Index = () => {
           </section>
 
           {/* Footer */}
-          <footer
-            className="bg-blue-500 text-gray-100  bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 
-          text-white dark:text-gray-400 py-20
-          dark:from-gray-600 dark:via-gray-700 dark:to-gray-800
-          "
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <footer className="bg-blue-500 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 text-gray-100 text-white dark:from-gray-600 dark:via-gray-700 dark:to-gray-800 dark:text-gray-400">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 <div>
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                      <GraduationCap className="w-6 h-6 text-white" />
+                  <div className="mb-4 flex items-center space-x-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
+                      <GraduationCap className="h-6 w-6 text-white" />
                     </div>
                     <h3 className="text-xl font-bold">Куликівський ліцей</h3>
                   </div>
                   <p className="text-black-400">
-                    Забезпечуємо якісну освіту та всебічний розвиток особистості
-                    кожного учня.
+                    Забезпечуємо якісну освіту та всебічний розвиток особистості кожного учня.
                   </p>
                   <ThemeToggle />
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold mb-4">
-                    Швидкі посилання
-                  </h4>
-                  <ul className="space-y-2 columns-2 ">
-                    {navigationItems.slice(1).map((item) => (
+                  <h4 className="mb-4 text-lg font-semibold">Швидкі посилання</h4>
+                  <ul className="columns-2 space-y-2">
+                    {navigationItems.slice(1).map(item => (
                       <li key={item.title}>
                         <Link
                           to={item.href}
-                          className="text-white-400 hover:text-white transition-colors"
+                          className="text-white-400 transition-colors hover:text-white"
                         >
                           {item.title}
                         </Link>
@@ -760,7 +647,7 @@ const Index = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold mb-4">Контакти</h4>
+                  <h4 className="mb-4 text-lg font-semibold">Контакти</h4>
                   <div className="space-y-2 text-gray-200 dark:text-gray-400">
                     <p className="flex items-center gap-2">
                       <MapPin size={18} /> вул. Шевченка, 4, Куликівка
@@ -778,7 +665,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="border-t border-gray-800 mt-8 pt-8 text-center text-white-500">
+              <div className="text-white-500 mt-8 border-t border-gray-800 pt-8 text-center">
                 <p>&copy; 2025 Куликівський ліцей. Всі права захищені.</p>
               </div>
             </div>

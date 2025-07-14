@@ -1,5 +1,5 @@
-import { MaterialItem } from "@/type/material";
-import axios from "axios";
+import { MaterialItem } from '@/type/material';
+import axios from 'axios';
 
 export async function getMaterials(p0: {
   type: string;
@@ -11,7 +11,7 @@ export async function getMaterials(p0: {
 
     return data;
   } catch (error) {
-    console.error("Помилка при завантаженні новин:", error);
+    console.error('Помилка при завантаженні новин:', error);
     return null;
   }
 }
