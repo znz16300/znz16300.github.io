@@ -45,7 +45,14 @@ const Kursi = () => {
   const [loading, setLoading] = useState(true);
   const [topic, setTopic] = useState('all');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  console.log('Page component loaded');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -113,17 +120,18 @@ const Kursi = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50  dark:bg-gray-70  dark:bg-gray-600">
         {/* Header */}
         <Header
           title={topic === 'all' ? 'Всі працівники' : topic}
           description={'Перегляд підвищення кваліфікації, формування клопотань'}
+          className="bg-emerald-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
         />
         {loading ? (
           <p className="py-10 text-center text-gray-500">Завантаження...</p>
         ) : (
           <>
-            <div className="mx-auto mt-6 flex max-w-7xl items-center justify-center gap-4 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto mt-6 flex max-w-7xl items-center justify-center gap-4 px-4 sm:px-6 lg:px-8  dark:bg-gray-70  dark:bg-gray-600">
               <label>Педагогічний працівник:</label>
               <Select
                 value={topic}

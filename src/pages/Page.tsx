@@ -37,7 +37,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
 
   const searchTables = [
     {
-      chapter: 'Новини',
+      chapter:  'Новини',
       idTable: '1Dk0WYpOKeRoDATgzMkIkFjUcFwNAG5MRn4W7bEyzd0M',
     },
     {
@@ -176,11 +176,11 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <div className="mb-4 rounded-lg bg-white p-6 shadow transition-shadow hover:shadow-md dark:bg-gray-900">
         <div className="mb-3 flex items-start justify-between">
           <div className="flex-1">
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-400">
               {item['Назва новини'] || item['Назва документу'] || item['Розділ'] || 'Без назви'}
             </h3>
             <div className="mb-3 flex items-center gap-4 text-sm text-gray-500">
-              <span className="rounded-full bg-blue-100 px-2 py-1 text-blue-800">
+              <span className="rounded-full bg-blue-100 dark:bg-gray-600 px-2 py-1 text-blue-800 dark:text-gray-400">
                 {item.chapter}
               </span>
               {item['Позначка часу'] && (
@@ -194,7 +194,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
         </div>
 
         <div
-          className="overflow-hidden leading-relaxed text-gray-700"
+          className="overflow-hidden leading-relaxed text-gray-700 dark:text-gray-400"
           style={{ maxHeight: '200px' }}
         >
           {item['Абзац'] && (
@@ -232,21 +232,21 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                 /^\.\//,
                 '/'
               )}
-              className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800"
+              className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-gray-400"
               target="_blank"
             >
               Детальніше →
             </Link>
           ) : item.chapter === 'Новини' ? (
             // Тут твій компонент для новин
-            <Link to={`/news?id=${item.id}`} className="text-blue-600 hover:underline">
+            <Link to={`/news?id=${item.id}`} className="text-blue-600 dark:text-gray-400 hover:underline">
               Читати новину →
             </Link>
           ) : item.chapter === 'Сторінки' ? (
             // Тут компонент для сторінок
             <Link
               to={`/page?titlePages=${encodeURIComponent(item.Розділ)}&keyPages=${item['idTable']}`}
-              className="text-blue-600 hover:underline"
+              className="text-blue-600 dark:text-gray-400 hover:underline"
             >
               Перейти →
             </Link>

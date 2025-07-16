@@ -169,7 +169,7 @@ const News = () => {
       {loading ? (
         <p className="py-10 text-center text-gray-500">Завантаження новин...</p>
       ) : (
-        <div className="dark:bg-gray-70 min-h-screen bg-gray-50 bg-white dark:bg-gray-600">
+        <div className="min-h-screen bg-gray-50 bg-white dark:bg-gray-70  dark:bg-gray-600">
           {/* Header */}
           <Header
             title={'Новини ліцею'}

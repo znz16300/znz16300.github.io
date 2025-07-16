@@ -198,7 +198,6 @@ const Index = () => {
     if (e) e.preventDefault();
     setIsSearchOpen(false);
     setSearchValue('');
-    // Зберігаємо результати пошуку в стейті та переходимо на /page через навігацію з параметрами
     window.location.href = `/page?search=${encodeURIComponent(fixKeyboardLayout(searchValue))}`;
   };
 
@@ -252,7 +251,7 @@ const Index = () => {
                     <input
                       type="text"
                       placeholder="Пошук..."
-                      className="w-full flex-1 rounded border bg-white px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring dark:bg-gray-900"
+                      className="w-full flex-1 rounded border bg-white px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring dark:bg-gray-900 dark:text-gray-400 dark:focus:border-gray-900"
                       value={searchValue}
                       onChange={handleSearchInput}
                       onKeyUp={e => {
@@ -283,11 +282,13 @@ const Index = () => {
               {isMenuOpen && (
                 <div className="animate-fade-in fixed w-full border-t bg-white py-4 dark:bg-gray-900 md:hidden">
                   <nav className="space-y-2">
-                    {navigationItems.map(item => (
+                    {navigationItems
+                    .filter(i => i.id < 7)
+                    .map(item => (
                       <Link
                         key={item.title}
                         to={item.href}
-                        className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
+                        className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 dark:text-gray-400  transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         <item.icon className="h-5 w-5" />
@@ -298,7 +299,7 @@ const Index = () => {
                       <input
                         type="text"
                         placeholder="Пошук..."
-                        className="w-full flex-1 rounded border px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring"
+                        className="w-full flex-1 rounded border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring text-black dark:bg-gray-900 dark:text-gray-400 dark:focus:border-gray-900"
                         value={searchValue}
                         onChange={handleSearchInput}
                         onKeyUp={e => {
@@ -369,7 +370,7 @@ const Index = () => {
                   </div>
 
                   {/* Floating Stats Card */}
-                  <div className="/* Темна тінь для світлої теми */ /* Світла тінь для темної теми */ absolute -bottom-6 -right-6 rounded-xl border border-gray-100 bg-white p-6 shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:border-gray-700 dark:bg-gray-900 dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)]">
+                  <div className="absolute -bottom-6 -right-6 rounded-xl border border-gray-100 bg-white p-6 shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:border-gray-700 dark:bg-gray-900 dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)]">
                     <div className="flex items-center space-x-4">
                       <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
                         <Award className="h-6 w-6 text-blue-600" />
@@ -572,7 +573,6 @@ const Index = () => {
                             />
                             <h3 className="mb-2 text-lg font-semibold">{product.name}</h3>
                             <p className="text-xl font-bold text-primary">
-                              {/* <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white dark:bg-gray-900 hover:text-blue-700 transition-all duration-300 hover:scale-105"> */}
                               {product.price}
                               {/* </button> */}
                             </p>

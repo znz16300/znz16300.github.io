@@ -27,6 +27,8 @@ import {
   parseDate2,
   shortenFullName,
 } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import CustomCalendar from '@/components/ui/customcalendar';
 
 type ScheduleData = {
   templFile: string;
@@ -59,6 +61,14 @@ const Schedule = () => {
   const [glData, setGlData] = useState<ScheduleData[]>([]);
   const [lessons, setLessons] = useState<LessonData[]>([]);
   const [loader, setLoader] = useState<boolean>(true);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   // Ініціалізація параметрів з URL
   useEffect(() => {
@@ -164,10 +174,8 @@ const Schedule = () => {
     const weekData = getData(mode === 'teacher' ? 'week1' : 'week1 (clas)')?.data || [];
     const missingData =
       getData('missingbook').data.filter(data => parseDate(data[1]) === parseDate2(date)) || [];
-    // console.log("missingData:", missingData);
 
     const dayInfo = getDayInfo();
-    // console.log("dayInfo:", dayInfo);
 
     // Якщо немає даних про робочий день, показуємо вільні години
     if (dayInfo.chZn === 1 && dayInfo.dWeek === 1 && !hasWorkdayData()) {
@@ -225,7 +233,6 @@ const Schedule = () => {
           missingData.find(
             data => data[5].trim() === selectedClass.trim() && String(data[9]) === String(i + 1)
           ) || '-';
-        // console.log("substitute:", substitute);
 
         const lesson = row[offset + i + 1] || '-';
         const substituteReport = substitute[8] + '/' + substitute[6] || '-';
@@ -268,11 +275,11 @@ const Schedule = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50  dark:bg-gray-600">
       <Header
         title="Розклад уроків"
         description="Перегляд розкладу занять для вчителів та класів"
-        className="bg-blue-600 py-8 text-white"
+        className="bg-blue-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
       />
 
       {loader ? (
@@ -281,7 +288,7 @@ const Schedule = () => {
           <p className="text-lg">Завантаження розкладу...</p>
         </div>
       ) : (
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 dark:bg-gray-600">
           {/* Фільтри */}
           <div className="mb-8 rounded-xl bg-white p-6 shadow-lg dark:bg-gray-900">
             <h3 className="mb-6 flex items-center text-xl font-bold text-gray-900">
@@ -295,7 +302,7 @@ const Schedule = () => {
                   Вчитель
                 </Label>
                 <Select value={selectedTeacher} onValueChange={handleTeacherChange}>
-                  <SelectTrigger id="teacher-select" className="w-full">
+                  <SelectTrigger id="teacher-select" className="w-full  dark:text-gray-400">
                     <SelectValue placeholder="Оберіть вчителя" />
                   </SelectTrigger>
                   <SelectContent>
@@ -313,7 +320,7 @@ const Schedule = () => {
                   Клас
                 </Label>
                 <Select value={selectedClass} onValueChange={handleClassChange}>
-                  <SelectTrigger id="class-select" className="w-full">
+                  <SelectTrigger id="class-select" className="w-full  dark:text-gray-400">
                     <SelectValue placeholder="Оберіть клас" />
                   </SelectTrigger>
                   <SelectContent>
@@ -330,19 +337,26 @@ const Schedule = () => {
                 <Label htmlFor="date-input" className="text-sm font-medium text-gray-700">
                   Дата
                 </Label>
-                <Input
+                <CustomCalendar 
+                  id="date-input"
+                  type="date"
+                  value={date}
+                  onChange={e => handleChangeDate(e.target.value)}
+                  className="w-full dark:bg-gray-600 dark:text-gray-400"
+                />
+                {/* <Input
                   id="date-input"
                   type="date"
                   value={date}
                   onChange={e => handleChangeDate(e.target.value)}
                   className="w-full"
-                />
+                /> */}
               </div>
             </div>
 
             {date && (
-              <div className="mt-4 rounded-lg bg-blue-50 p-3">
-                <p className="text-sm font-medium text-blue-700">Обрана дата: {formatDate(date)}</p>
+              <div className="mt-4 rounded-lg bg-blue-50 p-3 dark:bg-gray-800">
+                <p className="text-sm font-medium text-blue-700 dark:text-gray-400">Обрана дата: {formatDate(date)}</p>
               </div>
             )}
           </div>
@@ -350,8 +364,8 @@ const Schedule = () => {
           {/* Розклад */}
           {lessons.length > 0 && (
             <div className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-900">
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
-                <h3 className="flex items-center text-xl font-bold">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-gray-800 to-gray-900 px-6 py-4 text-white">
+                <h3 className="flex items-center text-xl font-bold dark:text-gray-400">
                   <GraduationCap className="mr-2 h-6 w-6" />
                   Розклад для: {selectedTeacher || selectedClass}
                 </h3>
@@ -374,7 +388,7 @@ const Schedule = () => {
                   {lessons.map((lesson, index) => (
                     <TableRow
                       key={index}
-                      className={`border hover:bg-gray-50 ${
+                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${
                         inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
                       }`}
                     >
@@ -384,7 +398,7 @@ const Schedule = () => {
                           {lesson.time}
                         </div>
                       </TableCell>
-                      <TableCell className="font-medium text-blue-600">
+                      <TableCell className="font-medium text-blue-600 dark:text-blue-900 ">
                         <div className="flex items-center">{index + 1}</div>
                       </TableCell>
 
