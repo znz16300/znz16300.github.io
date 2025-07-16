@@ -267,13 +267,12 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <article
         className={
           item['Тип (1 - картки, 2- абзаци)'] === '1'
-            ? 
-              'flex h-full flex-col rounded-lg bg-white p-8 text-center shadow transition-all hover:font-bold hover:shadow-md dark:bg-gray-700 dark:text-gray-300'
+            ? 'flex h-full flex-col rounded-lg bg-white p-8 text-center shadow transition-all hover:font-bold hover:shadow-md dark:bg-gray-700 dark:text-gray-300'
             : ''
         }
       >
         {item['Тип (1 - картки, 2- абзаци)'] === '1' ? (
-        // {contentType === '1' ? (
+          // {contentType === '1' ? (
           <div className="mb-4 flex h-40 w-full items-center justify-center overflow-hidden rounded-lg">
             <img
               src={item['Фото'] !== '' ? convertUrl(item['Фото']) : '/assets/icons/document.svg'}
@@ -287,7 +286,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
         )}
 
         {item['Тип (1 - картки, 2- абзаци)'] !== '1' ? (
-        // {contentType !== '1' ? (
+          // {contentType !== '1' ? (
           <div
             className="text-sm leading-snug"
             dangerouslySetInnerHTML={{
