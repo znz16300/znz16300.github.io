@@ -267,14 +267,13 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <article
         className={
           item['Тип (1 - картки, 2- абзаци)'] === '1'
-            ? // ? `bg-white dark:bg-gray-900 text-center rounded-lg shadow p-8 flex flex-col h-full hover:shadow-md hover:font-bold transition-all
-              //     ${item["Кнопка з посиланням"]?.startsWith("/page") ? "bg-gradient-to-br from-white to-gray-200" : ""
-              //         }`
+            ? 
               'flex h-full flex-col rounded-lg bg-white p-8 text-center shadow transition-all hover:font-bold hover:shadow-md dark:bg-gray-700 dark:text-gray-300'
             : ''
         }
       >
-        {contentType === '1' ? (
+        {item['Тип (1 - картки, 2- абзаци)'] === '1' ? (
+        // {contentType === '1' ? (
           <div className="mb-4 flex h-40 w-full items-center justify-center overflow-hidden rounded-lg">
             <img
               src={item['Фото'] !== '' ? convertUrl(item['Фото']) : '/assets/icons/document.svg'}
@@ -287,7 +286,8 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
           ''
         )}
 
-        {contentType !== '1' ? (
+        {item['Тип (1 - картки, 2- абзаци)'] !== '1' ? (
+        // {contentType !== '1' ? (
           <div
             className="text-sm leading-snug"
             dangerouslySetInnerHTML={{
