@@ -33,8 +33,18 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
     const [touchEnd, setTouchEnd] = React.useState<number | null>(null);
 
     const months = [
-      'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
-      'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'
+      'Січень',
+      'Лютий',
+      'Березень',
+      'Квітень',
+      'Травень',
+      'Червень',
+      'Липень',
+      'Серпень',
+      'Вересень',
+      'Жовтень',
+      'Листопад',
+      'Грудень',
     ];
 
     const daysOfWeek = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
@@ -128,17 +138,22 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
 
     const isToday = (date: Date | null): boolean => {
       const today = new Date();
-      return date !== null &&
+      return (
+        date !== null &&
         date.getDate() === today.getDate() &&
         date.getMonth() === today.getMonth() &&
-        date.getFullYear() === today.getFullYear();
+        date.getFullYear() === today.getFullYear()
+      );
     };
 
     const isSelected = (date: Date | null): boolean => {
-      return selectedDate !== null && date !== null &&
+      return (
+        selectedDate !== null &&
+        date !== null &&
         date.getDate() === selectedDate.getDate() &&
         date.getMonth() === selectedDate.getMonth() &&
-        date.getFullYear() === selectedDate.getFullYear();
+        date.getFullYear() === selectedDate.getFullYear()
+      );
     };
 
     const days = getDaysInMonth(currentDate);
@@ -153,34 +168,34 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
             value={formatDate(selectedDate)}
             placeholder={placeholder}
             readOnly
-            className={cn("pr-10 cursor-pointer", className)}
+            className={cn('cursor-pointer pr-10', className)}
             onClick={() => setIsCalendarOpen(prev => !prev)}
           />
           <button
             type="button"
             onClick={() => setIsCalendarOpen(prev => !prev)}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500 hover:text-gray-700"
           >
             <Calendar size={16} />
           </button>
         </div>
 
         {isCalendarOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-600 dark:text-gray-400 border border-gray-300 rounded-lg shadow-lg z-10">
-            <div className="flex items-center justify-between p-3 border-b border-gray-200">
-              <button onClick={handlePrevMonth} className="p-1 hover:bg-gray-100 rounded">
+          <div className="absolute left-0 right-0 top-full z-10 mt-2 rounded-lg border border-gray-300 bg-white shadow-lg dark:bg-gray-600 dark:text-gray-400">
+            <div className="flex items-center justify-between border-b border-gray-200 p-3">
+              <button onClick={handlePrevMonth} className="rounded p-1 hover:bg-gray-100">
                 <ChevronLeft size={16} />
               </button>
               <h3 className="text-sm font-semibold">
                 {months[currentDate.getMonth()]} {currentDate.getFullYear()}
               </h3>
-              <button onClick={handleNextMonth} className="p-1 hover:bg-gray-100 rounded">
+              <button onClick={handleNextMonth} className="rounded p-1 hover:bg-gray-100">
                 <ChevronRight size={16} />
               </button>
             </div>
 
             <div
-              className="p-3 select-none cursor-grab active:cursor-grabbing"
+              className="cursor-grab select-none p-3 active:cursor-grabbing"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -189,9 +204,9 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
             >
-              <div className="grid grid-cols-7 gap-1 mb-2">
+              <div className="mb-2 grid grid-cols-7 gap-1">
                 {daysOfWeek.map((day, i) => (
-                  <div key={i} className="text-center text-xs font-medium text-gray-500 py-1">
+                  <div key={i} className="py-1 text-center text-xs font-medium text-gray-500">
                     {day}
                   </div>
                 ))}
@@ -201,10 +216,10 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
                   <div
                     key={i}
                     className={cn(
-                      'text-center text-sm py-1 cursor-pointer rounded transition-colors',
+                      'cursor-pointer rounded py-1 text-center text-sm transition-colors',
                       date ? 'hover:bg-gray-100' : '',
-                      isToday(date) ? 'bg-blue-100 text-blue-600 font-semibold' : '',
-                      isSelected(date) ? 'bg-blue-500 text-white font-semibold' : '',
+                      isToday(date) ? 'bg-blue-100 font-semibold text-blue-600' : '',
+                      isSelected(date) ? 'bg-blue-500 font-semibold text-white' : '',
                       !date ? 'cursor-default' : ''
                     )}
                     onClick={() => date && handleDateSelect(date)}
@@ -215,11 +230,11 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
               </div>
             </div>
 
-            <div className="p-3 border-t border-gray-200">
+            <div className="border-t border-gray-200 p-3">
               <button
                 type="button"
                 onClick={() => setIsCalendarOpen(false)}
-                className="w-full px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded transition-colors dark:bg-gray-600 dark:text-gray-400"
+                className="w-full rounded bg-gray-100 px-3 py-2 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-400"
               >
                 Закрити
               </button>

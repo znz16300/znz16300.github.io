@@ -120,7 +120,7 @@ const Kursi = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50  dark:bg-gray-70  dark:bg-gray-600">
+      <div className="dark:bg-gray-70 min-h-screen bg-gray-50 dark:bg-gray-600">
         {/* Header */}
         <Header
           title={topic === 'all' ? 'Всі працівники' : topic}
@@ -131,7 +131,7 @@ const Kursi = () => {
           <p className="py-10 text-center text-gray-500">Завантаження...</p>
         ) : (
           <>
-            <div className="mx-auto mt-6 flex max-w-7xl items-center justify-center gap-4 px-4 sm:px-6 lg:px-8  dark:bg-gray-70  dark:bg-gray-600">
+            <div className="dark:bg-gray-70 mx-auto mt-6 flex max-w-7xl items-center justify-center gap-4 px-4 dark:bg-gray-600 sm:px-6 lg:px-8">
               <label>Педагогічний працівник:</label>
               <Select
                 value={topic}

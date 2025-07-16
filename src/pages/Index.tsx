@@ -283,23 +283,23 @@ const Index = () => {
                 <div className="animate-fade-in fixed w-full border-t bg-white py-4 dark:bg-gray-900 md:hidden">
                   <nav className="space-y-2">
                     {navigationItems
-                    .filter(i => i.id < 7)
-                    .map(item => (
-                      <Link
-                        key={item.title}
-                        to={item.href}
-                        className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 dark:text-gray-400  transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <item.icon className="h-5 w-5" />
-                        <span className="font-medium">{item.title}</span>
-                      </Link>
-                    ))}
+                      .filter(i => i.id < 7)
+                      .map(item => (
+                        <Link
+                          key={item.title}
+                          to={item.href}
+                          className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <item.icon className="h-5 w-5" />
+                          <span className="font-medium">{item.title}</span>
+                        </Link>
+                      ))}
                     <div className="flex gap-2 p-2" style={{ width: '95%' }}>
                       <input
                         type="text"
                         placeholder="Пошук..."
-                        className="w-full flex-1 rounded border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring text-black dark:bg-gray-900 dark:text-gray-400 dark:focus:border-gray-900"
+                        className="w-full flex-1 rounded border px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring dark:bg-gray-900 dark:text-gray-400 dark:focus:border-gray-900"
                         value={searchValue}
                         onChange={handleSearchInput}
                         onKeyUp={e => {

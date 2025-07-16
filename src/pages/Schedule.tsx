@@ -275,7 +275,7 @@ const Schedule = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50  dark:bg-gray-600">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-600">
       <Header
         title="Розклад уроків"
         description="Перегляд розкладу занять для вчителів та класів"
@@ -288,7 +288,7 @@ const Schedule = () => {
           <p className="text-lg">Завантаження розкладу...</p>
         </div>
       ) : (
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 dark:bg-gray-600">
+        <div className="mx-auto max-w-6xl px-4 py-12 dark:bg-gray-600 sm:px-6 lg:px-8">
           {/* Фільтри */}
           <div className="mb-8 rounded-xl bg-white p-6 shadow-lg dark:bg-gray-900">
             <h3 className="mb-6 flex items-center text-xl font-bold text-gray-900">
@@ -302,7 +302,7 @@ const Schedule = () => {
                   Вчитель
                 </Label>
                 <Select value={selectedTeacher} onValueChange={handleTeacherChange}>
-                  <SelectTrigger id="teacher-select" className="w-full  dark:text-gray-400">
+                  <SelectTrigger id="teacher-select" className="w-full dark:text-gray-400">
                     <SelectValue placeholder="Оберіть вчителя" />
                   </SelectTrigger>
                   <SelectContent>
@@ -320,7 +320,7 @@ const Schedule = () => {
                   Клас
                 </Label>
                 <Select value={selectedClass} onValueChange={handleClassChange}>
-                  <SelectTrigger id="class-select" className="w-full  dark:text-gray-400">
+                  <SelectTrigger id="class-select" className="w-full dark:text-gray-400">
                     <SelectValue placeholder="Оберіть клас" />
                   </SelectTrigger>
                   <SelectContent>
@@ -337,7 +337,7 @@ const Schedule = () => {
                 <Label htmlFor="date-input" className="text-sm font-medium text-gray-700">
                   Дата
                 </Label>
-                <CustomCalendar 
+                <CustomCalendar
                   id="date-input"
                   type="date"
                   value={date}
@@ -356,7 +356,9 @@ const Schedule = () => {
 
             {date && (
               <div className="mt-4 rounded-lg bg-blue-50 p-3 dark:bg-gray-800">
-                <p className="text-sm font-medium text-blue-700 dark:text-gray-400">Обрана дата: {formatDate(date)}</p>
+                <p className="text-sm font-medium text-blue-700 dark:text-gray-400">
+                  Обрана дата: {formatDate(date)}
+                </p>
               </div>
             )}
           </div>
@@ -364,7 +366,7 @@ const Schedule = () => {
           {/* Розклад */}
           {lessons.length > 0 && (
             <div className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-900">
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-gray-800 to-gray-900 px-6 py-4 text-white">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 to-gray-900 px-6 py-4 text-white dark:from-gray-800">
                 <h3 className="flex items-center text-xl font-bold dark:text-gray-400">
                   <GraduationCap className="mr-2 h-6 w-6" />
                   Розклад для: {selectedTeacher || selectedClass}
@@ -398,7 +400,7 @@ const Schedule = () => {
                           {lesson.time}
                         </div>
                       </TableCell>
-                      <TableCell className="font-medium text-blue-600 dark:text-blue-900 ">
+                      <TableCell className="font-medium text-blue-600 dark:text-blue-900">
                         <div className="flex items-center">{index + 1}</div>
                       </TableCell>
 
