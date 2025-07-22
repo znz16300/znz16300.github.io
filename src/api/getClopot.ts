@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { fullNameToInic, fullNameToParts } from '@/lib/nameUtils';
-import { COURSES_TABLE_COLLS } from '@/constants';
+import { COURSES_TABLE_COLLS, SERVER } from '@/constants';
 import getParams, { params } from './getParams';
 import { getGenitiveAll } from '@/lib/getPatronymic';
 import { DataObject, TrainingItem } from '@/type/kursi';
@@ -79,7 +79,7 @@ async function getClopot(courses: DataObject[]) {
     const param = await getParams();
     console.log('params.GOLOVA', param.GOLOVA);
     const context = createContext(courses, param.GOLOVA, param.ZAKLAD);
-    const url = `https://schooltools.pythonanywhere.com/getFileKursi`;
+    const url = `${SERVER}getFileKursi`;
     const formData = new URLSearchParams();
     for (const key in context) {
       // eslint-disable-next-line no-prototype-builtins
@@ -94,7 +94,7 @@ async function getClopot(courses: DataObject[]) {
         },
       });
       const data = response.data;
-      document.location.href = `https://schooltools.pythonanywhere.com/test/${data}`;
+      document.location.href = `${SERVER}test/${data}`;
     } catch (error) {
       console.error('Error fetching file:', error);
     }

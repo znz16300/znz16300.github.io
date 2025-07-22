@@ -1,9 +1,10 @@
+import { SERVER } from '@/constants';
 import { parseDate } from '@/lib/utils';
 import { DataObject, TrainingItem } from '@/type/kursi';
 import { PageItem } from '@/type/pageItem';
 import axios from 'axios';
 
-const SERVER_URL = 'https://schooltools.pythonanywhere.com';
+
 const tableNews = {
   tableName: '1W6zD4eXSqCFW2iObVuNUyjj_hyS1aPi_tWe7Ce8dxWU',
   sheetName: 'Відповіді форми (1)',
@@ -35,7 +36,7 @@ export async function getKursiFromServ(
     // Якщо ще не в кеші — завантажуємо
     try {
       const response = await axios.get(
-        `${SERVER_URL}/getdata/${idSheet}/${tableNews.sheetName}/A1:Q10000`
+        `${SERVER}getdata/${idSheet}/${tableNews.sheetName}/A1:Q10000`
       );
 
       allData = response.data.sort((a: TrainingItem, b: TrainingItem) => {

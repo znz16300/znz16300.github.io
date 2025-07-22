@@ -29,6 +29,7 @@ import {
 } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
 import CustomCalendar from '@/components/ui/customcalendar';
+import { SERVER } from '@/constants';
 
 type ScheduleData = {
   templFile: string;
@@ -48,7 +49,7 @@ type LessonData = {
   className?: string;
 };
 
-const SERVER = 'https://schooltools.pythonanywhere.com/';
+
 const KEY = '1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk';
 
 const Schedule = () => {
@@ -165,9 +166,23 @@ const Schedule = () => {
 
   // Подія при зміні дати
   const handleChangeDate = (value: string) => {
-    setDate(value);
-    updateUrl(selectedTeacher, selectedClass, value);
+    console.log(value);
+
+    // Перевіряємо, чи рядок відповідає формату dd.mm.yyyy
+    const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+    const match = value.match(dateRegex);
+
+    let formattedDate = value;
+
+    if (match) {
+      const [, day, month, year] = match;
+      formattedDate = `${year}-${month}-${day}`;
+    }
+
+    setDate(formattedDate);
+    updateUrl(selectedTeacher, selectedClass, formattedDate);
   };
+
 
   // Показати розклад
   const showSchedule = (name: string, mode: 'teacher' | 'class') => {
@@ -344,13 +359,6 @@ const Schedule = () => {
                   onChange={e => handleChangeDate(e.target.value)}
                   className="w-full dark:bg-gray-600 dark:text-gray-400"
                 />
-                {/* <Input
-                  id="date-input"
-                  type="date"
-                  value={date}
-                  onChange={e => handleChangeDate(e.target.value)}
-                  className="w-full"
-                /> */}
               </div>
             </div>
 
@@ -390,9 +398,8 @@ const Schedule = () => {
                   {lessons.map((lesson, index) => (
                     <TableRow
                       key={index}
-                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${
-                        inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
-                      }`}
+                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
+                        }`}
                     >
                       <TableCell className="font-medium text-blue-600">
                         <div className="flex items-center">
@@ -420,13 +427,13 @@ const Schedule = () => {
                           {lesson.lesson === '-'
                             ? 'Вільна година'
                             : lesson.lesson.split(/\/|\|/).map((item: string, index: number) => (
-                                <p
-                                  key={index}
-                                  style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
-                                >
-                                  {item}
-                                </p>
-                              ))}
+                              <p
+                                key={index}
+                                style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
+                              >
+                                {item}
+                              </p>
+                            ))}
                         </TableCell>
                       )}
                       <TableCell className="font-medium text-blue-600">
