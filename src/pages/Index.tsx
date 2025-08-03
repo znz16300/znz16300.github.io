@@ -96,17 +96,6 @@ const Index = () => {
       href: `/page?titlePages=Закупівлі&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
     },
-    // {
-    //   id: 5,title: "",
-    //   icon: Search,
-    //   seachPopup: async () => {
-    //     // отримуємо дані з API для пошуку
-
-    //     id: 6,setSearchValue("");
-    //     // відкриваємо поповер для пошуку
-    //     setIsSearchOpen(true);
-    //   },
-    // },
   ];
 
   const seachPopupClick = async () => {

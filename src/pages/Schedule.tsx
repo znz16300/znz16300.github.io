@@ -37,6 +37,14 @@ type ScheduleData = {
   header: string[][];
 };
 
+type Schedule = {
+  id: string; //імʼя сторінки
+  sheetData: {
+    id: string; //номери по порядку від 0
+    [key: string]: string; //назви стовпців таблиці (з header та відповідні дані з цього рядка)
+  }[]; //масив рядків
+};
+
 type DayInfo = {
   chZn: number;
   dWeek: number;
@@ -48,7 +56,6 @@ type LessonData = {
   lesson: string;
   className?: string;
 };
-
 
 const KEY = '1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk';
 
@@ -138,6 +145,8 @@ const Schedule = () => {
 
   // Отримати таблицю з усіх
   const getData = (tableName: string): ScheduleData | null => {
+    console.log(glData);
+    
     return glData.find(d => d.templFile === tableName) || null;
   };
 
@@ -182,7 +191,6 @@ const Schedule = () => {
     setDate(formattedDate);
     updateUrl(selectedTeacher, selectedClass, formattedDate);
   };
-
 
   // Показати розклад
   const showSchedule = (name: string, mode: 'teacher' | 'class') => {
@@ -374,7 +382,7 @@ const Schedule = () => {
           {/* Розклад */}
           {lessons.length > 0 && (
             <div className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-900">
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 to-gray-900 px-6 py-4 text-white dark:from-gray-800">
+              <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-6 py-4 text-white dark:from-gray-800">
                 <h3 className="flex items-center text-xl font-bold dark:text-gray-400">
                   <GraduationCap className="mr-2 h-6 w-6" />
                   Розклад для: {selectedTeacher || selectedClass}
@@ -398,8 +406,9 @@ const Schedule = () => {
                   {lessons.map((lesson, index) => (
                     <TableRow
                       key={index}
-                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
-                        }`}
+                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                        inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
+                      }`}
                     >
                       <TableCell className="font-medium text-blue-600">
                         <div className="flex items-center">
@@ -427,13 +436,13 @@ const Schedule = () => {
                           {lesson.lesson === '-'
                             ? 'Вільна година'
                             : lesson.lesson.split(/\/|\|/).map((item: string, index: number) => (
-                              <p
-                                key={index}
-                                style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
-                              >
-                                {item}
-                              </p>
-                            ))}
+                                <p
+                                  key={index}
+                                  style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
+                                >
+                                  {item}
+                                </p>
+                              ))}
                         </TableCell>
                       )}
                       <TableCell className="font-medium text-blue-600">
