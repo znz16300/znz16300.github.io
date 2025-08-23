@@ -34,6 +34,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import getClopot from '@/api/getClopot';
 import Header from '@/components/header';
+import { User as UserAuth } from '@/type/auth';
 
 const Kursi = () => {
   const itemsPerPage = 5;
@@ -53,6 +54,28 @@ const Kursi = () => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authService = await import('../api/authService');
+      setIsAuthenticated(authService.default.isAuthenticated());
+    };
+    checkAuth();
+  }, []);
+
+  const [user, setUser] = useState<UserAuth | null>(null);
+  
+    useEffect(() => {
+      const fetchUser = async () => {
+        if (isAuthenticated) {
+          const authService = await import('../api/authService');
+          const userProfile = await authService.default.getProfile();
+          setUser(userProfile);
+        }
+      };
+      fetchUser();
+    }, [isAuthenticated]);
 
   const location = useLocation();
   const navigate = useNavigate();

@@ -21,6 +21,9 @@ import {
   Clock,
   MoreHorizontal,
   Mail,
+  UserIcon,
+  LogOutIcon,
+  LogInIcon,
 } from 'lucide-react';
 import {
   Carousel,
@@ -37,6 +40,7 @@ import { Button } from '@/components/ui/button';
 import fixKeyboardLayout from '@/lib/fixKeyboardLayout';
 import { PAGE_TABLE_1, PAGE_TABLE_2 } from '@/constants';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { User } from '@/type/auth';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -135,6 +139,28 @@ const Index = () => {
     fetchData();
   }, []);
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authService = await import('../api/authService');
+      setIsAuthenticated(authService.default.isAuthenticated());
+    };
+    checkAuth();
+  }, []);
+
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isAuthenticated) {
+        const authService = await import('../api/authService');
+        const userProfile = await authService.default.getProfile();
+        setUser(userProfile);
+      }
+    };
+    fetchUser();
+  }, [isAuthenticated]);
+
   const infoBlocks = [
     {
       title: 'Вітаємо',
@@ -193,6 +219,36 @@ const Index = () => {
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
+
+  const authSection = () => {
+    {/* Auth section */ }
+    return (
+      <div className="my-4">
+        {isAuthenticated ? (
+          <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-2">
+              <Link to="/profile" className="flex-row text-white-400 hover:text-white font-semibold" title='Особистий кабінет'>
+                <UserIcon />
+              </Link>
+              <Link to="/profile" className="flex-row text-white-400 hover:text-white font-semibold" title='Особистий кабінет'>
+                {user?.name || ''}
+              </Link>
+            </div>
+            <Link to="/logout" className="text-white-400 hover:text-white font-semibold">
+              <LogOutIcon />
+            </Link>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            <Link to="/login" className="flex flex-row gap-2 text-white-400 hover:text-white font-semibold">
+              <LogInIcon />
+            </Link>
+          </div>
+        )}
+
+      </div>
+    )
+  }
 
   return (
     <>
@@ -256,6 +312,7 @@ const Index = () => {
                     >
                       <Search className="h-5 w-5 stroke-gray-800 dark:stroke-gray-400" />
                       <span className="ml-2" />
+                      {authSection()}
                     </button>
                   </div>
                 </nav>
@@ -298,6 +355,7 @@ const Index = () => {
                         }}
                       />
                     </div>
+                    {authSection()}
                   </nav>
                 </div>
               )}
@@ -616,6 +674,8 @@ const Index = () => {
                   <p className="text-black-400">
                     Забезпечуємо якісну освіту та всебічний розвиток особистості кожного учня.
                   </p>
+                  {authSection()}
+
                   <ThemeToggle />
                 </div>
 

@@ -57,7 +57,8 @@ type LessonData = {
   className?: string;
 };
 
-const KEY = '1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk';
+const KEY = '1vWepnObCCI_61Ubt4Dlh6nWBjOUICCCrn8MyG-od9Sg';
+// const KEY = '1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk';
 
 const Schedule = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -146,7 +147,7 @@ const Schedule = () => {
   // Отримати таблицю з усіх
   const getData = (tableName: string): ScheduleData | null => {
     console.log(glData);
-    
+
     return glData.find(d => d.templFile === tableName) || null;
   };
 

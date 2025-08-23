@@ -1,7 +1,10 @@
 export const PAGE_TABLE_1 = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
 export const PAGE_TABLE_2 = '12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4';
-export const SERVER = 'https://schooltools.pythonanywhere.com/';
-// export const SERVER = 'http://127.0.0.1:5000/';
+// export const SERVER = 'https://schooltools.pythonanywhere.com/';
+export const SERVER = 'https://alexzelenskiy.pythonanywhere.com/';
+// export const SERVER = 'http://127.0.0.1:5000';
+
+export const TOKEN_LIFETIME_SECONDS = 3600;
 
 export const REASONS = [
   { title: 'Лікарняний', label: 'ТН' },
