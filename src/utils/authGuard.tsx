@@ -11,20 +11,22 @@ interface OptionalAuthGuardProps {
   fallbackComponent?: React.ComponentType;
 }
 
-export const OptionalAuthGuard: React.FC<OptionalAuthGuardProps> = ({ 
-  children, 
+export const OptionalAuthGuard: React.FC<OptionalAuthGuardProps> = ({
+  children,
   requireAuth = false,
   requireRole,
   redirectTo = '/login',
-  fallbackComponent: FallbackComponent
+  fallbackComponent: FallbackComponent,
 }) => {
   const { isAuthenticated, user, isLoading } = useAuthContext();
   const location = useLocation();
 
   if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-pulse">Завантаження...</div>
-    </div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="animate-pulse">Завантаження...</div>
+      </div>
+    );
   }
 
   // Якщо авторизація не обов'язкова, показуємо контент

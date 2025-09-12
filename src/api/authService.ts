@@ -1,10 +1,8 @@
-
-import { SERVER, TOKEN_LIFETIME_SECONDS } from "@/constants";
-import { ApiResponse, AuthTokens, LoginCredentials, RegisterData, User } from "@/type/auth";
+import { SERVER, TOKEN_LIFETIME_SECONDS } from '@/constants';
+import { ApiResponse, AuthTokens, LoginCredentials, RegisterData, User } from '@/type/auth';
 
 // services/authService.ts
 class AuthService {
-
   private baseURL: string;
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
@@ -37,12 +35,9 @@ class AuthService {
   }
 
   // Базовий метод для HTTP запитів
-  private async makeRequest<T>(
-    endpoint: string, 
-    options: RequestInit = {}
-  ): Promise<T> {
+  private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
-    
+
     const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
@@ -55,13 +50,13 @@ class AuthService {
     if (this.accessToken && !endpoint.includes('/auth/refresh')) {
       config.headers = {
         ...config.headers,
-        'Authorization': `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.accessToken}`,
       };
     }
 
     try {
       const response = await fetch(url, config);
-      
+
       // Якщо токен застарів, спробуємо оновити його
       if (response.status === 401 && this.refreshToken && !endpoint.includes('/auth/refresh')) {
         const newTokens = await this.refreshAccessToken();
@@ -69,7 +64,7 @@ class AuthService {
           // Повторюємо запит з новим токеном
           config.headers = {
             ...config.headers,
-            'Authorization': `Bearer ${this.accessToken}`,
+            Authorization: `Bearer ${this.accessToken}`,
           };
           return this.makeRequest<T>(endpoint, options);
         }
@@ -97,7 +92,9 @@ class AuthService {
       });
       return response;
     } catch (error) {
-      throw new Error(`Registration failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Registration failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -132,7 +129,7 @@ class AuthService {
       const response = await this.makeRequest<{ access_token: string }>('/auth/refresh', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.refreshToken}`,
+          Authorization: `Bearer ${this.refreshToken}`,
         },
       });
 
@@ -158,7 +155,9 @@ class AuthService {
       });
       return response;
     } catch (error) {
-      throw new Error(`Failed to get profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to get profile: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -171,7 +170,9 @@ class AuthService {
       });
       return response;
     } catch (error) {
-      throw new Error(`Failed to update profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to update profile: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -198,7 +199,9 @@ class AuthService {
       });
       return response;
     } catch (error) {
-      throw new Error(`Email confirmation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Email confirmation failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -246,7 +249,7 @@ class AuthService {
     const expiryTime = Number(decoded.exp);
     const lifeTime = TOKEN_LIFETIME_SECONDS - 300; // 5 хвилин в секундах
 
-    return (expiryTime - now) < lifeTime;
+    return expiryTime - now < lifeTime;
   }
 
   // Автоматичне оновлення токена якщо він скоро закінчиться

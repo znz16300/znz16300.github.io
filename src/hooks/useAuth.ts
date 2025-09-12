@@ -50,7 +50,7 @@ export const useAuth = (): UseAuthReturn => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       await authService.login(credentials);
       const profile = await authService.getProfile();
       setUser(profile);
@@ -67,7 +67,7 @@ export const useAuth = (): UseAuthReturn => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       await authService.register(userData);
       // Після реєстрації користувач повинен підтвердити email
     } catch (err) {
@@ -89,7 +89,7 @@ export const useAuth = (): UseAuthReturn => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       await authService.updateProfile(profileData);
       const updatedProfile = await authService.getProfile();
       setUser(updatedProfile);
@@ -111,9 +111,12 @@ export const useAuth = (): UseAuthReturn => {
   useEffect(() => {
     if (!authService.isAuthenticated()) return;
 
-    const interval = setInterval(() => {
-      authService.autoRefreshToken();
-    }, 4 * 60 * 1000); // Перевіряємо кожні 4 хвилини
+    const interval = setInterval(
+      () => {
+        authService.autoRefreshToken();
+      },
+      4 * 60 * 1000
+    ); // Перевіряємо кожні 4 хвилини
 
     return () => clearInterval(interval);
   }, [user]);

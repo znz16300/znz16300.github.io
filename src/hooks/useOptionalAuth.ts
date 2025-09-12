@@ -1,9 +1,7 @@
-
 // hooks/useOptionalAuth.ts - Hook для компонентів з необов'язковою авторизацією
 
-import { useAuthContext } from "@/context/authContext";
-import { User } from "@/type/auth";
-
+import { useAuthContext } from '@/context/authContext';
+import { User } from '@/type/auth';
 
 export interface UseOptionalAuthReturn {
   isAuthenticated: boolean;
@@ -23,10 +21,9 @@ export const useOptionalAuth = (features: string[] = []): UseOptionalAuthReturn 
   };
 
   const showAuthPrompt = features.length > 0 && !isAuthenticated;
-  
-  const authPromptMessage = features.length > 0 
-    ? `Увійдіть в систему для доступу до: ${features.join(', ')}`
-    : '';
+
+  const authPromptMessage =
+    features.length > 0 ? `Увійдіть в систему для доступу до: ${features.join(', ')}` : '';
 
   return {
     isAuthenticated,
@@ -36,4 +33,3 @@ export const useOptionalAuth = (features: string[] = []): UseOptionalAuthReturn 
     authPromptMessage,
   };
 };
-

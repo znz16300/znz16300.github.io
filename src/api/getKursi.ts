@@ -1,4 +1,4 @@
-import { SERVER } from '@/constants';
+import { SERVER_2 } from '@/constants';
 import { parseDate } from '@/lib/utils';
 import { DataObject, TrainingItem } from '@/type/kursi';
 import { PageItem } from '@/type/pageItem';
@@ -35,7 +35,7 @@ export async function getKursiFromServ(
     // Якщо ще не в кеші — завантажуємо
     try {
       const response = await axios.get(
-        `${SERVER}getdata/${idSheet}/${tableNews.sheetName}/A1:Q10000`
+        `${SERVER_2}getdata/${idSheet}/${tableNews.sheetName}/A1:Q10000`
         // `${SERVER}getjson/${idSheet}/${tableNews.sheetName}/A1:Q10000`
       );
 

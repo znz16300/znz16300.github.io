@@ -20,7 +20,7 @@ export const AuthStatus: React.FC<AuthStatusProps> = ({
   if (!isAuthenticated && !showForGuests) return null;
 
   return (
-    <Alert className={isAuthenticated ? "border-green-200" : "border-blue-200"}>
+    <Alert className={isAuthenticated ? 'border-green-200' : 'border-blue-200'}>
       {isAuthenticated ? (
         <CheckCircle className="h-4 w-4 text-green-600" />
       ) : (
@@ -33,12 +33,18 @@ export const AuthStatus: React.FC<AuthStatusProps> = ({
           </span>
         ) : (
           <span>
-            Ви не авторизовані. <Link to="/login" className="underline">Увійти</Link> або{' '}
-            <Link to="/register" className="underline">зареєструватися</Link> для додаткових можливостей.
+            Ви не авторизовані.{' '}
+            <Link to="/login" className="underline">
+              Увійти
+            </Link>{' '}
+            або{' '}
+            <Link to="/register" className="underline">
+              зареєструватися
+            </Link>{' '}
+            для додаткових можливостей.
           </span>
         )}
       </AlertDescription>
     </Alert>
   );
 };
-

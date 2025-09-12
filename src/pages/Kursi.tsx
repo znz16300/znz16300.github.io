@@ -65,17 +65,17 @@ const Kursi = () => {
   }, []);
 
   const [user, setUser] = useState<UserAuth | null>(null);
-  
-    useEffect(() => {
-      const fetchUser = async () => {
-        if (isAuthenticated) {
-          const authService = await import('../api/authService');
-          const userProfile = await authService.default.getProfile();
-          setUser(userProfile);
-        }
-      };
-      fetchUser();
-    }, [isAuthenticated]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isAuthenticated) {
+        const authService = await import('../api/authService');
+        const userProfile = await authService.default.getProfile();
+        setUser(userProfile);
+      }
+    };
+    fetchUser();
+  }, [isAuthenticated]);
 
   const location = useLocation();
   const navigate = useNavigate();

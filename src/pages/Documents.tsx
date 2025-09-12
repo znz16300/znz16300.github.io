@@ -106,7 +106,7 @@ const Documents = () => {
       <Header
         title={'Документи'}
         description={'Нормативна база та документація ліцею'}
-        className="bg-emerald-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
+        className="bg-emerald-600 bg-gradient-to-br from-green-600 via-green-700 to-green-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
       />
 
       <div className="mx-auto max-w-6xl px-4 py-12 dark:bg-gray-700 sm:px-6 lg:px-8">

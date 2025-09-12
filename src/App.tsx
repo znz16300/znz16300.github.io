@@ -39,39 +39,39 @@ const App = () => {
               <Route path="/kursi" element={<Kursi />} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/documents" element={<Documents />} />
-              
+
               {/* Авторизаційні маршрути */}
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/register" element={<Register />} />
               <Route path="/confirm-email/:token" element={<EmailConfirmation />} />
-              
+
               {/* Маршрути для авторизованих користувачів */}
-              <Route 
-                path="/profile" 
+              <Route
+                path="/profile"
                 element={
                   <OptionalAuthGuard requireAuth={true} redirectTo="/login">
                     <Profile />
                   </OptionalAuthGuard>
-                } 
+                }
               />
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <OptionalAuthGuard requireAuth={true} redirectTo="/login">
                     <UserDashboard />
                   </OptionalAuthGuard>
-                } 
+                }
               />
-              <Route 
-                path="/admin" 
+              <Route
+                path="/admin"
                 element={
                   <OptionalAuthGuard requireAuth={true} requireRole="admin" redirectTo="/login">
                     <AdminPanel />
                   </OptionalAuthGuard>
-                } 
+                }
               />
-              
+
               {/* 404 сторінка */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -4,7 +4,14 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { useAuthContext } from '@/context/authContext';
@@ -31,15 +38,13 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Вхід в систему</CardTitle>
-          <CardDescription className="text-center">
-            Введіть свої дані для входу
-          </CardDescription>
+          <CardTitle className="text-center text-2xl">Вхід в систему</CardTitle>
+          <CardDescription className="text-center">Введіть свої дані для входу</CardDescription>
         </CardHeader>
-        
+
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
@@ -56,7 +61,7 @@ const Login: React.FC = () => {
                 type="email"
                 placeholder="your@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
               />
@@ -69,7 +74,7 @@ const Login: React.FC = () => {
                 type="password"
                 placeholder="Введіть пароль"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 required
                 disabled={isLoading}
               />
@@ -88,7 +93,7 @@ const Login: React.FC = () => {
               )}
             </Button>
 
-            <div className="text-sm text-center space-y-2">
+            <div className="space-y-2 text-center text-sm">
               <p>
                 Немає аккаунту?{' '}
                 <Link to="/register" className="text-primary hover:underline">

@@ -221,34 +221,46 @@ const Index = () => {
   };
 
   const authSection = () => {
-    {/* Auth section */ }
+    {
+      /* Auth section */
+    }
     return (
       <div className="my-4">
         {isAuthenticated ? (
           <div className="flex flex-row gap-2">
             <div className="flex flex-row gap-2">
-              <Link to="/profile" className="flex-row text-white-400 hover:text-white font-semibold" title='Особистий кабінет'>
+              <Link
+                to="/profile"
+                className="text-white-400 flex-row font-semibold hover:text-white"
+                title="Особистий кабінет"
+              >
                 <UserIcon />
               </Link>
-              <Link to="/profile" className="flex-row text-white-400 hover:text-white font-semibold" title='Особистий кабінет'>
+              <Link
+                to="/profile"
+                className="text-white-400 flex-row font-semibold hover:text-white"
+                title="Особистий кабінет"
+              >
                 {user?.name || ''}
               </Link>
             </div>
-            <Link to="/logout" className="text-white-400 hover:text-white font-semibold">
+            <Link to="/logout" className="text-white-400 font-semibold hover:text-white">
               <LogOutIcon />
             </Link>
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            <Link to="/login" className="flex flex-row gap-2 text-white-400 hover:text-white font-semibold">
+            <Link
+              to="/login"
+              className="text-white-400 flex flex-row gap-2 font-semibold hover:text-white"
+            >
               <LogInIcon />
             </Link>
           </div>
         )}
-
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>
