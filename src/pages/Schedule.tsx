@@ -96,7 +96,7 @@ const Schedule = () => {
       try {
         const res = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
         setGlData(res.data);
-        // console.log("Дані завантажено", res.data);
+        console.log("Дані завантажено", res.data);
       } catch (e) {
         console.error('Помилка завантаження:', e);
       } finally {
@@ -146,8 +146,6 @@ const Schedule = () => {
 
   // Отримати таблицю з усіх
   const getData = (tableName: string): ScheduleData | null => {
-    console.log(glData);
-
     return glData.find(d => d.templFile === tableName) || null;
   };
 
@@ -279,9 +277,30 @@ const Schedule = () => {
     return dateIndex !== -1;
   };
 
+  // Визначити для дистанційного (1/2 тиждень)
+  const getDistanceLearningDayInfo = (): DayInfo => {
+    const wd = getData('workdays')?.data || [];
+    const dateIndex = wd[0]?.indexOf(date);
+    return dateIndex === -1
+      ? { chZn: 1, dWeek: 1 }
+      : { chZn: Number(wd[3][dateIndex]), dWeek: Number(wd[1][dateIndex]) };
+  };
+
+
+  // Визначити дистанційного для класу)
+  const getDistanceLearningKlasInfo = (klas: string): string => {
+    const wd = getData('dist')?.data || [];
+    const klasIndex = wd[0]?.indexOf(klas);
+    const week: number = getDistanceLearningDayInfo().chZn;
+    return klasIndex === -1
+      ? ''
+      : `${wd[week][klasIndex]=== 'д' ? '(Дистанційне)' : '(Очне)'}`;
+  };
+
   // Визначити день тижня та чергування (1/2 тиждень)
   const getDayInfo = (): DayInfo => {
     const wd = getData('workdays')?.data || [];
+    
     const dateIndex = wd[0]?.indexOf(date);
     return dateIndex === -1
       ? { chZn: 1, dWeek: 1 }
@@ -381,12 +400,14 @@ const Schedule = () => {
           </div>
 
           {/* Розклад */}
+          {/* =======================================================================*/}
           {lessons.length > 0 && (
             <div className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-900">
               <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-6 py-4 text-white dark:from-gray-800">
                 <h3 className="flex items-center text-xl font-bold dark:text-gray-400">
                   <GraduationCap className="mr-2 h-6 w-6" />
-                  Розклад для: {selectedTeacher || selectedClass}
+                  Розклад для: {selectedTeacher || selectedClass}{" "}
+                  {getDistanceLearningKlasInfo(selectedClass)}
                 </h3>
               </div>
 
@@ -427,7 +448,7 @@ const Schedule = () => {
                             'Вільна година'
                           ) : (
                             <>
-                              <p>{lesson.className}</p>
+                              {getDistanceLearningKlasInfo(lesson.className) === '(Дистанційне)' ? <p>{lesson.className} (д)</p> : <p>{lesson.className}</p>}
                               <p style={{ fontSize: '10px' }}>{lesson.lesson}</p>
                             </>
                           )}
