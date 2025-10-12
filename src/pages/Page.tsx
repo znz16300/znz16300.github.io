@@ -106,7 +106,6 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       );
     });
 
-    console.log('Search completed. Found results:', filteredResults.length);
     return filteredResults;
   };
 
@@ -129,7 +128,6 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
           setIsSearchMode(false);
         } else if (searchQuery && searchQuery.trim() !== '') {
           // Search mode
-          console.log('Performing search for:', searchQuery);
           setIsSearchMode(true);
           const searchResults = await performSearch(searchQuery.trim());
           setPageItems(searchResults);

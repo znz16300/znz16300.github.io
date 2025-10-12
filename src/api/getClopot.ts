@@ -77,7 +77,6 @@ function createContext(records: DataObject[], golova: string, zaklad: string): C
 async function getClopot(courses: DataObject[]) {
   if (courses.length > 0) {
     const param = await getParams();
-    console.log('params.GOLOVA', param.GOLOVA);
     const context = createContext(courses, param.GOLOVA, param.ZAKLAD);
     const url = `${SERVER_2}getFileKursi`;
     const formData = new URLSearchParams();
@@ -98,8 +97,6 @@ async function getClopot(courses: DataObject[]) {
     } catch (error) {
       console.error('Error fetching file:', error);
     }
-  } else {
-    console.log('Ви нічого не вибрали');
   }
 }
 

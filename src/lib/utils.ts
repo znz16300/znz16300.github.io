@@ -46,7 +46,6 @@ export function extractDriveFileId2(url: string): string {
 export function convertUrl(link) {
   if (link.startsWith('https://drive.google.com') || link.startsWith('http://drive.google.com')) {
     const id = extractDriveFileId2(link);
-    // console.log(`Extracted ID: ${id}`);
 
     const newUrl = `https://lh3.googleusercontent.com/d/${id}=w1000`;
     return newUrl;
@@ -57,7 +56,6 @@ export function convertUrl(link) {
 export function convertUrl2(link) {
   if (link.startsWith('https://drive.google.com') || link.startsWith('http://drive.google.com')) {
     const id = extractDriveFileId2(link);
-    // console.log(`Extracted ID: ${id}`);
 
     const newUrl = `https://drive.google.com/thumbnail?id=${id}`;
     return newUrl;

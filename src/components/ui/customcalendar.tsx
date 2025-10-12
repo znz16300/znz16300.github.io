@@ -47,14 +47,14 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
       'Грудень',
     ];
 
-    const daysOfWeek = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+    const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
 
     const getDaysInMonth = (date: Date) => {
       const year = date.getFullYear();
       const month = date.getMonth();
       const firstDay = new Date(year, month, 1);
       const lastDay = new Date(year, month + 1, 0);
-      const firstDayOfWeek = firstDay.getDay();
+      const firstDayOfWeek = (firstDay.getDay() + 6) % 7 ;
       const daysInMonth = lastDay.getDate();
 
       const days: (Date | null)[] = [];
@@ -146,6 +146,11 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
       );
     };
 
+    const isWeekend = (date: Date | null): boolean => {
+      const day = date?.getDay();
+      return day === 0 || day === 6;
+    };
+
     const isSelected = (date: Date | null): boolean => {
       return (
         selectedDate !== null &&
@@ -204,14 +209,14 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
             >
-              <div className="mb-2 grid grid-cols-7 gap-1">
+              <div className="mb-2 grid grid-cols-7 gap-1 bg-green-100 ">
                 {daysOfWeek.map((day, i) => (
                   <div key={i} className="py-1 text-center text-xs font-medium text-gray-500">
                     {day}
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-7 gap-1">
+              <div className="grid grid-cols-7 gap-1 bg-green-100 ">
                 {days.map((date, i) => (
                   <div
                     key={i}
@@ -219,7 +224,9 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
                       'cursor-pointer rounded py-1 text-center text-sm transition-colors',
                       date ? 'hover:bg-gray-100' : '',
                       isToday(date) ? 'bg-blue-100 font-semibold text-blue-600' : '',
-                      isSelected(date) ? 'bg-blue-500 font-semibold text-white' : '',
+                      isSelected(date) ? 'bg-blue-100 font-semibold' : '',
+                      // !isWeekend(date) ? 'bg-green-100 font-semibold text-gray-800' : '',
+                      isWeekend(date) ? 'bg-red-200 font-semibold text-gray-800' : '',
                       !date ? 'cursor-default' : ''
                     )}
                     onClick={() => date && handleDateSelect(date)}

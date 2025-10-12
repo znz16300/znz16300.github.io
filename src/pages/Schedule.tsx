@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Clock, Users, GraduationCap } from 'lucide-react';
+import { Clock, Users, GraduationCap, Download } from 'lucide-react';
 import {
   inIntervalTime,
   inIntervalTime2,
@@ -96,7 +96,6 @@ const Schedule = () => {
       try {
         const res = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
         setGlData(res.data);
-        console.log('Дані завантажено', res.data);
       } catch (e) {
         console.error('Помилка завантаження:', e);
       } finally {
@@ -174,7 +173,6 @@ const Schedule = () => {
 
   // Подія при зміні дати
   const handleChangeDate = (value: string) => {
-    console.log(value);
 
     // Перевіряємо, чи рядок відповідає формату dd.mm.yyyy
     const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
@@ -278,25 +276,34 @@ const Schedule = () => {
   };
 
   // Визначити для дистанційного (1/2 тиждень)
-  const getDistanceLearningDayInfo = (): DayInfo => {
+  const getDistanceLearningDayInfo = (dat: string): DayInfo => {
     const wd = getData('workdays')?.data || [];
-    const dateIndex = wd[0]?.indexOf(date);
+    const dateIndex = wd[0]?.indexOf(dat);
     return dateIndex === -1
       ? { chZn: 1, dWeek: 1 }
       : { chZn: Number(wd[3][dateIndex]), dWeek: Number(wd[1][dateIndex]) };
   };
 
-  // Визначити дистанційного для класу)
-  const getDistanceLearningKlasInfo = (klas: string): string => {
+  // Визначити дистанційного для класу
+  const getDistanceLearningKlasInfo = (klas: string, dat: string): string => {
     const wd = getData('dist')?.data || [];
     const klasIndex = wd[0]?.indexOf(klas);
-    const week: number = getDistanceLearningDayInfo().chZn;
+    const week: number = getDistanceLearningDayInfo(dat).chZn;
+
     if (week > 2) {
       return '(Дистанційне)';
     }
-    return klasIndex === -1 ? '' : `${wd[week][klasIndex] === 'д' ? '(Дистанційне)' : '(Очне)'}`;
-  };
+    if (week === 0) {
+      return '(Очне)';
+    }
 
+    // Перевіряємо чи існує рядок для тижня
+    if (klasIndex === -1 || !wd[week]) {
+      return '(Очне)'; // За замовчуванням
+    }
+
+    return wd[week][klasIndex] === 'д' ? '(Дистанційне)' : '(Очне)';
+  };
   // Визначити день тижня та чергування (1/2 тиждень)
   const getDayInfo = (): DayInfo => {
     const wd = getData('workdays')?.data || [];
@@ -315,6 +322,62 @@ const Schedule = () => {
       month: 'long',
       day: 'numeric',
     });
+  };
+
+  // Функція для генерації CSV файлу
+  const generateDistanceScheduleCSV = () => {
+    const wd = getData('workdays')?.data || [];
+    const workDates = wd[0] || [];
+
+    // Формуємо масив рядків CSV
+    const csvRows: string[] = [];
+
+    // Додаємо заголовок
+    csvRows.push('"дата","Клас","Формат навчання"');
+
+    // Проходимо по всіх робочих днях
+    workDates.forEach((dateStr: string) => {
+      // Конвертуємо дату з YYYY-MM-DD в DD.MM.YYYY
+      const [year, month, day] = dateStr.split('-');
+      const formattedDate = `${day}.${month}.${year}`;
+      if (dateStr && /^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+
+        // Проходимо по всіх класах
+        classes.filter(c => c !== 'text').forEach((className: string) => {
+          // Отримуємо інформацію про формат навчання (передаємо дату!)
+          const distInfo = getDistanceLearningKlasInfo(className, dateStr);
+
+          // Видаляємо дужки з формату
+          let format = '';
+          if (distInfo.includes('Дистанційне')) {
+            format = 'Дистанційне';
+          } else if (distInfo.includes('Очне')) {
+            format = 'Очне';
+          } else {
+            format = 'Очне'; // За замовчуванням
+          }
+
+          // Додаємо рядок
+          csvRows.push(`"${formattedDate}","${className}","${format}"`);
+        });
+      }
+    });
+
+    // Об'єднуємо рядки в один текст
+    const csvContent = csvRows.join('\n');
+
+    // Створюємо Blob та завантажуємо файл
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'distanceschedule.csv');
+    link.style.visibility = 'hidden';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -392,8 +455,20 @@ const Schedule = () => {
 
             {date && (
               <div className="mt-4 rounded-lg bg-blue-50 p-3 dark:bg-gray-800">
-                <p className="text-sm font-medium text-blue-700 dark:text-gray-400">
-                  Обрана дата: {formatDate(date)}
+                <p className="flex justify-between text-sm font-medium text-blue-700 dark:text-gray-400">
+                  <span>Обрана дата: {formatDate(date)}</span>
+                 
+                    <button
+                      onClick={generateDistanceScheduleCSV}
+                      className="ml-4 inline-flex items-center rounded bg-blue-500 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-900"
+                      title='Завантажити дні дистанційного навчання "csv"'
+                    >
+                      <Download className="h-3 w-3" />
+                    </button>
+             
+
+
+
                 </p>
               </div>
             )}
@@ -407,7 +482,7 @@ const Schedule = () => {
                 <h3 className="flex items-center text-xl font-bold dark:text-gray-400">
                   <GraduationCap className="mr-2 h-6 w-6" />
                   Розклад для: {selectedTeacher || selectedClass}{' '}
-                  {getDistanceLearningKlasInfo(selectedClass)}
+                  {getDistanceLearningKlasInfo(selectedClass, date)}
                 </h3>
               </div>
 
@@ -428,9 +503,8 @@ const Schedule = () => {
                   {lessons.map((lesson, index) => (
                     <TableRow
                       key={index}
-                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${
-                        inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
-                      }`}
+                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
+                        }`}
                     >
                       <TableCell className="font-medium text-blue-600">
                         <div className="flex items-center">
@@ -448,7 +522,7 @@ const Schedule = () => {
                             'Вільна година'
                           ) : (
                             <>
-                              {getDistanceLearningKlasInfo(lesson.className) === '(Дистанційне)' ? (
+                              {getDistanceLearningKlasInfo(lesson.className, date) === '(Дистанційне)' ? (
                                 <p>{lesson.className} (д)</p>
                               ) : (
                                 <p>{lesson.className}</p>
@@ -462,13 +536,13 @@ const Schedule = () => {
                           {lesson.lesson === '-'
                             ? 'Вільна година'
                             : lesson.lesson.split(/\/|\|/).map((item: string, index: number) => (
-                                <p
-                                  key={index}
-                                  style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
-                                >
-                                  {item}
-                                </p>
-                              ))}
+                              <p
+                                key={index}
+                                style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
+                              >
+                                {item}
+                              </p>
+                            ))}
                         </TableCell>
                       )}
                       <TableCell className="font-medium text-blue-600">

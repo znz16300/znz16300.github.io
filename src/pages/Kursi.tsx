@@ -159,7 +159,6 @@ const Kursi = () => {
               <Select
                 value={topic}
                 onValueChange={value => {
-                  console.log('Selected topic:', value);
 
                   // Оновлюємо URL з новими параметрами
                   const params = new URLSearchParams(location.search);
@@ -191,7 +190,6 @@ const Kursi = () => {
                   <Button
                     className="ml-4"
                     onClick={() => {
-                      console.log('Forming request for selected items:', selectedItems);
                       getClopot(
                         Array.from(
                           new Set(pageItems.filter(item => selectedItems.includes(String(item.id))))
