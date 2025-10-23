@@ -54,7 +54,7 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
       const month = date.getMonth();
       const firstDay = new Date(year, month, 1);
       const lastDay = new Date(year, month + 1, 0);
-      const firstDayOfWeek = (firstDay.getDay() + 6) % 7 ;
+      const firstDayOfWeek = (firstDay.getDay() + 6) % 7;
       const daysInMonth = lastDay.getDate();
 
       const days: (Date | null)[] = [];
@@ -209,14 +209,14 @@ const CustomCalendar = React.forwardRef<HTMLInputElement, CustomCalendarProps>(
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
             >
-              <div className="mb-2 grid grid-cols-7 gap-1 bg-green-100 ">
+              <div className="mb-2 grid grid-cols-7 gap-1 bg-green-100">
                 {daysOfWeek.map((day, i) => (
                   <div key={i} className="py-1 text-center text-xs font-medium text-gray-500">
                     {day}
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-7 gap-1 bg-green-100 ">
+              <div className="grid grid-cols-7 gap-1 bg-green-100">
                 {days.map((date, i) => (
                   <div
                     key={i}

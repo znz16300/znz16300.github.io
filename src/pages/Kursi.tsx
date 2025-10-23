@@ -159,7 +159,6 @@ const Kursi = () => {
               <Select
                 value={topic}
                 onValueChange={value => {
-
                   // Оновлюємо URL з новими параметрами
                   const params = new URLSearchParams(location.search);
                   if (value && value !== 'all') {

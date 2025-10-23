@@ -7,4 +7,3 @@ const destPath = path.join(__dirname, 'dist', '404.html');
 fs.copyFile(filePath, destPath, err => {
   if (err) throw err;
 });
-

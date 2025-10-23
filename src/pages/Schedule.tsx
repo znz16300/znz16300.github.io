@@ -91,20 +91,25 @@ const Schedule = () => {
   }, []);
 
   // Завантаження даних
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
-        setGlData(res.data);
-      } catch (e) {
-        console.error('Помилка завантаження:', e);
-      } finally {
-        setLoader(false);
-      }
-    };
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      // Спочатку завантажуємо статичні дані
+      const staticRes = await axios.get(`https://znz16300.github.io/sitedata/data/${KEY}.json`);
+      setGlData(staticRes.data);
+      setLoader(false); // Вимикаємо лоадер після першого завантаження
+      
+      // Потім завантажуємо актуальні дані з сервера
+      const serverRes = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
+      setGlData(serverRes.data);
+    } catch (e) {
+      console.error('Помилка завантаження:', e);
+      setLoader(false);
+    }
+  };
 
-    fetchData();
-  }, []);
+  fetchData();
+}, []);
 
   // Ініціалізація списків після завантаження даних
   useEffect(() => {
@@ -173,7 +178,6 @@ const Schedule = () => {
 
   // Подія при зміні дати
   const handleChangeDate = (value: string) => {
-
     // Перевіряємо, чи рядок відповідає формату dd.mm.yyyy
     const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
     const match = value.match(dateRegex);
@@ -341,25 +345,26 @@ const Schedule = () => {
       const [year, month, day] = dateStr.split('-');
       const formattedDate = `${day}.${month}.${year}`;
       if (dateStr && /^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
-
         // Проходимо по всіх класах
-        classes.filter(c => c !== 'text').forEach((className: string) => {
-          // Отримуємо інформацію про формат навчання (передаємо дату!)
-          const distInfo = getDistanceLearningKlasInfo(className, dateStr);
+        classes
+          .filter(c => c !== 'text')
+          .forEach((className: string) => {
+            // Отримуємо інформацію про формат навчання (передаємо дату!)
+            const distInfo = getDistanceLearningKlasInfo(className, dateStr);
 
-          // Видаляємо дужки з формату
-          let format = '';
-          if (distInfo.includes('Дистанційне')) {
-            format = 'Дистанційне';
-          } else if (distInfo.includes('Очне')) {
-            format = 'Очне';
-          } else {
-            format = 'Очне'; // За замовчуванням
-          }
+            // Видаляємо дужки з формату
+            let format = '';
+            if (distInfo.includes('Дистанційне')) {
+              format = 'Дистанційне';
+            } else if (distInfo.includes('Очне')) {
+              format = 'Очне';
+            } else {
+              format = 'Очне'; // За замовчуванням
+            }
 
-          // Додаємо рядок
-          csvRows.push(`"${formattedDate}","${className}","${format}"`);
-        });
+            // Додаємо рядок
+            csvRows.push(`"${formattedDate}","${className}","${format}"`);
+          });
       }
     });
 
@@ -457,18 +462,14 @@ const Schedule = () => {
               <div className="mt-4 rounded-lg bg-blue-50 p-3 dark:bg-gray-800">
                 <p className="flex justify-between text-sm font-medium text-blue-700 dark:text-gray-400">
                   <span>Обрана дата: {formatDate(date)}</span>
-                 
-                    <button
-                      onClick={generateDistanceScheduleCSV}
-                      className="ml-4 inline-flex items-center rounded bg-blue-500 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-900"
-                      title='Завантажити дні дистанційного навчання "csv"'
-                    >
-                      <Download className="h-3 w-3" />
-                    </button>
-             
 
-
-
+                  <button
+                    onClick={generateDistanceScheduleCSV}
+                    className="ml-4 inline-flex items-center rounded bg-blue-500 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-900"
+                    title='Завантажити дні дистанційного навчання "csv"'
+                  >
+                    <Download className="h-3 w-3" />
+                  </button>
                 </p>
               </div>
             )}
@@ -503,8 +504,9 @@ const Schedule = () => {
                   {lessons.map((lesson, index) => (
                     <TableRow
                       key={index}
-                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
-                        }`}
+                      className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                        inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
+                      }`}
                     >
                       <TableCell className="font-medium text-blue-600">
                         <div className="flex items-center">
@@ -522,7 +524,8 @@ const Schedule = () => {
                             'Вільна година'
                           ) : (
                             <>
-                              {getDistanceLearningKlasInfo(lesson.className, date) === '(Дистанційне)' ? (
+                              {getDistanceLearningKlasInfo(lesson.className, date) ===
+                              '(Дистанційне)' ? (
                                 <p>{lesson.className} (д)</p>
                               ) : (
                                 <p>{lesson.className}</p>
@@ -536,13 +539,13 @@ const Schedule = () => {
                           {lesson.lesson === '-'
                             ? 'Вільна година'
                             : lesson.lesson.split(/\/|\|/).map((item: string, index: number) => (
-                              <p
-                                key={index}
-                                style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
-                              >
-                                {item}
-                              </p>
-                            ))}
+                                <p
+                                  key={index}
+                                  style={index % 2 === 1 ? { fontSize: '10px' } : undefined}
+                                >
+                                  {item}
+                                </p>
+                              ))}
                         </TableCell>
                       )}
                       <TableCell className="font-medium text-blue-600">
