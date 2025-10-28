@@ -91,25 +91,25 @@ const Schedule = () => {
   }, []);
 
   // Завантаження даних
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      // Спочатку завантажуємо статичні дані
-      const staticRes = await axios.get(`https://znz16300.github.io/sitedata/data/${KEY}.json`);
-      setGlData(staticRes.data);
-      setLoader(false); // Вимикаємо лоадер після першого завантаження
-      
-      // Потім завантажуємо актуальні дані з сервера
-      const serverRes = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
-      setGlData(serverRes.data);
-    } catch (e) {
-      console.error('Помилка завантаження:', e);
-      setLoader(false);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Спочатку завантажуємо статичні дані
+        const staticRes = await axios.get(`https://znz16300.github.io/sitedata/data/${KEY}.json`);
+        setGlData(staticRes.data);
+        setLoader(false); // Вимикаємо лоадер після першого завантаження
 
-  fetchData();
-}, []);
+        // Потім завантажуємо актуальні дані з сервера
+        const serverRes = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
+        setGlData(serverRes.data);
+      } catch (e) {
+        console.error('Помилка завантаження:', e);
+        setLoader(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Ініціалізація списків після завантаження даних
   useEffect(() => {
