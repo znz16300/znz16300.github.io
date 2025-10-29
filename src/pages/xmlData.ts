@@ -2000,4 +2000,4 @@ export const xmlData = `
       <card lessonid="E6AB150A33E4C417" classroomids="798246240B4F2214" period="3" weeks="1" terms="1" days="10000"/>
    </cards>
 </timetable>
-`
+`;

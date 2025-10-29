@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, FileText, Users, Calendar, Grid, BookOpen } from 'lucide-react';
+import { Table, FileText, Users, Calendar, Grid, BookOpen, DoorOpen } from 'lucide-react';
 import { xmlData } from './xmlData';
 
 export const TimetableParser = () => {
@@ -326,6 +326,52 @@ export const TimetableParser = () => {
     return schedule;
   };
 
+  const getFullClassroomsSchedule = () => {
+    if (!scheduleData) return {};
+
+    const schedule = {};
+    const days = ['10000', '01000', '00100', '00010', '00001'];
+    
+    scheduleData.classrooms.forEach(classroom => {
+      schedule[classroom.id] = {};
+      days.forEach(day => {
+        schedule[classroom.id][day] = {};
+        scheduleData.periods.forEach(period => {
+          schedule[classroom.id][day][period.id] = [];
+        });
+      });
+    });
+
+    scheduleData.cards.forEach(card => {
+      const lesson = findById(scheduleData.lessons, card.lessonId);
+      if (!lesson) return;
+
+      const subject = findById(scheduleData.subjects, lesson.subjectId);
+      const classes = lesson.classIds
+        .map(cid => findById(scheduleData.classes, cid))
+        .filter(Boolean);
+      const teachers = lesson.teacherIds
+        .map(tid => findById(scheduleData.teachers, tid))
+        .filter(Boolean);
+      const groups = lesson.groupIds
+        .map(gid => findById(scheduleData.groups, gid))
+        .filter(Boolean);
+
+      card.classroomIds.forEach(classroomId => {
+        if (schedule[classroomId]?.[card.days]?.[card.period]) {
+          schedule[classroomId][card.days][card.period].push({
+            subject: subject?.name || 'Невідомий предмет',
+            classes: classes.map(c => c.name),
+            teachers: teachers.map(t => t.name),
+            groups: groups.map(g => g.name)
+          });
+        }
+      });
+    });
+
+    return schedule;
+  };
+
   if (error) {
     return (
       <div className="p-8 text-center">
@@ -348,6 +394,7 @@ export const TimetableParser = () => {
   const allClassesSchedule = view === 'all' ? getAllClassesSchedule(selectedDay) : null;
   const fullClassesSchedule = view === 'fullClasses' ? getFullClassesSchedule() : null;
   const fullTeachersSchedule = view === 'fullTeachers' ? getFullTeachersSchedule() : null;
+  const fullClassroomsSchedule = view === 'fullClassrooms' ? getFullClassroomsSchedule() : null;
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -413,6 +460,17 @@ export const TimetableParser = () => {
             >
               <BookOpen className="w-4 h-4" />
               Повний розклад вчителів
+            </button>
+            <button
+              onClick={() => setView('fullClassrooms')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                view === 'fullClassrooms'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              <DoorOpen className="w-4 h-4" />
+              Повний розклад кабінетів
             </button>
           </div>
 
@@ -595,6 +653,54 @@ export const TimetableParser = () => {
                                 {lesson.classrooms.length > 0 && (
                                   <div className="text-gray-600">
                                     Каб. {lesson.classrooms.join(', ')}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </td>
+                        ))
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : view === 'fullClassrooms' ? (
+              <table className="w-full text-sm">
+                <thead className="bg-blue-600 text-white">
+                  <tr>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-10 min-w-[120px]">Кабінет</th>
+                    {days.map(day => (
+                      scheduleData.periods.map(period => (
+                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
+                          <div>{getDayName(day)}</div>
+                          <div className="text-xs">{period.name} урок</div>
+                        </th>
+                      ))
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {scheduleData.classrooms.map((classroom, idx) => (
+                    <tr key={classroom.id} className={idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                      <td className="px-2 py-2 border-b border-gray-200 sticky left-0 bg-inherit z-10 font-semibold text-gray-800">
+                        {classroom.name}
+                      </td>
+                      {days.map(day => (
+                        scheduleData.periods.map(period => (
+                          <td key={`${classroom.id}-${day}-${period.id}`} className="px-2 py-2 border-b border-l border-gray-200 align-top">
+                            {fullClassroomsSchedule[classroom.id]?.[day]?.[period.id]?.map((lesson, lessonIdx) => (
+                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-blue-50 rounded text-xs">
+                                <div className="font-semibold text-blue-700">
+                                  {lesson.subject}
+                                </div>
+                                {lesson.classes.length > 0 && (
+                                  <div className="text-gray-600">
+                                    {lesson.classes.join(', ')}
+                                  </div>
+                                )}
+                                {lesson.teachers.length > 0 && (
+                                  <div className="text-gray-600">
+                                    {lesson.teachers.join(', ')}
                                   </div>
                                 )}
                               </div>
