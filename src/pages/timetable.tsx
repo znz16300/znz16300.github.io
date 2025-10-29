@@ -516,12 +516,12 @@ export const TimetableParser = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto max-h-[calc(100vh-250px)] overflow-y-auto">
             {view === 'all' ? (
               <table className="w-full">
-                <thead className="bg-blue-600 text-white">
+                <thead className="bg-blue-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-10">Урок</th>
+                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30">Урок</th>
                     {scheduleData.classes.map(cls => (
                       <th key={cls.id} className="px-4 py-3 text-left font-semibold min-w-[200px]">
                         {cls.name}
@@ -570,9 +570,9 @@ export const TimetableParser = () => {
               </table>
             ) : view === 'fullClasses' ? (
               <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white">
+                <thead className="bg-blue-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-10 min-w-[120px]">Клас</th>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[120px]">Клас</th>
                     {days.map(day => (
                       scheduleData.periods.map(period => (
                         <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
@@ -618,9 +618,9 @@ export const TimetableParser = () => {
               </table>
             ) : view === 'fullTeachers' ? (
               <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white">
+                <thead className="bg-blue-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-10 min-w-[150px]">Вчитель</th>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[150px]">Вчитель</th>
                     {days.map(day => (
                       scheduleData.periods.map(period => (
                         <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
@@ -666,9 +666,9 @@ export const TimetableParser = () => {
               </table>
             ) : view === 'fullClassrooms' ? (
               <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white">
+                <thead className="bg-blue-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-10 min-w-[120px]">Кабінет</th>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[120px]">Кабінет</th>
                     {days.map(day => (
                       scheduleData.periods.map(period => (
                         <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
@@ -714,9 +714,9 @@ export const TimetableParser = () => {
               </table>
             ) : (
               <table className="w-full">
-                <thead className="bg-blue-600 text-white">
+                <thead className="bg-blue-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold">Урок / Час</th>
+                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30">Урок / Час</th>
                     {days.map(day => (
                       <th key={day} className="px-4 py-3 text-left font-semibold">
                         {getDayName(day)}
@@ -727,7 +727,7 @@ export const TimetableParser = () => {
                 <tbody>
                   {scheduleData.periods.map((period, idx) => (
                     <tr key={period.id} className={idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                      <td className="px-4 py-3 border-b border-gray-200">
+                      <td className="px-4 py-3 border-b border-gray-200 sticky left-0 bg-inherit z-10">
                         <div className="font-semibold text-gray-800">{period.name} урок</div>
                         <div className="text-sm text-gray-600">
                           {period.startTime} - {period.endTime}
