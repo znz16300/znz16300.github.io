@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Table, FileText, Users, Calendar, Grid, BookOpen, DoorOpen } from 'lucide-react';
+import { Table, FileText, Users, Calendar, Grid, BookOpen, DoorOpen, Download } from 'lucide-react';
 import { xmlData } from './xmlData';
+import { DownloadSchedule } from './downloadSchedule';
+import { ScheduleData } from '@/type/scheduledata';
 
 export const TimetableParser = () => {
   const [scheduleData, setScheduleData] = useState(null);
@@ -93,6 +95,8 @@ export const TimetableParser = () => {
     };
 
     const data = parseXML();
+    console.log('data', data);
+    
     if (data) {
       setScheduleData(data);
       if (data.classes.length > 0) setSelectedClass(data.classes[0].id);
@@ -194,7 +198,7 @@ export const TimetableParser = () => {
     if (!scheduleData) return {};
 
     const schedule = {};
-    
+
     scheduleData.classes.forEach(cls => {
       schedule[cls.id] = {};
       scheduleData.periods.forEach(period => {
@@ -239,7 +243,7 @@ export const TimetableParser = () => {
 
     const schedule = {};
     const days = ['10000', '01000', '00100', '00010', '00001'];
-    
+
     scheduleData.classes.forEach(cls => {
       schedule[cls.id] = {};
       days.forEach(day => {
@@ -285,7 +289,7 @@ export const TimetableParser = () => {
 
     const schedule = {};
     const days = ['10000', '01000', '00100', '00010', '00001'];
-    
+
     scheduleData.teachers.forEach(teacher => {
       schedule[teacher.id] = {};
       days.forEach(day => {
@@ -331,7 +335,7 @@ export const TimetableParser = () => {
 
     const schedule = {};
     const days = ['10000', '01000', '00100', '00010', '00001'];
-    
+
     scheduleData.classrooms.forEach(classroom => {
       schedule[classroom.id] = {};
       days.forEach(day => {
@@ -386,15 +390,180 @@ export const TimetableParser = () => {
   }
 
   const days = ['10000', '01000', '00100', '00010', '00001'];
-  const schedule = view === 'classes' 
+  const schedule = view === 'classes'
     ? getClassSchedule(selectedClass)
     : view === 'teachers'
-    ? getTeacherSchedule(selectedTeacher)
-    : null;
+      ? getTeacherSchedule(selectedTeacher)
+      : null;
   const allClassesSchedule = view === 'all' ? getAllClassesSchedule(selectedDay) : null;
   const fullClassesSchedule = view === 'fullClasses' ? getFullClassesSchedule() : null;
   const fullTeachersSchedule = view === 'fullTeachers' ? getFullTeachersSchedule() : null;
   const fullClassroomsSchedule = view === 'fullClassrooms' ? getFullClassroomsSchedule() : null;
+
+
+
+function exportSchedule(scheduleData: ScheduleData): void {
+  if (!scheduleData) {
+    console.error('No schedule data to export');
+    return;
+  }
+
+  try {
+    console.log(scheduleData);
+    const days = [
+      { id: '10000', enName: 'mo', name: 'Понеділок' },
+      { id: '01000', enName: 'tu', name: 'Вівторок' },
+      { id: '00100', enName: 'we', name: 'Середа' },
+      { id: '00010', enName: 'th', name: 'Четвер' },
+      { id: '00001', enName: 'fr', name: "Пʼятниця" }
+    ];
+    const periods = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    let text = '';
+
+    // Перший рядок - назви днів (з об'єднанням для кожного дня)
+    text += 'Клас';
+    days.forEach((day) => {
+      text += `\t${day.name}`;
+      // Додаємо порожні комірки для решти уроків цього дня (крім першого)
+      for (let i = 1; i < periods.length; i++) {
+        text += '\t';
+      }
+    });
+    text += '\n';
+
+    // Другий рядок - номери уроків
+    text += '';
+    days.forEach(() => {
+      periods.forEach((period) => {
+        text += `\t${period}`;
+      });
+    });
+    text += '\n';
+
+    // Перевірка наявності необхідних даних
+    if (!scheduleData.classes || !Array.isArray(scheduleData.classes)) {
+      console.error('No classes data available');
+      return;
+    }
+
+    // Дані для кожного класу (два рядки на клас)
+    scheduleData.classes.forEach((cls) => {
+      // Перший рядок класу - з предметами та вчителями
+      text += `${cls.name}`;
+      
+      days.forEach((day) => {
+        periods.forEach((period) => {
+          try {
+            // Знаходимо уроки для цього класу, дня та періоду
+            const cards = (scheduleData.cards || []).filter((card) => {
+              const lesson = (scheduleData.lessons || []).find((l) => l.id === card.lessonId);
+              return lesson && 
+                     lesson.classIds && 
+                     lesson.classIds.includes(cls.id) && 
+                     card.days === day.id && 
+                     card.period === period.toString();
+            });
+
+            if (cards.length > 0) {
+              // Обробляємо всі картки для цієї комірки
+              const cardTexts = cards.map((card) => {
+                const lesson = (scheduleData.lessons || []).find((l) => l.id === card.lessonId);
+                if (!lesson) return null;
+
+                // Отримуємо предмет
+                const subject = (scheduleData.subjects || []).find((s) => s.id === lesson.subjectId);
+                const subjectName = subject ? subject.name : 'Невідомий предмет';
+
+                // Отримуємо вчителів
+                const teacherIds = lesson.teacherIds || [];
+                
+                if (teacherIds.length === 0) {
+                  return `${subjectName} / Невідомий вчитель`;
+                }
+
+                const teacherNames = teacherIds.map((teacherId) => {
+                  const teacher = (scheduleData.teachers || []).find((t) => t.id === teacherId);
+                  return teacher ? teacher.name : 'Невідомий вчитель';
+                }).join(', ');
+
+                // Отримуємо групи
+                let groupInfo = '';
+                if (lesson.groupIds && lesson.groupIds.length > 0) {
+                  const groups = lesson.groupIds.map((groupId) => {
+                    const group = (scheduleData.groups || []).find((g) => g.id === groupId);
+                    return group ? group.name : null;
+                  }).filter(g => g !== null);
+                  
+                  if (groups.length > 0) {
+                    groupInfo = groups.join(', ');
+                  }
+                }
+
+                // Отримуємо кабінети
+                let classroomInfo = '';
+                if (lesson.classroomIds && lesson.classroomIds.length > 0) {
+                  const classrooms = lesson.classroomIds.map((classroomId) => {
+                    const classroom = (scheduleData.classrooms || []).find((c) => c.id === classroomId);
+                    return classroom ? classroom.name : null;
+                  }).filter(c => c !== null);
+                  
+                  if (classrooms.length > 0) {
+                    classroomInfo = classrooms.join(', ');
+                  }
+                }
+
+                // Формуємо додаткову інформацію (група та кабінет)
+                const additionalInfo = [groupInfo, classroomInfo].filter(info => info !== '').join(', ');
+                const additionalText = additionalInfo ? ` | ${additionalInfo}` : '';
+
+                return `${subjectName} / ${teacherNames}${additionalText}`;
+              }).filter(t => t !== null); // Видаляємо null значення
+
+              // З'єднуємо всі картки через ";"
+              text += `\t${cardTexts.join('; ')}`;
+            } else {
+              text += '\t';
+            }
+          } catch (err) {
+            console.error('Error processing cell:', err);
+            text += '\t';
+          }
+        });
+      });
+      text += '\n';
+
+      // Другий рядок класу - порожній
+      text += '';
+      days.forEach(() => {
+        periods.forEach(() => {
+          text += '\t';
+        });
+      });
+      text += '\n';
+    });
+
+    console.log(text);
+
+    // Завантаження файлу
+    const blob = new Blob(['\ufeff' + text], { type: 'text/plain;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    const filename = `schedule_export_${new Date()
+      .toISOString()
+      .replace(/[:.]/g, '-')}.txt`;
+
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error('Failed to export schedule:', err);
+  }
+}
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -408,70 +577,74 @@ export const TimetableParser = () => {
           <div className="flex gap-2 items-center flex-wrap">
             <button
               onClick={() => setView('classes')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                view === 'classes'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'classes'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+                }`}
             >
               <Users className="w-4 h-4" />
               Розклад класу
             </button>
             <button
               onClick={() => setView('teachers')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                view === 'teachers'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'teachers'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+                }`}
             >
               <FileText className="w-4 h-4" />
               Розклад вчителя
             </button>
             <button
               onClick={() => setView('all')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                view === 'all'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'all'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+                }`}
             >
               <Table className="w-4 h-4" />
               Загальний (день)
             </button>
             <button
               onClick={() => setView('fullClasses')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                view === 'fullClasses'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'fullClasses'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+                }`}
             >
               <Grid className="w-4 h-4" />
               Повний розклад класів
             </button>
             <button
               onClick={() => setView('fullTeachers')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                view === 'fullTeachers'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'fullTeachers'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+                }`}
             >
               <BookOpen className="w-4 h-4" />
               Повний розклад вчителів
             </button>
             <button
               onClick={() => setView('fullClassrooms')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                view === 'fullClassrooms'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'fullClassrooms'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+                }`}
             >
               <DoorOpen className="w-4 h-4" />
+
               Повний розклад кабінетів
             </button>
+            {view === 'fullTeachers' || view === 'fullClasses' ? (
+              <button
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition 
+                 bg-blue-600 text-white hover:bg-blue-700`}
+                onClick={() => exportSchedule(scheduleData)}
+              >
+                <Download className="w-4 h-4" /> Експорт розкладу
+              </button>
+            ) : null}
           </div>
 
           <div className="mt-4">
