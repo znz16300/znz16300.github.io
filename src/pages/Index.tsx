@@ -24,6 +24,7 @@ import {
   UserIcon,
   LogOutIcon,
   LogInIcon,
+  MessageSquare,
 } from 'lucide-react';
 import {
   Carousel,
@@ -99,6 +100,12 @@ const Index = () => {
       title: 'Закупівлі',
       href: `/page?titlePages=Закупівлі&keyPages=${PAGE_TABLE_1}`,
       icon: Phone,
+    },
+    {
+      id: 8,
+      title: 'Зворотній зв’язок',
+      href: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header',
+      icon: MessageSquare,
     },
   ];
 
