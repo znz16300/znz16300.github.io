@@ -103,6 +103,12 @@ const Index = () => {
     },
     {
       id: 8,
+      title: 'Розклад уроків',
+      href: '/schedule2',
+      icon: Phone,
+    },
+    {
+      id: 9,
       title: 'Зворотній зв’язок',
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header',
       icon: MessageSquare,
