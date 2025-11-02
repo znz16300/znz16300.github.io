@@ -13,6 +13,7 @@ interface ScheduleTableProps {
 }
 
 export const ScheduleTable: React.FC<ScheduleTableProps> = ({ scheduleData, schedule, view, weekType }) => {
+  
   return (
     <table className="w-full">
       <thead className="bg-blue-600 text-white sticky top-0 z-20">
@@ -36,40 +37,60 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ scheduleData, sche
             </td>
             {daysArray.map(day => (
               <td key={`${period.id}-${day}`} className="px-4 py-3 border-b border-gray-200">
-                {schedule[day]?.[period.id]?.map((lesson, lessonIdx) => (
-                  <div key={lessonIdx} className="mb-2 last:mb-0 p-2 bg-blue-50 rounded">
-                    <div className="text-sm font-semibold text-blue-700">
-                      {lesson.subject}
+                {schedule[day]?.[period.id]?.map((lesson, lessonIdx) => {
+                  // Визначаємо колір фону для картки уроку
+                  const bgColor = view === 'teachers' && lesson.classes
+                    ? getLessonBackgroundColor(lesson.classes, weekType)
+                    : 'bg-blue-50';
+                  
+                  // Визначаємо бейдж для вчителів
+                  const distType = view === 'teachers' && lesson.classes
+                    ? getLessonDistType(lesson.classes, weekType)
+                    : null;
+                  const badge = distType ? getDistTypeBadge(distType) : null;
+                  
+                  return (
+                    <div key={lessonIdx} className={`mb-2 last:mb-0 p-2 rounded border ${bgColor} ${bgColor !== 'bg-blue-50' ? 'border-current' : 'border-gray-200'}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="text-sm font-semibold text-blue-700 flex-1">
+                          {lesson.subject}
+                        </div>
+                        {badge && (
+                          <span className={`px-1.5 py-0.5 rounded text-xs font-bold ${badge.color}`}>
+                            {badge.label}
+                          </span>
+                        )}
+                      </div>
+                      {view === 'classes' ? (
+                        <>
+                          {lesson.teachers && lesson.teachers.length > 0 && (
+                            <div className="text-xs text-gray-600">
+                              👤 {lesson.teachers.join(', ')}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {lesson.classes && lesson.classes.length > 0 && (
+                            <div className="text-xs text-gray-600">
+                              📚 {lesson.classes.join(', ')}
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {lesson.classrooms.length > 0 && (
+                        <div className="text-xs text-gray-600">
+                          🚪 Каб. {lesson.classrooms.join(', ')}
+                        </div>
+                      )}
+                      {lesson.groups.length > 0 && lesson.groups[0] !== 'Весь клас' && (
+                        <div className="text-xs text-gray-500">
+                          👥 {lesson.groups.join(', ')}
+                        </div>
+                      )}
                     </div>
-                    {view === 'classes' ? (
-                      <>
-                        {lesson.teachers && lesson.teachers.length > 0 && (
-                          <div className="text-xs text-gray-600">
-                            👤 {lesson.teachers.join(', ')}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        {lesson.classes && lesson.classes.length > 0 && (
-                          <div className="text-xs text-gray-600">
-                            📚 {lesson.classes.join(', ')}
-                          </div>
-                        )}
-                      </>
-                    )}
-                    {lesson.classrooms.length > 0 && (
-                      <div className="text-xs text-gray-600">
-                        🚪 Каб. {lesson.classrooms.join(', ')}
-                      </div>
-                    )}
-                    {lesson.groups.length > 0 && lesson.groups[0] !== 'Весь клас' && (
-                      <div className="text-xs text-gray-500">
-                        👥 {lesson.groups.join(', ')}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </td>
             ))}
           </tr>

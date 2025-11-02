@@ -3,16 +3,17 @@ import React from 'react';
 import { ScheduleData, WeekSchedule } from '@/type/scheduledata';
 import { getDayName, daysArray } from './scheduleHelpers';
 import { WeekType, getCellBackgroundColor, getDistTypeBadge } from './distDataHelper';
-import { getDistData } from './distData';
+import { getDistData, getLessonDistType } from './distData';
 
 interface FullScheduleTableProps {
   scheduleData: ScheduleData;
+  schedule: ScheduleData;
   fullSchedule: Record<string, WeekSchedule>;
   view: 'fullClasses' | 'fullTeachers' | 'fullClassrooms';
   weekType: WeekType;
 }
 
-export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleData, fullSchedule, view, weekType }) => {
+export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleData, schedule, fullSchedule, view, weekType }) => {
   const getItems = () => {
     if (view === 'fullClasses') return scheduleData.classes;
     if (view === 'fullTeachers') return scheduleData.teachers;
@@ -52,15 +53,36 @@ export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleDa
             </td>
             {daysArray.map(day => (
               scheduleData.periods.map(period => {
-                const bgColor = view === 'fullClasses' ? getCellBackgroundColor(item.name, weekType) : '';
+                // Для класів - фон комірки залежить від класу
+                const cellBgColor = view === 'fullClasses' ? getCellBackgroundColor(item.name, weekType) : '';
+                
                 return (
-                  <td key={`${item.id}-${day}-${period.id}`} className={`px-2 py-2 border-b border-l border-gray-200 align-top ${bgColor}`}>
+                  <td key={`${item.id}-${day}-${period.id}`} className={`px-2 py-2 border-b border-l border-gray-200 align-top ${cellBgColor}`}>
                     {fullSchedule[item.id]?.[day]?.[period.id]?.map((lesson, lessonIdx) => {
-                      const distType = view === 'fullClasses' ? getDistData(item.name, weekType) : null;
+                      // Визначаємо тип уроку та бейдж
+                      let distType = null;
+                      let cardBgColor = 'bg-white bg-opacity-70';
+                      
+                      if (view === 'fullClasses') {
+                        // Для класів - беремо тип навчання класу
+                        distType = getDistData(item.name, weekType);
+                      } else if (view === 'fullTeachers' && lesson.classes && lesson.classes.length > 0) {
+                        // Для вчителів - визначаємо за класами в уроці
+                        distType = getLessonDistType(lesson.classes, weekType);
+                        // Колір картки залежить від типу уроку
+                        if (distType === 'д') {
+                          cardBgColor = 'bg-orange-100 bg-opacity-70';
+                        } else if (distType === 'о') {
+                          cardBgColor = 'bg-green-100 bg-opacity-70';
+                        } else if (distType === 'змішаний') {
+                          cardBgColor = 'bg-yellow-100 bg-opacity-70';
+                        }
+                      }
+                      
                       const badge = distType ? getDistTypeBadge(distType) : null;
                       
                       return (
-                        <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-white bg-opacity-70 rounded text-xs border border-gray-200">
+                        <div key={lessonIdx} className={`mb-1 last:mb-0 p-1 ${cardBgColor} rounded text-xs border border-gray-200`}>
                           <div className="flex items-center gap-1 mb-0.5">
                             <div className="font-semibold text-blue-700 flex-1">
                               {lesson.subject}
