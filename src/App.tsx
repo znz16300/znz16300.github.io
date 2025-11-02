@@ -23,6 +23,7 @@ import Register from './pages/auth/register';
 import UserDashboard from './pages/user/userDashboard';
 import Logout from './pages/auth/logout';
 import { TimetableParser } from './pages/timetable';
+import { TimetableParser2 } from './pages/Schedule/TimetableParser';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/documents" element={<Documents />} />
               <Route path="/timetable" element={<TimetableParser />} />
+              <Route path="/schedule2" element={<TimetableParser2 />} />
 
               {/* Авторизаційні маршрути */}
               <Route path="/login" element={<Login />} />
