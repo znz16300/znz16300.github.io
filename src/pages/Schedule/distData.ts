@@ -44,6 +44,23 @@ export const getDistData = (name: string, week: number): string => {
     return "н/д"; // "н/д" - не доступно, якщо клас не знайдено
 };
 
+// // Функція для визначення типу навчання на основі класів в уроці
+// export const getLessonDistType = (classes: string[], week: number): string => {
+//     if (classes.length === 0) return "н/д";
+    
+//     // Отримуємо типи навчання для всіх класів
+//     const distTypes = classes.map(cls => getDistData(cls, week));
+    
+//     // Якщо є хоча б один дистанційний - урок дистанційний
+//     if (distTypes.includes("д")) return "д";
+    
+//     // Якщо всі очні - урок очний
+//     if (distTypes.every(type => type === "о")) return "о";
+    
+//     // Змішаний формат (не повинно бути в нормальному розкладі)
+//     return "змішаний";
+// };
+
 // Функція для визначення типу навчання на основі класів в уроці
 export const getLessonDistType = (classes: string[], week: number): string => {
     if (classes.length === 0) return "н/д";
@@ -51,12 +68,20 @@ export const getLessonDistType = (classes: string[], week: number): string => {
     // Отримуємо типи навчання для всіх класів
     const distTypes = classes.map(cls => getDistData(cls, week));
     
-    // Якщо є хоча б один дистанційний - урок дистанційний
-    if (distTypes.includes("д")) return "д";
+    // Перевіряємо чи є і дистанційні і очні одночасно
+    const hasDistant = distTypes.includes("д");
+    const hasInPerson = distTypes.includes("о");
+    
+    // Якщо є і дистанційні і очні - змішаний формат
+    if (hasDistant && hasInPerson) return "змішаний";
+    
+    // Якщо є хоча б один дистанційний (і немає очних) - урок дистанційний
+    if (hasDistant) return "д";
     
     // Якщо всі очні - урок очний
-    if (distTypes.every(type => type === "о")) return "о";
+    if (hasInPerson) return "о";
     
-    // Змішаний формат (не повинно бути в нормальному розкладі)
-    return "змішаний";
+    // Інші випадки (н/д)
+    return "н/д";
 };
+
