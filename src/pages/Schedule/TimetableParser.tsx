@@ -328,7 +328,7 @@ export const TimetableParser2: React.FC = () => {
         />
 
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="overflow-x-auto max-h-[calc(100vh-250px)] overflow-y-auto">
+          <div className="overflow-x-auto max-h-[calc(100vh-50px)] overflow-y-auto">
             {renderScheduleView()}
           </div>
         </div>
