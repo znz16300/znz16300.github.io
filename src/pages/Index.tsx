@@ -52,6 +52,7 @@ const Index = () => {
   const navigationItems = [
     // { title: "Головна", href: "/", icon: Home },
     { id: 1, title: 'Новини', href: '/news', icon: Newspaper },
+    { id: 1.5, title: 'Оголошення', href: `/page?titlePages=Оголошення&keyPages=${PAGE_TABLE_1}`, icon: Newspaper },
     { id: 2, title: 'Документи', href: '/documents', icon: FileText },
     {
       id: 3,
@@ -109,6 +110,18 @@ const Index = () => {
     },
     {
       id: 9,
+      title: 'Розклад дзвінків',
+      href: `/page?titlePages=Розклад%20дзвінків&keyPages=${PAGE_TABLE_1}`,
+      icon: Phone,
+    },
+    {
+      id: 10,
+      title: 'Розклад змішаного навчання',
+      href: `/page?titlePages=Розклад%20змішаного%20навчання&keyPages=${PAGE_TABLE_1}`,
+      icon: Phone,
+    },
+    {
+      id: 11,
       title: 'Зворотній зв’язок',
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header',
       icon: MessageSquare,
@@ -686,7 +699,7 @@ const Index = () => {
           </section>
 
           {/* Footer */}
-          <footer className="bg-blue-500 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 text-gray-100 text-white dark:from-gray-600 dark:via-gray-700 dark:to-gray-800 dark:text-gray-400">
+          <footer className="bg-blue-500 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-10 text-gray-100 text-white dark:from-gray-600 dark:via-gray-700 dark:to-gray-800 dark:text-gray-400">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 <div>
