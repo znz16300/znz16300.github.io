@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+
 import { Kiosk } from "./kiosk";
 
 
@@ -30,7 +31,7 @@ export const mainMenuConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Головне меню',
   buttons: [
-    { label: 'Про ліцей', image: '🏫', link: '/kiosk/about', color: 'blue' },
+    { label: 'Про ліцей', image: '🏫', link: '/', color: 'blue' },
     { label: 'Навчання', image: '📚', link: '/kiosk/education', color: 'purple' },
     { label: 'Розклад', image: '🗓️', link: '/kiosk/schedulepage', color: 'green' },
     { label: 'Наші вчителі', image: '🧑‍🏫', link: '/kiosk/teachers', color: 'orange' },

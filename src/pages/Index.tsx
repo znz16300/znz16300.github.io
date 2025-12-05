@@ -122,7 +122,7 @@ const Index = () => {
     },
     {
       id: 11,
-      title: 'Зворотній зв’язок',
+      title: 'Зворотний зв’язок',
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header',
       icon: MessageSquare,
     },

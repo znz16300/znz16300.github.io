@@ -95,7 +95,7 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
           <div 
             className={`h-full transition-transform duration-400 ease-in-out ${getSlideClass()}`}
           >
-            <div className="grid grid-cols-6 grid-rows-3 gap-6 h-full">
+            <div className="grid grid-cols-4 grid-rows-3 gap-6 h-full">
               {config.buttons.slice(0, 18).map((btn, idx) => (
                 <button
                   key={idx}

@@ -35,7 +35,8 @@ import {
   VseosvitaPage, 
   NaurokPage, 
   AllTeachersPage 
-} from './pages/kiosk_data';
+} from './pages/Kiosk/kiosk_data';
+import KioskGallery from './pages/Schedule/KioskGallery';
 
 // Публічні маршрути
 export const PublicRoutes = () => (
@@ -67,18 +68,22 @@ export const PublicRoutes = () => (
       path="/kiosk/about" 
       element={<Navigate to="/page?titlePages=Про ліцей&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
     />
-    <Route 
+    {/* <Route 
       path="/kiosk/education" 
       element={<Navigate to="/page?titlePages=Навчання&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
-    />
+    /> */}
     <Route 
       path="/kiosk/achievements" 
       element={<Navigate to="/page?titlePages=Досягнення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
     />
     <Route 
       path="/kiosk/gallery" 
-      element={<Navigate to="/page?titlePages=Фотоархів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+      element={<KioskGallery />} 
     />
+    {/* <Route 
+      path="/kiosk/gallery" 
+      element={<Navigate to="/page?titlePages=Фотоархів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    /> */}
     <Route 
       path="/kiosk/navigation" 
       element={<Navigate to="/page?titlePages=Навігація&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
@@ -89,7 +94,11 @@ export const PublicRoutes = () => (
     />
     <Route 
       path="/feedback" 
-      element={<Navigate to="/page?titlePages=Зворотний зв'язок&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+      element={<Navigate to="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" replace />} 
+    />
+    <Route 
+      path="/kiosk/education/presentations" 
+      element={<Navigate to="/page?titlePages=Розробки вчителів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
     />
 
     <Route path="/kursi" element={<Kursi />} />
