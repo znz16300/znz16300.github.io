@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, Loader } from 'lucide-react';
+import { SERVER_2 } from '@/constants';
 
 interface PZCreatorProps {
   keyZamini: string;
@@ -13,7 +14,7 @@ const PZCreator: React.FC<PZCreatorProps> = ({ keyZamini }) => {
   const [error, setError] = useState<string | null>(null);
 
   const idSheetMissTable = "missingbook";
-  const server = "https://schooltools.pythonanywhere.com/";
+  const server = SERVER_2;
 
   // Завантаження налаштувань з localStorage
   React.useEffect(() => {
