@@ -37,6 +37,7 @@ import {
   AllTeachersPage 
 } from './pages/Kiosk/kiosk_data';
 import KioskGallery from './pages/Schedule/KioskGallery';
+import TeacherAbsenceManager from './pages/Schedule/TeacherAbsenceManager';
 
 // Публічні маршрути
 export const PublicRoutes = () => (
@@ -106,6 +107,7 @@ export const PublicRoutes = () => (
     <Route path="/documents" element={<Documents />} />
     <Route path="/timetable" element={<TimetableParser />} />
     <Route path="/schedule2" element={<TimetableParser2 />} />
+    <Route path="/zamini" element={<TeacherAbsenceManager />} />
   </>
 );
 
