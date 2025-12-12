@@ -8,6 +8,7 @@ export interface KioskButton {
   image?: string;
   link: string;
   color?: string;
+  disabled?: boolean; // Новий параметр для неактивних кнопок
 }
 
 export interface KioskPageConfig {
@@ -16,6 +17,11 @@ export interface KioskPageConfig {
   buttons?: KioskButton[];
   url?: string;
 }
+
+export interface KioskProps {
+  config: KioskPageConfig;
+}
+
 
 export interface KioskProps {
   config: KioskPageConfig;
@@ -31,16 +37,17 @@ export const mainMenuConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Головне меню',
   buttons: [
-    { label: 'Про ліцей', image: '🏫', link: '/', color: 'blue' },
+    { label: 'Про ліцей', image: '🏫', link: '/kiosk/about', color: 'blue' },
+    { label: 'Куликівська громада', image: '🏘️', link: '/', color: 'orange', disabled: true  },
     { label: 'Навчання', image: '📚', link: '/kiosk/education', color: 'purple' },
     { label: 'Розклад', image: '🗓️', link: '/kiosk/schedulepage', color: 'green' },
     { label: 'Наші вчителі', image: '🧑‍🏫', link: '/kiosk/teachers', color: 'orange' },
-    { label: 'Досягнення', image: '🏆', link: '/kiosk/achievements', color: 'red' },
-    { label: 'Фотоархів', image: '📸', link: '/kiosk/gallery', color: 'teal' },
-    { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink' },
-    { label: 'Навігація', image: '🧭', link: '/kiosk/navigation', color: 'indigo' },
-    { label: 'Оголошення', image: '🔔', link: '/kiosk/announcements', color: 'blue' },
-    { label: 'Зворотний зв\'язок', image: '💬', link: '/feedback', color: 'purple' },
+    { label: 'Досягнення', image: '🏆', link: '/kiosk/achievements', color: 'red', disabled: true }, // Неактивна
+    { label: 'Фотоархів', image: '📸', link: '/kiosk/gallery', color: 'teal',}, // Неактивна
+    { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink', disabled: true }, // Неактивна
+    { label: 'Навігація', image: '🧭', link: '/kiosk/navigation', color: 'indigo', disabled: true }, // Неактивна
+    { label: 'Оголошення', image: '🔔', link: '/kiosk/announcements', color: 'blue', disabled: true }, // Неактивна
+    { label: 'Зворотний зв\'язок', image: '💬', link: '/kiosk/feedback', color: 'purple' },
   ]
 };
 
@@ -49,14 +56,15 @@ export const aboutConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Про ліцей',
   buttons: [
-    { label: 'Історія ліцею', image: '📜', link: '/kiosk/about/history', color: 'blue' },
-    { label: 'Віртуальний музей', image: '🏛️', link: '/kiosk/about/museum', color: 'purple' },
-    { label: 'Наші традиції', image: '🎊', link: '/kiosk/about/traditions', color: 'orange' },
-    { label: 'Стіна пошани', image: '⭐', link: '/kiosk/about/honor', color: 'red' },
-    { label: 'Директори', image: '👔', link: '/kiosk/about/directors', color: 'indigo' },
-    { label: 'Випускники', image: '🎓', link: '/kiosk/about/graduates', color: 'green' },
-    { label: 'Документи', image: '📋', link: '/kiosk/about/documents', color: 'teal' },
-    { label: 'Правила прийому', image: '📝', link: '/kiosk/about/admission', color: 'pink' },
+    { label: 'Історія ліцею', image: '📜', link: '/kiosk/about/history', color: 'blue', disabled: true  },
+    { label: 'Сайт ліцею', image: '🌐', link: '/', color: 'indigo'},
+    { label: 'Віртуальний музей', image: '🏛️', link: '/kiosk/about/museum', color: 'purple', disabled: true },
+    { label: 'Наші традиції', image: '🎊', link: '/kiosk/about/traditions', color: 'orange', disabled: true  },
+    { label: 'Стіна пошани', image: '⭐', link: '/kiosk/about/honor', color: 'red', disabled: true  },
+    { label: 'Директори', image: '👔', link: '/kiosk/about/directors', color: 'indigo' , disabled: true },
+    { label: 'Випускники', image: '🎓', link: '/kiosk/about/graduates', color: 'green' , disabled: true },
+    { label: 'Документи', image: '📋', link: '/kiosk/about/documents', color: 'teal', disabled: true  },
+    { label: 'Правила прийому', image: '📝', link: '/kiosk/about/admission', color: 'pink', disabled: true  },
   ]
 };
 
@@ -65,12 +73,12 @@ export const educationConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Навчання',
   buttons: [
-    { label: 'Освітній навігатор', image: '🎯', link: '/kiosk/education/navigator', color: 'purple' },
-    { label: 'Корисні сайти', image: '🌐', link: '/kiosk/education/websites', color: 'blue' },
-    { label: 'Презентації вчителів', image: '📊', link: '/kiosk/education/presentations', color: 'green' },
+    { label: 'Освітній навігатор', image: '🎯', link: '/kiosk/education/navigator', color: 'purple' , disabled: true },
+    { label: 'Корисні сайти', image: '🌐', link: '/kiosk/education/websites', color: 'blue' , disabled: true },
+    { label: 'Презентації вчителів', image: '📊', link: '/kiosk/education/presentations', color: 'green' , disabled: true },
     { label: 'Підготовка до НМТ', image: '📖', link: '/kiosk/education/nmt', color: 'orange' },
-    { label: 'Міні-тести', image: '✅', link: '/kiosk/education/tests', color: 'red' },
-    { label: 'Навчальні відео', image: '🎬', link: '/kiosk/education/videos', color: 'teal' },
+    { label: 'Міні-тести', image: '✅', link: '/kiosk/education/tests', color: 'red' , disabled: true },
+    { label: 'Навчальні відео', image: '🎬', link: '/kiosk/education/videos', color: 'teal' , disabled: true },
   ]
 };
 
@@ -79,16 +87,16 @@ export const navigatorConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Освітній навігатор',
   buttons: [
-    { label: 'Українська мова', image: '📝', link: '/kiosk/education/navigator/ukrainian', color: 'blue' },
-    { label: 'Англійська мова', image: '🇬🇧', link: '/kiosk/education/navigator/english', color: 'red' },
-    { label: 'Математика', image: '➗', link: '/kiosk/education/navigator/math', color: 'purple' },
-    { label: 'Фізика', image: '⚛️', link: '/kiosk/education/navigator/physics', color: 'indigo' },
-    { label: 'Хімія', image: '🧪', link: '/kiosk/education/navigator/chemistry', color: 'green' },
-    { label: 'Біологія', image: '🧬', link: '/kiosk/education/navigator/biology', color: 'teal' },
-    { label: 'Історія України', image: '🇺🇦', link: '/kiosk/education/navigator/history', color: 'orange' },
-    { label: 'Географія', image: '🌍', link: '/kiosk/education/navigator/geography', color: 'blue' },
-    { label: 'Інформатика', image: '💻', link: '/kiosk/education/navigator/informatics', color: 'purple' },
-    { label: 'Література', image: '📚', link: '/kiosk/education/navigator/literature', color: 'pink' },
+    { label: 'Українська мова', image: '📝', link: '/kiosk/education/navigator/ukrainian', color: 'blue' , disabled: true },
+    { label: 'Англійська мова', image: '🇬🇧', link: '/kiosk/education/navigator/english', color: 'red' , disabled: true },
+    { label: 'Математика', image: '➗', link: '/kiosk/education/navigator/math', color: 'purple' , disabled: true },
+    { label: 'Фізика', image: '⚛️', link: '/kiosk/education/navigator/physics', color: 'indigo' , disabled: true },
+    { label: 'Хімія', image: '🧪', link: '/kiosk/education/navigator/chemistry', color: 'green' , disabled: true },
+    { label: 'Біологія', image: '🧬', link: '/kiosk/education/navigator/biology', color: 'teal' , disabled: true },
+    { label: 'Історія України', image: '🇺🇦', link: '/kiosk/education/navigator/history', color: 'orange' , disabled: true },
+    { label: 'Географія', image: '🌍', link: '/kiosk/education/navigator/geography', color: 'blue' , disabled: true },
+    { label: 'Інформатика', image: '💻', link: '/kiosk/education/navigator/informatics', color: 'purple' , disabled: true },
+    { label: 'Література', image: '📚', link: '/kiosk/education/navigator/literature', color: 'pink' , disabled: true },
   ]
 };
 
@@ -99,8 +107,8 @@ export const scheduleConfig: KioskPageConfig = {
   buttons: [
     { label: 'Розклад уроків', image: '📅', link: '/kiosk/schedule/lessons', color: 'green' },
     { label: 'Розклад дзвінків', image: '🔔', link: '/kiosk/schedule/bells', color: 'blue' },
-    { label: 'Чергові класи', image: '👥', link: '/kiosk/schedule/duty', color: 'orange' },
-    { label: 'Позакласні заходи', image: '🎭', link: '/kiosk/schedule/events', color: 'purple' },
+    { label: 'Чергові класи', image: '👥', link: '/kiosk/schedule/duty', color: 'orange' , disabled: true },
+    { label: 'Позакласні заходи', image: '🎭', link: '/kiosk/schedule/events', color: 'purple', disabled: true  },
     { label: 'Графік канікул', image: '🏖️', link: '/kiosk/schedule/holidays', color: 'teal' },
   ]
 };
@@ -111,10 +119,10 @@ export const teachersConfig: KioskPageConfig = {
   title: 'Наші вчителі',
   buttons: [
     { label: 'Всі вчителі', image: '👨‍🏫', link: '/kiosk/teachers/all', color: 'blue' },
-    { label: 'За предметами', image: '📚', link: '/kiosk/teachers/subjects', color: 'purple' },
-    { label: 'Класні керівники', image: '👥', link: '/kiosk/teachers/class-heads', color: 'green' },
-    { label: 'Адміністрація', image: '💼', link: '/kiosk/teachers/admin', color: 'orange' },
-    { label: 'Ветерани праці', image: '🏅', link: '/kiosk/teachers/veterans', color: 'red' },
+    { label: 'За предметами', image: '📚', link: '/kiosk/teachers/subjects', color: 'purple', disabled: true  },
+    { label: 'Класні керівники', image: '👥', link: '/kiosk/teachers/class-heads', color: 'green', disabled: true  },
+    { label: 'Адміністрація', image: '💼', link: '/kiosk/teachers/admin', color: 'orange', disabled: true  },
+    { label: 'Ветерани праці', image: '🏅', link: '/kiosk/teachers/veterans', color: 'red', disabled: true  },
   ]
 };
 
@@ -123,12 +131,12 @@ export const achievementsConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Наші досягнення',
   buttons: [
-    { label: 'Олімпіади', image: '🥇', link: '/kiosk/achievements/olympiads', color: 'red' },
-    { label: 'Конкурси', image: '🎖️', link: '/kiosk/achievements/contests', color: 'orange' },
-    { label: 'Спортивні перемоги', image: '⚽', link: '/kiosk/achievements/sports', color: 'green' },
+    { label: 'Олімпіади', image: '🥇', link: '/kiosk/achievements/olympiads', color: 'red', disabled: true  },
+    { label: 'Конкурси', image: '🎖️', link: '/kiosk/achievements/contests', color: 'orange', disabled: true  },
+    { label: 'Спортивні перемоги', image: '⚽', link: '/kiosk/achievements/sports', color: 'green', disabled: true  },
     { label: 'Мистецтво', image: '🎨', link: '/kiosk/achievements/arts', color: 'purple' },
-    { label: 'Наукові проекти', image: '🔬', link: '/kiosk/achievements/science', color: 'blue' },
-    { label: 'Громадська діяльність', image: '🤝', link: '/kiosk/achievements/community', color: 'teal' },
+    { label: 'Наукові проекти', image: '🔬', link: '/kiosk/achievements/science', color: 'blue', disabled: true  },
+    { label: 'Громадська діяльність', image: '🤝', link: '/kiosk/achievements/community', color: 'teal', disabled: true  },
   ]
 };
 

@@ -18,28 +18,29 @@ import UserDashboard from './pages/user/userDashboard';
 import Logout from './pages/auth/logout';
 import { TimetableParser } from './pages/timetable';
 import { TimetableParser2 } from './pages/Schedule/TimetableParser';
-import { 
-  MainMenu, 
-  SchedulePage, 
-  ScheduleLessons, 
-  ScheduleBells, 
-  ScheduleHolidays, 
-  AboutPage, 
-  EducationPage, 
-  NavigatorPage, 
-  TeachersPage, 
-  AchievementsPage, 
-  GamesPage, 
-  GalleryPage, 
-  NavigationPage, 
-  VseosvitaPage, 
-  NaurokPage, 
-  AllTeachersPage 
+import {
+  MainMenu,
+  SchedulePage,
+  ScheduleLessons,
+  ScheduleBells,
+  ScheduleHolidays,
+  AboutPage,
+  EducationPage,
+  NavigatorPage,
+  TeachersPage,
+  AchievementsPage,
+  GamesPage,
+  GalleryPage,
+  NavigationPage,
+  VseosvitaPage,
+  NaurokPage,
+  AllTeachersPage
 } from './pages/Kiosk/kiosk_data';
 import KioskGallery from './pages/Schedule/KioskGallery';
 import TeacherAbsenceManager from './pages/Schedule/TeacherAbsenceManager';
 import PZCreator from './pages/Schedule/PZCreator';
 import { ZAMINI_TABLE } from './constants';
+import ExternalRedirect from './pages/Kiosk/ExternalRedirect';
 
 // Публічні маршрути
 export const PublicRoutes = () => (
@@ -47,62 +48,61 @@ export const PublicRoutes = () => (
     <Route path="/" element={<Index />} />
     <Route path="/news" element={<News />} />
     <Route path="/page" element={<Page />} />
-    
+
     {/* Редіректи */}
-    <Route 
-      path="/zakupivli" 
-      element={<Navigate to="/page?titlePages=Закупівлі&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/zakupivli"
+      element={<Navigate to="/page?titlePages=Закупівлі&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
     />
-    <Route 
-      path="/contracts" 
-      element={<Navigate to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/contracts"
+      element={<Navigate to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
     />
-    <Route 
-      path="/kiosk/announcements" 
-      element={<Navigate to="/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/kiosk/announcements"
+      element={<Navigate to="/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
     />
-    <Route 
-      path="/feedback" 
-      element={<Navigate to="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" replace />} 
+    <Route
+      path="/feedback"
+      element={<Navigate to="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" replace />}
     />
 
     {/* Редіректи на сторінки Google Docs */}
-    <Route 
-      path="/kiosk/about" 
-      element={<Navigate to="/page?titlePages=Про ліцей&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
-    />
+
     {/* <Route 
       path="/kiosk/education" 
       element={<Navigate to="/page?titlePages=Навчання&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
     /> */}
-    <Route 
-      path="/kiosk/achievements" 
-      element={<Navigate to="/page?titlePages=Досягнення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/kiosk/achievements"
+      element={<Navigate to="/page?titlePages=Досягнення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
     />
-    <Route 
-      path="/kiosk/gallery" 
-      element={<KioskGallery />} 
+    <Route
+      path="/kiosk/gallery"
+      element={<KioskGallery />}
     />
     {/* <Route 
       path="/kiosk/gallery" 
       element={<Navigate to="/page?titlePages=Фотоархів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
     /> */}
-    <Route 
-      path="/kiosk/navigation" 
-      element={<Navigate to="/page?titlePages=Навігація&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/kiosk/navigation"
+      element={<Navigate to="/page?titlePages=Навігація&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
     />
-    <Route 
-      path="/kiosk/announcements" 
-      element={<Navigate to="/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/kiosk/announcements"
+      element={<Navigate to="/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
     />
-    <Route 
-      path="/feedback" 
-      element={<Navigate to="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" replace />} 
+
+    <Route
+      path="/kiosk/education/nmt"
+      element={<ExternalRedirect url="https://zno.osvita.ua/" />}
     />
-    <Route 
-      path="/kiosk/education/presentations" 
-      element={<Navigate to="/page?titlePages=Розробки вчителів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
+    <Route
+      path="/kiosk/feedback"
+      element={<ExternalRedirect url="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" />}
     />
+
 
     <Route path="/kursi" element={<Kursi />} />
     <Route path="/schedule" element={<Schedule />} />
@@ -119,6 +119,7 @@ export const KioskRoutes = () => (
   <>
     <Route path="/mainmenu" element={<MainMenu />} />
     <Route path="/kiosk" element={<MainMenu />} />
+    <Route path="/kiosk/about" element={<AboutPage />} />
     <Route path="/kiosk/schedulepage" element={<SchedulePage />} />
     <Route path="/kiosk/schedule/lessons" element={<ScheduleLessons />} />
     <Route path="/kiosk/schedule/bells" element={<ScheduleBells />} />

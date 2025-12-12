@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+// kiosk.tsx - оновлений компонент з підтримкою disabled стану
+
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { KioskProps } from './kiosk_data';
-
 
 type SlideDirection = '' | 'left' | 'right' | 'down';
 
@@ -11,8 +12,8 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
   const [slideDirection, setSlideDirection] = useState<SlideDirection>('');
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  const handleButtonClick = (link: string): void => {
-    if (isAnimating) return;
+  const handleButtonClick = (link: string, disabled?: boolean): void => {
+    if (isAnimating || disabled) return;
     
     setSlideDirection('left');
     setIsAnimating(true);
@@ -62,7 +63,11 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
     return animations[slideDirection] || '';
   };
 
-  const getButtonColor = (color?: string): string => {
+  const getButtonColor = (color?: string, disabled?: boolean): string => {
+    if (disabled) {
+      return 'from-gray-600 to-gray-700';
+    }
+    
     const colors: Record<string, string> = {
       blue: 'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700',
       purple: 'from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700',
@@ -77,7 +82,7 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
     return colors[color || 'blue'] || colors.blue;
   };
 
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === '/mainmenu';
 
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col overflow-hidden">
@@ -99,27 +104,37 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
               {config.buttons.slice(0, 18).map((btn, idx) => (
                 <button
                   key={idx}
-                  onClick={() => handleButtonClick(btn.link)}
-                  disabled={isAnimating}
-                  className={`bg-gradient-to-br ${getButtonColor(btn.color)}
-                           text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 
+                  onClick={() => handleButtonClick(btn.link, btn.disabled)}
+                  disabled={isAnimating || btn.disabled}
+                  className={`bg-gradient-to-br ${getButtonColor(btn.color, btn.disabled)}
+                           text-white rounded-2xl shadow-xl 
+                           ${btn.disabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl transform hover:scale-105'}
                            transition-all duration-200 flex flex-col items-center justify-center p-4 
-                           disabled:opacity-50 disabled:cursor-not-allowed group`}
+                           group relative`}
                 >
+                  {/* Позначка "Скоро" для неактивних кнопок */}
+                  {btn.disabled && (
+                    <div className="absolute top-2 right-2 bg-yellow-500 text-xs font-bold px-2 py-1 rounded">
+                      Скоро
+                    </div>
+                  )}
+                  
                   {btn.image && (
-                    <div className="w-20 h-20 mb-3 flex items-center justify-center text-5xl">
+                    <div className={`w-20 h-20 mb-3 flex items-center justify-center text-5xl ${btn.disabled ? 'opacity-60' : ''}`}>
                       {btn.image.startsWith('http') ? (
                         <img 
                           src={btn.image} 
                           alt={btn.label}
-                          className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"
+                          className={`max-w-full max-h-full object-contain ${!btn.disabled && 'group-hover:scale-110'} transition-transform`}
                         />
                       ) : (
-                        <span className="group-hover:scale-110 transition-transform">{btn.image}</span>
+                        <span className={`${!btn.disabled && 'group-hover:scale-110'} transition-transform`}>
+                          {btn.image}
+                        </span>
                       )}
                     </div>
                   )}
-                  <span className="text-lg font-semibold text-center leading-tight">
+                  <span className={`text-lg font-semibold text-center leading-tight ${btn.disabled ? 'opacity-80' : ''}`}>
                     {btn.label}
                   </span>
                 </button>
@@ -172,4 +187,3 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
     </div>
   );
 };
-
