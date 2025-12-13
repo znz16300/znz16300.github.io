@@ -233,7 +233,7 @@ const TeacherAbsenceManager = () => {
             : '';
           
           result.push(
-            `${dateStr}\t${teacher.name}\t${teacher.reason}\t${lesson.subject}\t${lesson.classes.join(', ')}\t\t\t\t${lesson.periodName} ${distType}`
+            `\t${dateStr}\t${teacher.name}\t${teacher.reason}\t${lesson.subject}\t${lesson.classes.join(', ')}\t\t\t\t${lesson.periodName}\t${distType}`
           );
         });
       });
