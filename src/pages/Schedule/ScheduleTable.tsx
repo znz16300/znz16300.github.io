@@ -6,14 +6,15 @@ import { WeekType, getLessonBackgroundColor, getDistTypeBadge } from './distData
 import { getLessonDistType } from './distData';
 
 interface ScheduleTableProps {
+  className: string;
   scheduleData: ScheduleData;
   schedule: WeekSchedule;
   view: string;
   weekType: WeekType;
 }
 
-export const ScheduleTable: React.FC<ScheduleTableProps> = ({ scheduleData, schedule, view, weekType }) => {
-  // console.log(scheduleData);
+export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, scheduleData, schedule, view, weekType }) => {
+  console.log('view--', view);
   
   return (
     <table className="w-full table-fixed">
@@ -40,7 +41,9 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ scheduleData, sche
               <td key={`${period.id}-${day}`} className="px-4 py-3 border-b border-gray-200">
                 {schedule[day]?.[period.id]?.map((lesson, lessonIdx) => {
                   // Визначаємо колір фону для картки уроку
-                  const bgColor = (view === 'teachers'|| view === 'classes') && lesson.classes
+                  console.log('Class--', className);
+                  
+                  const bgColor = (view === 'teachers' || view === 'classes') && lesson.classes
                     ? getLessonBackgroundColor(lesson.classes, weekType)
                     : 'bg-blue-50';
                   

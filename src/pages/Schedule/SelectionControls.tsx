@@ -1,8 +1,9 @@
 // SelectionControls.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScheduleData } from '@/type/scheduledata';
 import { getDayName, daysArray } from './scheduleHelpers';
 import { WeekType, getWeekTypeLabel } from './distDataHelper';
+import { getDistData } from './distData';
 
 interface SelectionControlsProps {
   view: string;
@@ -31,6 +32,12 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
 }) => {
   const selectClass = "w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500";
   const showWeekSelector = ['fullClasses', 'fullTeachers', 'teachers', 'classes', 'all'].includes(view);
+  const [formatEducation, setFormatEducation] = useState<string | null>(null);
+  useEffect(() => {
+    const className = scheduleData.classes.find(cls => cls.id === selectedClass)?.name || '';
+    setFormatEducation(getDistData(className, weekType));
+  }, [selectedClass, weekType, scheduleData.classes]);
+  
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-6">
@@ -47,7 +54,6 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
               </option>
             ))}
           </select><div className="flex items-center gap-2 text-sm text-gray-600">
-              <span>Тип тижня: {weekType === 0 ? 'Д' : 'О'}</span>
             </div></>
         ) : view === 'teachers' ? (
           <select
@@ -76,6 +82,7 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
         ) : null}
 
         {showWeekSelector && (
+          <>
           <select
             value={weekType}
             onChange={(e) => setWeekType(Number(e.target.value) as WeekType)}
@@ -84,6 +91,15 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
             <option value={0}>{getWeekTypeLabel(0)}</option>
             <option value={1}>{getWeekTypeLabel(1)}</option>
           </select>
+          {view === 'classes' && (
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <span
+                className={formatEducation === 'д' ? 'blink text-2xl text-orange-600 font-semibold animate-pulse' : 'text-2xl text-green-600 font-semibold'  }
+              >{formatEducation === 'д' ? 'Клас на дистанційному навчанні' : 'Клас на очному навчанні'}</span>
+            </div>
+          )}
+          </>
+          
         )}
       </div>
     </div>

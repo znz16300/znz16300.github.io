@@ -198,6 +198,8 @@ export const TimetableParser2: React.FC = () => {
 
   const handleWeekTypeChange = (week: WeekType) => {
     setWeekType(week);
+    console.log('set week', week);
+    
     const settings = {
       view,
       weekType: week,
@@ -288,6 +290,7 @@ export const TimetableParser2: React.FC = () => {
     if (schedule) {
       return (
         <ScheduleTable 
+          className={scheduleData.classes.find(cls => cls.id === selectedClass)?.name || ''}
           scheduleData={scheduleData} 
           schedule={schedule} 
           view={view} 
