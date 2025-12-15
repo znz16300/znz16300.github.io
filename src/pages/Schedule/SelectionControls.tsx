@@ -30,13 +30,13 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
   setWeekType
 }) => {
   const selectClass = "w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500";
-  const showWeekSelector = ['fullClasses', 'fullTeachers', 'teachers', 'all'].includes(view);
+  const showWeekSelector = ['fullClasses', 'fullTeachers', 'teachers', 'classes', 'all'].includes(view);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-6">
       <div className="flex flex-wrap gap-4">
         {view === 'classes' ? (
-          <select
+          <><select
             value={selectedClass}
             onChange={(e) => setSelectedClass(e.target.value)}
             className={selectClass}
@@ -46,19 +46,21 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
                 {cls.name}
               </option>
             ))}
-          </select>
+          </select><div className="flex items-center gap-2 text-sm text-gray-600">
+              <span>Тип тижня: {weekType === 0 ? 'Д' : 'О'}</span>
+            </div></>
         ) : view === 'teachers' ? (
           <select
-            value={selectedTeacher}
-            onChange={(e) => setSelectedTeacher(e.target.value)}
-            className={selectClass}
-          >
-            {scheduleData.teachers.map(teacher => (
-              <option key={teacher.id} value={teacher.id}>
-                {teacher.name}
-              </option>
-            ))}
-          </select>
+              value={selectedTeacher}
+              onChange={(e) => setSelectedTeacher(e.target.value)}
+              className={selectClass}
+            >
+              {scheduleData.teachers.map(teacher => (
+                <option key={teacher.id} value={teacher.id}>
+                  {teacher.name}
+                </option>
+              ))}
+            </select>
         ) : view === 'all' ? (
           <select
             value={selectedDay}

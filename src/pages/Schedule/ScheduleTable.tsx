@@ -13,12 +13,13 @@ interface ScheduleTableProps {
 }
 
 export const ScheduleTable: React.FC<ScheduleTableProps> = ({ scheduleData, schedule, view, weekType }) => {
+  // console.log(scheduleData);
   
   return (
-    <table className="w-full">
+    <table className="w-full table-fixed">
       <thead className="bg-blue-600 text-white sticky top-0 z-20">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30">Урок / Час</th>
+          <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30 w-40">Урок / Час</th>
           {daysArray.map(day => (
             <th key={day} className="px-4 py-3 text-left font-semibold">
               {getDayName(day)}
@@ -39,7 +40,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ scheduleData, sche
               <td key={`${period.id}-${day}`} className="px-4 py-3 border-b border-gray-200">
                 {schedule[day]?.[period.id]?.map((lesson, lessonIdx) => {
                   // Визначаємо колір фону для картки уроку
-                  const bgColor = view === 'teachers' && lesson.classes
+                  const bgColor = (view === 'teachers'|| view === 'classes') && lesson.classes
                     ? getLessonBackgroundColor(lesson.classes, weekType)
                     : 'bg-blue-50';
                   

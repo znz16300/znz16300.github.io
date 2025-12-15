@@ -21,6 +21,8 @@ export const getCellBackgroundColor = (className: string, weekType: WeekType): s
 
 export const getLessonBackgroundColor = (classes: string[], weekType: WeekType): string => {
   const distType = getLessonDistType(classes, weekType);
+  console.log(classes);
+  
   
   if (distType === 'д') {
     return 'bg-orange-100 border-orange-200'; // дистанційний

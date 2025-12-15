@@ -99,6 +99,14 @@ export const PublicRoutes = () => (
       element={<ExternalRedirect url="https://zno.osvita.ua/" />}
     />
     <Route
+      path="/kiosk/education/videos"
+      element={<ExternalRedirect url="https://www.youtube.com/@ukrainian-online-school" />}
+    />
+    <Route
+      path="/kiosk/games"
+      element={<ExternalRedirect url="https://igru.com.ua/" />}
+    />
+    <Route
       path="/kiosk/feedback"
       element={<ExternalRedirect url="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" />}
     />
