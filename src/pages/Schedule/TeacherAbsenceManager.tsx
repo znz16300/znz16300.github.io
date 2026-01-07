@@ -27,13 +27,14 @@ const TeacherAbsenceManager = () => {
   const [replacementDateFrom, setReplacementDateFrom] = useState('');
   const [replacementDateTo, setReplacementDateTo] = useState('');
   const [useWeekParity, setUseWeekParity] = useState(true);
+  const [useWeekParityInverted, setUseWeekParityInverted] = useState(false);
   const [replacementList, setReplacementList] = useState('');
 
   const daysArray = ['10000', '01000', '00100', '00010', '00001'];
   const dayNames = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця"];
 
   // Масиви класів для визначення типу навчання
-  const oddWeekInPersonClasses = [
+  const evenWeekInPersonClasses = [
     '2-А', '2-Б', '2-В',
     '4-А', '4-Б', '4-В',
     '6-В', '6-Г',
@@ -43,7 +44,7 @@ const TeacherAbsenceManager = () => {
     '10-А', '10-Б'
   ];
 
-  const evenWeekInPersonClasses = [
+  const  oddWeekInPersonClasses = [
     '3-А', '3-Б', '3-В',
     '5-А', '5-Б', '5-В',
     '6-А', '6-Б',
@@ -394,7 +395,8 @@ const TeacherAbsenceManager = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <div className="flex items-end">
+            <div className="flex flex-col justify-center gap-2">  
+              <div className="flex items-end">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -407,6 +409,24 @@ const TeacherAbsenceManager = () => {
                 </span>
               </label>
             </div>
+            {useWeekParity && (
+            <div className="flex items-end">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={useWeekParityInverted}
+                  onChange={(e) => setUseWeekParityInverted(e.target.checked)}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm font-semibold text-gray-700">
+                  Інвертувати
+                </span>
+              </label>
+            </div>
+            )}
+            </div>
+            
+
           </div>
 
           <button
