@@ -1,6 +1,6 @@
-// kiosk.tsx - оновлений компонент з підтримкою disabled стану
+// kiosk.tsx - адаптивний компонент з підтримкою мобільних пристроїв
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { KioskProps } from './kiosk_data';
 
@@ -11,6 +11,19 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
   const location = useLocation();
   const [slideDirection, setSlideDirection] = useState<SlideDirection>('');
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  // Визначення мобільного пристрою
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleButtonClick = (link: string, disabled?: boolean): void => {
     if (isAnimating || disabled) return;
@@ -87,54 +100,60 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
   return (
     <div className="w-screen h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="px-8 pt-6 pb-4 bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur-sm">
+      <div className={`${isMobile ? 'px-4 pt-4 pb-2' : 'px-8 pt-6 pb-4'} bg-gradient-to-r from-blue-900/50 to-purple-900/50 backdrop-blur-sm`}>
         {config.title && (
-          <h1 className="text-4xl font-bold text-white text-center mb-2">{config.title}</h1>
+          <h1 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold text-white text-center mb-2`}>
+            {config.title}
+          </h1>
         )}
-        <p className="text-center text-blue-200 text-sm">Інформаційний кіоск ліцею</p>
+        <p className={`text-center text-blue-200 ${isMobile ? 'text-xs' : 'text-sm'}`}>
+          Інформаційний кіоск ліцею
+        </p>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8 overflow-hidden">
+      <div className={`flex-1 ${isMobile ? 'p-3' : 'p-8'} overflow-hidden`}>
         {config.type === 'menu' && config.buttons ? (
           <div 
             className={`h-full transition-transform duration-400 ease-in-out ${getSlideClass()}`}
           >
-            <div className="grid grid-cols-4 grid-rows-3 gap-6 h-full">
-              {config.buttons.slice(0, 18).map((btn, idx) => (
+            {/* Адаптивна сітка: 2x6 на мобільних, 4x3 на десктопі */}
+            <div className={`grid ${isMobile ? 'grid-cols-2 grid-rows-6' : 'grid-cols-4 grid-rows-3'} ${isMobile ? 'gap-3' : 'gap-6'} h-full`}>
+              {config.buttons.slice(0, 12).map((btn, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleButtonClick(btn.link, btn.disabled)}
                   disabled={isAnimating || btn.disabled}
                   className={`bg-gradient-to-br ${getButtonColor(btn.color, btn.disabled)}
                            text-white rounded-2xl shadow-xl 
-                           ${btn.disabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl transform hover:scale-105'}
-                           transition-all duration-200 flex flex-col items-center justify-center p-4 
+                           ${btn.disabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl transform hover:scale-105 active:scale-95'}
+                           transition-all duration-200 flex flex-col items-center justify-center 
+                           ${isMobile ? 'p-2' : 'p-4'}
                            group relative`}
                 >
                   {/* Позначка "Скоро" для неактивних кнопок */}
                   {btn.disabled && (
-                    <div className="absolute top-2 right-2 bg-yellow-500 text-xs font-bold px-2 py-1 rounded">
+                    <div className={`absolute ${isMobile ? 'top-1 right-1 text-xs px-1.5 py-0.5' : 'top-2 right-2 text-xs px-2 py-1'} bg-yellow-500 font-bold rounded`}>
                       Скоро
                     </div>
                   )}
                   
                   {btn.image && (
-                    <div className={`w-20 h-20 mb-3 flex items-center justify-center text-5xl ${btn.disabled ? 'opacity-60' : ''}`}>
+                    <div className={`${isMobile ? 'w-12 h-12 mb-1 text-3xl' : 'w-20 h-20 mb-3 text-5xl'} flex items-center justify-center ${btn.disabled ? 'opacity-60' : ''}`}>
                       {btn.image.startsWith('http') ? (
                         <img 
                           src={btn.image} 
                           alt={btn.label}
-                          className={`max-w-full max-h-full object-contain ${!btn.disabled && 'group-hover:scale-110'} transition-transform`}
+                          className={`max-w-full max-h-full object-contain ${!btn.disabled && 'group-hover:scale-110 group-active:scale-110'} transition-transform`}
                         />
                       ) : (
-                        <span className={`${!btn.disabled && 'group-hover:scale-110'} transition-transform`}>
+                        <span className={`${!btn.disabled && 'group-hover:scale-110 group-active:scale-110'} transition-transform`}>
                           {btn.image}
                         </span>
                       )}
                     </div>
                   )}
-                  <span className={`text-lg font-semibold text-center leading-tight ${btn.disabled ? 'opacity-80' : ''}`}>
+                  <span className={`${isMobile ? 'text-xs' : 'text-lg'} font-semibold text-center leading-tight ${btn.disabled ? 'opacity-80' : ''}`}>
                     {btn.label}
                   </span>
                 </button>
@@ -154,33 +173,34 @@ export const Kiosk: React.FC<KioskProps> = ({ config }) => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="px-8 pb-6 flex justify-between items-center gap-4">
+      <div className={`${isMobile ? 'px-3 pb-3' : 'px-8 pb-6'} flex justify-between items-center gap-2`}>
         <button
           onClick={handleBack}
           disabled={isAnimating}
-          className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-xl 
-                   shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200
-                   flex items-center gap-2 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`bg-gray-700 hover:bg-gray-600 active:bg-gray-600 text-white 
+                   ${isMobile ? 'px-4 py-2 text-sm' : 'px-8 py-4'} rounded-xl 
+                   shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-200
+                   flex items-center gap-2 font-semibold disabled:opacity-50 disabled:cursor-not-allowed`}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={`${isMobile ? 'w-4 h-4' : 'w-6 h-6'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Назад
+          {!isMobile && 'Назад'}
         </button>
         
         {!isHomePage && (
           <button
             onClick={handleHome}
             disabled={isAnimating}
-            className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 
-                     text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 
+            className={`bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 active:from-purple-800 active:to-purple-900
+                     text-white ${isMobile ? 'px-4 py-2 text-sm' : 'px-8 py-4'} rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95
                      transition-all duration-200 flex items-center gap-2 font-semibold 
-                     disabled:opacity-50 disabled:cursor-not-allowed"
+                     disabled:opacity-50 disabled:cursor-not-allowed`}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={`${isMobile ? 'w-4 h-4' : 'w-6 h-6'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
-            Головне меню
+            {!isMobile && 'Головне меню'}
           </button>
         )}
       </div>
