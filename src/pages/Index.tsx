@@ -527,7 +527,7 @@ const Index = () => {
                     </Link>
 
                     <Link
-                      to="/schedule"
+                      to="/schedule2"
                       className="group flex cursor-pointer items-center justify-between rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-gray-700"
                     >
                       <div className="flex items-center space-x-3">

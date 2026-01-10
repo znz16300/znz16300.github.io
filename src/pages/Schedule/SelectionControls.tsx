@@ -31,7 +31,7 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
   setWeekType
 }) => {
   const selectClass = "w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500";
-  const showWeekSelector = ['fullClasses', 'fullTeachers', 'teachers', 'classes', 'all'].includes(view);
+  const showWeekSelector = ['fullClasses', 'fullTeachers', 'teachers', 'classes', 'all', 'fullClassrooms'].includes(view); //!!!
   const [formatEducation, setFormatEducation] = useState<string | null>(null);
   useEffect(() => {
     const className = scheduleData.classes.find(cls => cls.id === selectedClass)?.name || '';
@@ -79,7 +79,7 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
               </option>
             ))}
           </select>
-        ) : null}
+        ) :  null}
 
         {showWeekSelector && (
           <>

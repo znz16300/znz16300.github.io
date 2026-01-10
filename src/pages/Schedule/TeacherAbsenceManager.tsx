@@ -129,18 +129,26 @@ const TeacherAbsenceManager = () => {
   };
 
   const getDistType = (className: string, isOddWeek: boolean): string => {
-    // 1-ші класи завжди очні
+    // 1-ші класи завжди очні (перевіряємо на початку)
     if (className.startsWith('1-')) return 'о';
     
+    let result = 'д';
+    
     // Перевіряємо чи клас очний у непарний тиждень
-    if (isOddWeek && oddWeekInPersonClasses.includes(className)) return 'о';
+    if (isOddWeek && oddWeekInPersonClasses.includes(className)) result = 'о';
     
     // Перевіряємо чи клас очний у парний тиждень
-    if (!isOddWeek && evenWeekInPersonClasses.includes(className)) return 'о';
+    if (!isOddWeek && evenWeekInPersonClasses.includes(className)) result = 'о';
     
-    // Інакше - дистанційний
-    return 'д';
-  };
+    // Якщо треба - інвертуємо (один if з else)
+    if (useWeekParityInverted) {
+        result = result === 'д' ? 'о' : 'д';
+    }
+    
+    return result;
+};
+
+
 
   const findById = <T extends { id: string }>(array: T[], id: string): T | undefined => {
     return array.find(item => item.id === id);
