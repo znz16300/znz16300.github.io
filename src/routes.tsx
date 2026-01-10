@@ -57,6 +57,155 @@ import ExternalRedirect from './pages/Kiosk/ExternalRedirect';
 import { ImageViewer } from './pages/Kiosk/ImageViewer';
 import { VideoViewer } from './pages/Kiosk/VideoViewer';
 
+// ============================================
+// КОНФІГУРАЦІЇ МАРШРУТІВ
+// ============================================
+
+// Редіректи на внутрішні сторінки
+const internalRedirects = [
+  { from: '/zakupivli', to: '/page?titlePages=Закупівлі&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI' },
+  { from: '/contracts', to: '/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI' },
+  { from: '/kiosk/announcements', to: '/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI' },
+  { from: '/kiosk/achievements', to: '/page?titlePages=Досягнення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI' },
+  { from: '/kiosk/navigation', to: '/page?titlePages=Навігація&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI' },
+];
+
+// Редіректи на зовнішні URL
+const externalRedirects = [
+  { path: '/feedback', url: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header' },
+  { path: '/kiosk/education/nmt', url: 'https://zno.osvita.ua/' },
+  { path: '/kiosk/education/videos', url: 'https://www.youtube.com/@ukrainian-online-school' },
+  { path: '/kiosk/games', url: 'https://igru.com.ua/' },
+  { path: '/kiosk/feedback', url: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header' },
+];
+
+// Основні маршрути кіоску
+const kioskMainRoutes = [
+  { path: '/mainmenu', component: MainMenu },
+  { path: '/kiosk', component: MainMenu },
+  { path: '/kiosk/about', component: AboutPage },
+  { path: '/kiosk/schedulepage', component: SchedulePage },
+  { path: '/kiosk/schedule/lessons', component: ScheduleLessons },
+  { path: '/kiosk/schedule/bells', component: ScheduleBells },
+  { path: '/kiosk/schedule/holidays', component: ScheduleHolidays },
+  { path: '/kiosk/education', component: EducationPage },
+  { path: '/kiosk/navigator', component: NavigatorPage },
+  { path: '/kiosk/teachers', component: TeachersPage },
+  { path: '/kiosk/teachers/all', component: AllTeachersPage },
+  { path: '/kiosk/achievements', component: AchievementsPage },
+  { path: '/kiosk/games', component: GamesPage },
+  { path: '/kiosk/gallery', component: KioskGallery },
+  { path: '/kiosk/navigation', component: NavigationPage },
+  { path: '/kiosk/vseosvita', component: VseosvitaPage },
+  { path: '/kiosk/naurok', component: NaurokPage },
+];
+
+// Маршрути психологічної підтримки (меню)
+const psychoMenuRoutes = [
+  { path: '/kiosk/psypho', component: PsyphoPage },
+  { path: '/kiosk/psypho/buling', component: BulingPage },
+  { path: '/kiosk/psypho/tiyak', component: TiyakPage },
+  { path: '/kiosk/psypho/tiyak/vpravy', component: VpravyPage },
+  { path: '/kiosk/psypho/profilaktika', component: ProfilaktikaPage },
+  { path: '/kiosk/psypho/phones', component: PhonesPage },
+  { path: '/kiosk/psypho/mental', component: MentalPage },
+  { path: '/kiosk/psypho/parents', component: ParentsPage },
+  { path: '/kiosk/psypho/conflicts', component: ConflictsPage },
+  { path: '/kiosk/psypho/gender', component: GenderPage },
+  { path: '/kiosk/psypho/internet', component: InternetPage },
+  { path: '/kiosk/psypho/kindness', component: KindnessPage },
+];
+
+// Зображення для психологічної підтримки
+const psychoImageRoutes = [
+  // Загальні
+  { path: '/kiosk/psypho/kindness/rules', title: '10 правил доброти', image: '10-rules.jpg' },
+  { path: '/kiosk/psypho/service', title: 'Соціально-психологічна служба', image: 'soc-psyph.png' },
+  
+  // Профілактика насильства
+  { path: '/kiosk/psypho/profilaktika/domashnye', title: 'Домашнє насильство', image: 'home-violence.png' },
+  { path: '/kiosk/psypho/profilaktika/pamiatka', title: 'Пам\'ятка для батьків', image: 'memo-for-parents.png' },
+  { path: '/kiosk/psypho/profilaktika/porady-batkam', title: 'Поради батькам', image: 'advices.png' },
+  
+  // Безпечний інтернет
+  { path: '/kiosk/psypho/internet/pravyla', title: 'Правила інтернет безпеки', image: 'pravyla.jpg' },
+  { path: '/kiosk/psypho/internet/bezpechnyy', title: 'Безпечний інтернет', image: 'bezpechnyy.jpg' },
+  { path: '/kiosk/psypho/internet/dlia-batkiv', title: 'Правила безпечного інтернету для батьків', image: 'dlia-batkiv.jpg' },
+  { path: '/kiosk/psypho/internet/robota-v-merezhi', title: 'Правила безпечної роботи в мережі', image: 'robota-v-merezhi.jpg' },
+  { path: '/kiosk/psypho/internet/dlia-ditey', title: 'Правила безпечного інтернету для дітей', image: 'dlia-ditey.jpg' },
+  
+  // Гендерна рівність
+  { path: '/kiosk/psypho/gender/shcho-take', title: 'Що таке гендерна рівність', image: 'shcho-take.jpg' },
+  { path: '/kiosk/psypho/gender/pryntsypy', title: 'Принципи гендерної рівності', image: 'pryntsypy.jpg' },
+  
+  // Конфлікти
+  { path: '/kiosk/psypho/conflicts/shcho-take', title: 'Що таке конфлікт', image: 'conflict-shcho-take.jpg' },
+  { path: '/kiosk/psypho/conflicts/typy', title: 'Типи конфліктів', image: 'typy.jpg' },
+  { path: '/kiosk/psypho/conflicts/druzi', title: 'Конфлікти з друзями - як зберегти дружбу', image: 'druzi.jpg' },
+  { path: '/kiosk/psypho/conflicts/sposoby', title: 'Способи вирішення конфліктів', image: 'sposoby.jpg' },
+  
+  // Корисне для батьків
+  { path: '/kiosk/psypho/parents/praktychnyy', title: 'Практичний блок для батьків', image: 'praktychnyy.jpg' },
+  { path: '/kiosk/psypho/parents/chomu-bulyty', title: 'Чому діти починають булити', image: 'chomu-bulyty.jpg' },
+  { path: '/kiosk/psypho/parents/perevantazhenist', title: 'Чи не перевантажена ваша дитина', image: 'perevantazhenist.jpg' },
+  { path: '/kiosk/psypho/parents/vplyv-simi', title: 'Вплив сім\'ї на профілактику булінгу', image: 'vplyv-simi.jpg' },
+  { path: '/kiosk/psypho/parents/pershoklasnyk', title: 'Пам\'ятка для батьків першокласника', image: 'pershoklasnyk.jpg' },
+  { path: '/kiosk/psypho/parents/pidlitky', title: 'Поради батькам підлітків', image: 'pidlitky.jpg' },
+  { path: '/kiosk/psypho/parents/suitsyd', title: 'Профілактика суїциду', image: 'suitsyd.png' },
+  { path: '/kiosk/psypho/parents/agresiia', title: 'Роль сім\'ї у формуванні агресії', image: 'agresiia.jpg' },
+  { path: '/kiosk/psypho/parents/test', title: 'Тест. Чи не перевантажена дитина', image: 'test.jpg' },
+  { path: '/kiosk/psypho/parents/pidtrymka', title: 'Поради щодо підтримки дитини', image: 'pidtrymka.jpg' },
+  { path: '/kiosk/psypho/parents/piatyy-klas', title: 'Пам\'ятка для батьків п\'ятих класів', image: 'piatyy-klas.jpg' },
+  
+  // Ментальне здоров'я
+  { path: '/kiosk/psypho/mental/zazemlennia', title: 'Техніки заземлення', image: 'zazemlennia.jpg' },
+  { path: '/kiosk/psypho/mental/den', title: 'День ментального здоров\'я', image: 'den.png' },
+  { path: '/kiosk/psypho/mental/pokrashchennia', title: 'Що я можу зробити для покращення', image: 'pokrashchennia.jpg' },
+  { path: '/kiosk/psypho/mental/tryvozhist', title: 'Техніки для зняття тривожності', image: 'tryvozhist.jpg' },
+  { path: '/kiosk/psypho/mental/rivnovaha', title: 'Як зберегти рівновагу під тиском', image: 'rivnovaha.jpg' },
+  { path: '/kiosk/psypho/mental/stress', title: 'Техніки для подолання стресу', image: 'stress.png' },
+  { path: '/kiosk/psypho/mental/info', title: 'Ментальне здоров\'я', image: 'info.png' },
+  { path: '/kiosk/psypho/mental/pamiatka', title: 'Пам\'ятка для батьків', image: 'pamiatka.png' },
+  { path: '/kiosk/psypho/mental/yak-pokrashchyty', title: 'Як покращити ментальне здоров\'я', image: 'yak-pokrashchyty.jpg' },
+  
+  // Номери телефонів
+  { path: '/kiosk/psypho/phones/hotline-1', title: 'Безкоштовна психологічна допомога для українців', image: 'hotline-1.jpg' },
+  { path: '/kiosk/psypho/phones/hotline-2', title: 'Гарячі лінії психологічної допомоги', image: 'hotline-2.jpg' },
+  { path: '/kiosk/psypho/phones/contacts', title: 'Контакти служб підтримки', image: 'hotline-3.jpg' },
+  
+  // Ти як?
+  { path: '/kiosk/psypho/tiyak/karta', title: 'Карта "Ти як"', image: 'karta.jpg' },
+  { path: '/kiosk/psypho/tiyak/skazhy-chesno', title: 'Скажи чесно "Ти як"', image: 'skazhy-chesno.png' },
+  { path: '/kiosk/psypho/tiyak/emotsii-1', title: 'Емоційний стан 1', image: 'emotsii-1.jpg' },
+  { path: '/kiosk/psypho/tiyak/emotsii-2', title: 'Емоційний стан 2', image: 'emotsii-2.jpg' },
+  { path: '/kiosk/psypho/tiyak/emotsii-3', title: 'Емоційний стан 3', image: 'emotsii-3.jpg' },
+  
+  // Булінг
+  { path: '/kiosk/psypho/buling/yavyshche', title: 'Явище булінгу в шкільному середовищі', image: 'yavyshche.png' },
+  { path: '/kiosk/psypho/buling/rekomendatsii-batkam', title: 'Рекомендації батькам', image: 'rekomendatsii-batkam.png' },
+  { path: '/kiosk/psypho/buling/algorytm-pedahohiv', title: 'Алгоритм дій педагогічних працівників', image: 'algorytm-pedahohiv.jpg' },
+  { path: '/kiosk/psypho/buling/porady-uchnyam', title: 'Поради учням як боротися з булінгом', image: 'porady-uchnyam.png' },
+  { path: '/kiosk/psypho/buling/povidomyty', title: 'Повідомити про булінг', image: 'povidomyty.jpg' },
+  { path: '/kiosk/psypho/buling/buling-info', title: 'Зупини булінг', image: 'buling-info.png' },
+  { path: '/kiosk/psypho/buling/dopomohty-dytyni', title: 'Як допомогти дитині впоратися', image: 'dopomohty-dytyni.png' },
+  { path: '/kiosk/psypho/buling/yak-reahuvaty', title: 'Як реагувати на цькування', image: 'yak-reahuvaty.jpg' },
+  { path: '/kiosk/psypho/buling/buklet', title: 'Буклет. Булінг', image: 'buklet.jpg' },
+  { path: '/kiosk/psypho/buling/porady-psykholoha', title: 'Поради психологічної служби', image: 'porady-psykholoha.png' },
+];
+
+// Відео для психологічної підтримки
+const psychoVideoRoutes = [
+  { path: '/kiosk/psypho/tiyak/vpravy/zlata', title: 'Скажи чесно, ти як_ Злата Огнєвіч', video: 'v1.mp4' },
+  { path: '/kiosk/psypho/tiyak/vpravy/olha', title: 'Скажи чесно, ти як_ Ольга Бутко', video: 'v2.mp4' },
+  { path: '/kiosk/psypho/tiyak/vpravy/solomiia', title: 'Скажи чесно, ти як_ Проста вправа для заспокоєння від Соломії Вітвіцької', video: 'v3.mp4' },
+  { path: '/kiosk/psypho/tiyak/vpravy/roksolana', title: 'Скажи чесно, ти як_ Роксолана Сирота (ROXOLANA)', video: 'v4.mp4' },
+  { path: '/kiosk/psypho/tiyak/vpravy/oleksandra', title: 'Щоб заспокоїтись у важку мить, забирайте прості вправи від Олександри Заріцької', video: 'v5.mp4' },
+];
+
+// ============================================
+// РЕНДЕР МАРШРУТІВ
+// ============================================
+
 // Публічні маршрути
 export const PublicRoutes = () => (
   <>
@@ -64,68 +213,15 @@ export const PublicRoutes = () => (
     <Route path="/news" element={<News />} />
     <Route path="/page" element={<Page />} />
 
-    {/* Редіректи */}
-    <Route
-      path="/zakupivli"
-      element={<Navigate to="/page?titlePages=Закупівлі&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
-    />
-    <Route
-      path="/contracts"
-      element={<Navigate to="/page?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
-    />
-    <Route
-      path="/kiosk/announcements"
-      element={<Navigate to="/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
-    />
-    <Route
-      path="/feedback"
-      element={<Navigate to="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" replace />}
-    />
+    {/* Редіректи на внутрішні сторінки */}
+    {internalRedirects.map(({ from, to }) => (
+      <Route key={from} path={from} element={<Navigate to={to} replace />} />
+    ))}
 
-    {/* Редіректи на сторінки Google Docs */}
-
-    {/* <Route 
-      path="/kiosk/education" 
-      element={<Navigate to="/page?titlePages=Навчання&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
-    /> */}
-    <Route
-      path="/kiosk/achievements"
-      element={<Navigate to="/page?titlePages=Досягнення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
-    />
-    <Route
-      path="/kiosk/gallery"
-      element={<KioskGallery />}
-    />
-    {/* <Route 
-      path="/kiosk/gallery" 
-      element={<Navigate to="/page?titlePages=Фотоархів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />} 
-    /> */}
-    <Route
-      path="/kiosk/navigation"
-      element={<Navigate to="/page?titlePages=Навігація&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
-    />
-    <Route
-      path="/kiosk/announcements"
-      element={<Navigate to="/page?titlePages=Оголошення&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI" replace />}
-    />
-
-    <Route
-      path="/kiosk/education/nmt"
-      element={<ExternalRedirect url="https://zno.osvita.ua/" />}
-    />
-    <Route
-      path="/kiosk/education/videos"
-      element={<ExternalRedirect url="https://www.youtube.com/@ukrainian-online-school" />}
-    />
-    <Route
-      path="/kiosk/games"
-      element={<ExternalRedirect url="https://igru.com.ua/" />}
-    />
-    <Route
-      path="/kiosk/feedback"
-      element={<ExternalRedirect url="https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header" />}
-    />
-
+    {/* Редіректи на зовнішні URL */}
+    {externalRedirects.map(({ path, url }) => (
+      <Route key={path} path={path} element={<ExternalRedirect url={url} />} />
+    ))}
 
     <Route path="/kursi" element={<Kursi />} />
     <Route path="/schedule" element={<Schedule />} />
@@ -140,320 +236,46 @@ export const PublicRoutes = () => (
 // Маршрути кіоску
 export const KioskRoutes = () => (
   <>
-    <Route path="/mainmenu" element={<MainMenu />} />
-    <Route path="/kiosk" element={<MainMenu />} />
-    <Route path="/kiosk/about" element={<AboutPage />} />
-    <Route path="/kiosk/schedulepage" element={<SchedulePage />} />
-    <Route path="/kiosk/schedule/lessons" element={<ScheduleLessons />} />
-    <Route path="/kiosk/schedule/bells" element={<ScheduleBells />} />
-    <Route path="/kiosk/schedule/holidays" element={<ScheduleHolidays />} />
-    <Route path="/kiosk/about" element={<AboutPage />} />
-    <Route path="/kiosk/education" element={<EducationPage />} />
-    <Route path="/kiosk/navigator" element={<NavigatorPage />} />
-    <Route path="/kiosk/teachers" element={<TeachersPage />} />
-    <Route path="/kiosk/achievements" element={<AchievementsPage />} />
-    <Route path="/kiosk/games" element={<GamesPage />} />
-    <Route path="/kiosk/gallery" element={<GalleryPage />} />
-    <Route path="/kiosk/navigation" element={<NavigationPage />} />
-    <Route path="/kiosk/vseosvita" element={<VseosvitaPage />} />
-    <Route path="/kiosk/naurok" element={<NaurokPage />} />
-    <Route path="/kiosk/teachers/all" element={<AllTeachersPage />} />
-// ============================================
-// ROUTES ДЛЯ ПСИХОЛОГІЧНОЇ ПІДТРИМКИ
-// ============================================
+    {/* Основні маршрути кіоску */}
+    {kioskMainRoutes.map(({ path, component: Component }) => (
+      <Route key={path} path={path} element={<Component />} />
+    ))}
 
-// Головна сторінка психологічної підтримки
-<Route path="/kiosk/psypho" element={<PsyphoPage />} />
+    {/* Маршрути психологічної підтримки (меню) */}
+    {psychoMenuRoutes.map(({ path, component: Component }) => (
+      <Route key={path} path={path} element={<Component />} />
+    ))}
 
-// Що таке булінг
-<Route path="/kiosk/psypho/buling" element={<BulingPage />} />
+    {/* Зображення для психологічної підтримки */}
+    {psychoImageRoutes.map(({ path, title, image }) => (
+      <Route
+        key={path}
+        path={path}
+        element={
+          <ImageViewer
+            title={title}
+            imageUrl={`/assets/images/kiosk/${image}`}
+            alt=""
+          />
+        }
+      />
+    ))}
 
-// Ти як?
-<Route path="/kiosk/psypho/tiyak" element={<TiyakPage />} />
-<Route path="/kiosk/psypho/tiyak/vpravy" element={<VpravyPage />} />
-
-// Профілактика насильства
-<Route path="/kiosk/psypho/profilaktika" element={<ProfilaktikaPage />} />
-
-// Номери телефонів психологічної допомоги
-<Route path="/kiosk/psypho/phones" element={<PhonesPage />} />
-
-// Ментальне здоров'я
-<Route path="/kiosk/psypho/mental" element={<MentalPage />} />
-
-// Корисне для батьків
-<Route path="/kiosk/psypho/parents" element={<ParentsPage />} />
-
-// Конфлікти. Вирішення конфліктів
-<Route path="/kiosk/psypho/conflicts" element={<ConflictsPage />} />
-
-// Гендерна рівність
-<Route path="/kiosk/psypho/gender" element={<GenderPage />} />
-
-// Безпечний інтернет
-<Route path="/kiosk/psypho/internet" element={<InternetPage />} />
-
-// 10 правил доброти
-<Route path="/kiosk/psypho/kindness" element={<KindnessPage />} />
-
-// Соціально-психологічна служба
-
-<Route path="/kiosk/psypho/kindness/rules" element={<ImageViewer
-    title="10 правил доброти"
-    imageUrl="/assets/images/kiosk/10-rules.jpg"
-    alt="Явище булінгу в шкільному середовищі. Як з ним боротися" />} />
-
-<Route path="/kiosk/psypho/service" element={<ImageViewer
-    title="Соціально-психологічна служба"
-    imageUrl="/assets/images/kiosk/soc-psyph.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/profilaktika/domashnye" element={<ImageViewer
-    title="Домашнє насильство"
-    imageUrl="/assets/images/kiosk/home-violence.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/profilaktika/pamiatka" element={<ImageViewer
-    title="Памʼятка для батьків"
-    imageUrl="/assets/images/kiosk/memo-for-parents.png"
-    alt="" />} />
-
-<Route path="/kiosk/psypho/profilaktika/porady-batkam" element={<ImageViewer
-    title="Поради батькам"
-    imageUrl="/assets/images/kiosk/advices.png"
-    alt="" />} />
-
-<Route path="kiosk/psypho/internet/pravyla" element={<ImageViewer
-    title="Правила інтернет безпеки"
-    imageUrl="/assets/images/kiosk/pravyla.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/internet/bezpechnyy" element={<ImageViewer
-    title="Безпечний інтернет"
-    imageUrl="/assets/images/kiosk/bezpechnyy.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/internet/dlia-batkiv" element={<ImageViewer
-    title="Правила безпечного інтернету для батьків"
-    imageUrl="/assets/images/kiosk/dlia-batkiv.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/internet/robota-v-merezhi" element={<ImageViewer
-    title="Правила безпечної роботи в мережі"
-    imageUrl="/assets/images/kiosk/robota-v-merezhi.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/internet/dlia-ditey" element={<ImageViewer
-    title="Правила безпечного інтернету для дітей"
-    imageUrl="/assets/images/kiosk/dlia-ditey.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/gender/shcho-take" element={<ImageViewer
-    title="Що таке гендерна рівність"
-    imageUrl="/assets/images/kiosk/shcho-take.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/gender/pryntsypy" element={<ImageViewer
-    title="Принципи гендерної рівності"
-    imageUrl="/assets/images/kiosk/pryntsypy.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/conflicts/shcho-take" element={<ImageViewer
-    title="Що таке конфлікт"
-    imageUrl="/assets/images/kiosk/conflict-shcho-take.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/conflicts/typy" element={<ImageViewer
-    title="Типи конфліктів"
-    imageUrl="/assets/images/kiosk/typy.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/conflicts/druzi" element={<ImageViewer
-    title="Конфлікти з друзями - як зберегти дружбу"
-    imageUrl="/assets/images/kiosk/druzi.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/conflicts/sposoby" element={<ImageViewer
-    title="Способи вирішення конфліктів"
-    imageUrl="/assets/images/kiosk/sposoby.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/praktychnyy" element={<ImageViewer
-    title="Практичний блок для батьків"
-    imageUrl="/assets/images/kiosk/praktychnyy.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/chomu-bulyty" element={<ImageViewer
-    title="Чому діти починають булити"
-    imageUrl="/assets/images/kiosk/chomu-bulyty.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/perevantazhenist" element={<ImageViewer
-    title="Чи не перевантажена ваша дитина"
-    imageUrl="/assets/images/kiosk/perevantazhenist.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/vplyv-simi" element={<ImageViewer
-    title="Вплив сім\'ї на профілактику булінгу"
-    imageUrl="/assets/images/kiosk/vplyv-simi.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/pershoklasnyk" element={<ImageViewer
-    title="Пам\'ятка для батьків першокласника"
-    imageUrl="/assets/images/kiosk/pershoklasnyk.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/pidlitky" element={<ImageViewer
-    title="Поради батькам підлітків"
-    imageUrl="/assets/images/kiosk/pidlitky.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/suitsyd" element={<ImageViewer
-    title="Профілактика суїциду"
-    imageUrl="/assets/images/kiosk/suitsyd.png"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/agresiia" element={<ImageViewer
-    title="Роль сім\'ї у формуванні агресії"
-    imageUrl="/assets/images/kiosk/agresiia.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/test" element={<ImageViewer
-    title="Тест. Чи не перевантажена дитина"
-    imageUrl="/assets/images/kiosk/test.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/pidtrymka" element={<ImageViewer
-    title="Поради щодо підтримки дитини"
-    imageUrl="/assets/images/kiosk/pidtrymka.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/parents/piatyy-klas" element={<ImageViewer
-    title="Пам\'ятка для батьків п\'ятих класів"
-    imageUrl="/assets/images/kiosk/piatyy-klas.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/zazemlennia" element={<ImageViewer
-    title="Техніки заземлення"
-    imageUrl="/assets/images/kiosk/zazemlennia.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/den" element={<ImageViewer
-    title="День ментального здоров\'я"
-    imageUrl="/assets/images/kiosk/den.png"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/pokrashchennia" element={<ImageViewer
-    title="Що я можу зробити для покращення"
-    imageUrl="/assets/images/kiosk/pokrashchennia.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/tryvozhist" element={<ImageViewer
-    title="Техніки для зняття тривожності"
-    imageUrl="/assets/images/kiosk/tryvozhist.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/rivnovaha" element={<ImageViewer
-    title="Як зберегти рівновагу під тиском"
-    imageUrl="/assets/images/kiosk/rivnovaha.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/stress" element={<ImageViewer
-    title="Техніки для подолання стресу"
-    imageUrl="/assets/images/kiosk/stress.png"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/info" element={<ImageViewer
-    title="Ментальне здоров\'я"
-    imageUrl="/assets/images/kiosk/info.png"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/pamiatka" element={<ImageViewer
-    title="Пам\'ятка для батьків"
-    imageUrl="/assets/images/kiosk/pamiatka.png"
-    alt="" />} />
-<Route path="kiosk/psypho/mental/yak-pokrashchyty" element={<ImageViewer
-    title="Як покращити ментальне здоров\'я"
-    imageUrl="/assets/images/kiosk/yak-pokrashchyty.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/phones/hotline-1" element={<ImageViewer
-    title="Безконтовна психологічна допомога для українців"
-    imageUrl="/assets/images/kiosk/hotline-1.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/phones/hotline-2" element={<ImageViewer
-    title="Гарячі лінії психологічної допомоги"
-    imageUrl="/assets/images/kiosk/hotline-2.jpg"
-    alt="" />} />
-<Route path="kiosk/psypho/phones/contacts" element={<ImageViewer
-    title="Контакти служб підтримки"
-    imageUrl="/assets/images/kiosk/hotline-3.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/tiyak/karta" element={<ImageViewer
-    title='Карта "Ти як"'
-    imageUrl="/assets/images/kiosk/karta.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/tiyak/skazhy-chesno" element={<ImageViewer
-    title='Скажи чесно "Ти як"'
-    imageUrl="/assets/images/kiosk/skazhy-chesno.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/tiyak/emotsii-1" element={<ImageViewer
-    title='Емоційний стан 1'
-    imageUrl="/assets/images/kiosk/emotsii-1.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/tiyak/emotsii-2" element={<ImageViewer
-    title='Емоційний стан 2'
-    imageUrl="/assets/images/kiosk/emotsii-2.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/tiyak/emotsii-3" element={<ImageViewer
-    title='Емоційний стан 3'
-    imageUrl="/assets/images/kiosk/emotsii-3.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/yavyshche" element={<ImageViewer
-    title='Явище булінгу в шкільному середовищі'
-    imageUrl="/assets/images/kiosk/yavyshche.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/rekomendatsii-batkam" element={<ImageViewer
-    title='Рекомендації батькам'
-    imageUrl="/assets/images/kiosk/rekomendatsii-batkam.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/algorytm-pedahohiv" element={<ImageViewer
-    title='Алгоритм дій педагогічних працівників'
-    imageUrl="/assets/images/kiosk/algorytm-pedahohiv.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/porady-uchnyam" element={<ImageViewer
-    title='Поради учням як боротися з булінгом'
-    imageUrl="/assets/images/kiosk/porady-uchnyam.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/povidomyty" element={<ImageViewer
-    title='Повідомити про булінг'
-    imageUrl="/assets/images/kiosk/povidomyty.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/buling-info" element={<ImageViewer
-    title='Зупини булінг'
-    imageUrl="/assets/images/kiosk/buling-info.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/dopomohty-dytyni" element={<ImageViewer
-    title='Як допомогти дитині впоратися'
-    imageUrl="/assets/images/kiosk/dopomohty-dytyni.png"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/yak-reahuvaty" element={<ImageViewer
-    title='Як реагувати на цькування'
-    imageUrl="/assets/images/kiosk/yak-reahuvaty.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/buklet" element={<ImageViewer
-    title='Буклет. Булінг'
-    imageUrl="/assets/images/kiosk/buklet.jpg"
-    alt="" />} />
-<Route path="/kiosk/psypho/buling/porady-psykholoha" element={<ImageViewer
-    title='Поради психологічної служби'
-    imageUrl="/assets/images/kiosk/porady-psykholoha.png"
-    alt="" />} />
-
-
-
-
-<Route path="/kiosk/psypho/tiyak/vpravy/zlata" element={<VideoViewer
-    title="Скажи чесно, ти як_ Злата Огнєвіч"
-    videoUrl="/assets/videos/kiosk/v1.mp4"
-    poster="/images/video-poster.jpg"
-  />} />
-  
-<Route path="/kiosk/psypho/tiyak/vpravy/olha" element={<VideoViewer
-    title="Скажи чесно, ти як_ Ольга Бутко"
-    videoUrl="/assets/videos/kiosk/v2.mp4"
-    poster="/images/video-poster.jpg"
-  />} />
-<Route path="/kiosk/psypho/tiyak/vpravy/solomiia" element={<VideoViewer
-    title="Скажи чесно, ти як_ Проста вправа для заспокоєння від Соломії Вітвіцької"
-    videoUrl="/assets/videos/kiosk/v3.mp4"
-    poster="/images/video-poster.jpg"
-  />} />
-<Route path="/kiosk/psypho/tiyak/vpravy/roksolana" element={<VideoViewer
-    title="Скажи чесно, ти як_ Роксолана Сирота (ROXOLANA)"
-    videoUrl="/assets/videos/kiosk/v4.mp4"
-    poster="/images/video-poster.jpg"
-  />} />
-<Route path="/kiosk/psypho/tiyak/vpravy/oleksandra" element={<VideoViewer
-    title="Щоб заспокоїтись у важку мить, забирайте прості вправи від Олександри Заріцької"
-    videoUrl="/assets/videos/kiosk/v5.mp4"
-    poster="/images/video-poster.jpg"
-  />} />
-
-
-
+    {/* Відео для психологічної підтримки */}
+    {psychoVideoRoutes.map(({ path, title, video }) => (
+      <Route
+        key={path}
+        path={path}
+        element={
+          <VideoViewer
+            title={title}
+            videoUrl={`/assets/videos/kiosk/${video}`}
+            poster="/images/video-poster.jpg"
+          />
+        }
+      />
+    ))}
   </>
-
-
-
 );
 
 // Авторизаційні маршрути
