@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // kiosk-types.ts - типи для універсального кіоску
 
-export type Facilities = FacilityCategory[] | HealthcareFacility[];
 
 export interface KioskButton {
   label: string;
@@ -108,4 +107,16 @@ export function isContentConfig(config: PageConfig): config is ContentConfig {
 
 export function isIframeConfig(config: PageConfig): config is IframeConfig {
   return config.type === 'iframe';
+}
+
+
+export type Facilities = FacilityCategory[] | HealthcareFacility[];
+
+// Type guard - функція, яка перевіряє тип
+export function isFacilityCategory(facilities: Facilities): facilities is FacilityCategory[] {
+  return facilities.length > 0 && 'category' in facilities[0];
+}
+
+export function isHealthcareFacility(facilities: Facilities): facilities is HealthcareFacility[] {
+  return facilities.length > 0 && 'icon' in facilities[0];
 }

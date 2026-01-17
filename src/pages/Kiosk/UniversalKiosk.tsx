@@ -8,6 +8,8 @@ import {
   isContentConfig, 
   isIframeConfig,
   ContentConfig,
+  isFacilityCategory,
+  isHealthcareFacility,
   FacilityCategory,
   HealthcareFacility
 } from './kiosk-types';
@@ -238,7 +240,7 @@ export const UniversalKiosk: React.FC<UniversalKioskProps> = ({ config }) => {
             )}
 
             {/* Заклади (категорії) */}
-            {contentConfig.facilities && (
+            {contentConfig.facilities && isFacilityCategory(contentConfig.facilities)  && (
               <div className="space-y-6">
                 {(contentConfig.facilities as FacilityCategory[]).map((facility, idx) => (
                   <div key={idx} className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl p-6 border border-purple-500/30">
@@ -257,7 +259,7 @@ export const UniversalKiosk: React.FC<UniversalKioskProps> = ({ config }) => {
             )}
 
             {/* Заклади охорони здоров'я */}
-            {contentConfig.facilities && (
+            {contentConfig.facilities && isHealthcareFacility(contentConfig.facilities)  && (
               <div className="grid md:grid-cols-2 gap-4">
                 {(contentConfig.facilities as HealthcareFacility[]).map((facility, idx) => (
                   <div key={idx} className="bg-gradient-to-br from-red-600/20 to-orange-600/20 rounded-xl p-6 border border-red-500/30">
