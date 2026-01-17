@@ -38,7 +38,7 @@ export const mainMenuConfig: KioskPageConfig = {
   title: 'Головне меню',
   buttons: [
     { label: 'Про ліцей', image: '🏫', link: '/kiosk/about', color: 'blue' },
-    { label: 'Куликівська громада', image: '🏘️', link: '/', color: 'orange', disabled: true  },
+    { label: 'Куликівська громада', image: '🏘️', link: '/kiosk/gromada', color: 'orange'},
     { label: 'Навчання', image: '📚', link: '/kiosk/education', color: 'purple' },
     { label: 'Розклад', image: '🗓️', link: '/kiosk/schedulepage', color: 'green' },
     { label: 'Психологічна підтримка', image: '🤗 ', link: '/kiosk/psypho', color: 'teal' },

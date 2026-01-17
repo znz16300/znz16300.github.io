@@ -56,6 +56,12 @@ import { ZAMINI_TABLE } from './constants';
 import ExternalRedirect from './pages/Kiosk/ExternalRedirect';
 import { ImageViewer } from './pages/Kiosk/ImageViewer';
 import { VideoViewer } from './pages/Kiosk/VideoViewer';
+import { UniversalKiosk } from './pages/Kiosk/UniversalKiosk';
+import { KioskData } from './pages/Kiosk/kiosk-types';
+
+import kioskData from './pages/Kiosk/kulikivka-data.json';
+
+const data: KioskData = kioskData as KioskData;
 
 // ============================================
 // КОНФІГУРАЦІЇ МАРШРУТІВ
@@ -315,6 +321,61 @@ export const ProtectedRoutes = () => (
         </OptionalAuthGuard>
       }
     />
+    <Route path="/" element={<Navigate to="/mainmenu" replace />} />
+        
+        {/* Головне меню */}
+        <Route 
+          path="kiosk/gromada" 
+          element={<UniversalKiosk config={data.mainMenu} />} 
+        />
+        
+        {/* Історична довідка */}
+        <Route 
+          path="kiosk/gromada/history" 
+          element={<UniversalKiosk config={data.history} />} 
+        />
+        
+        {/* Географія */}
+        <Route 
+          path="kiosk/gromada/geography" 
+          element={<UniversalKiosk config={data.geography} />} 
+        />
+        
+        {/* Паспорт громади */}
+        <Route 
+          path="kiosk/gromada/passport" 
+          element={<UniversalKiosk config={data.passport} />} 
+        />
+        
+        {/* Населені пункти */}
+        <Route 
+          path="kiosk/gromada/settlements" 
+          element={<UniversalKiosk config={data.settlements} />} 
+        />
+        
+        {/* Освіта */}
+        <Route 
+          path="kiosk/gromada/education" 
+          element={<UniversalKiosk config={data.education} />} 
+        />
+        
+        {/* Культура */}
+        <Route 
+          path="kiosk/gromada/culture" 
+          element={<UniversalKiosk config={data.culture} />} 
+        />
+        
+        {/* Охорона здоров'я */}
+        <Route 
+          path="kiosk/gromada/healthcare" 
+          element={<UniversalKiosk config={data.healthcare} />} 
+        />
+        
+        {/* Державні органи */}
+        <Route 
+          path="kiosk/gromada/authorities" 
+          element={<UniversalKiosk config={data.authorities} />} 
+        />
   </>
 );
 
