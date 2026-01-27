@@ -291,12 +291,12 @@ export const bulingConfig: KioskPageConfig = {
       link: '/kiosk/psypho/buling/porady-uchnyam', 
       color: 'orange' 
     },
-    { 
-      label: 'Повідомити про булінг', 
-      image: '📢', 
-      link: '/kiosk/psypho/buling/povidomyty', 
-      color: 'red' 
-    },
+    // { 
+    //   label: 'Повідомити про булінг', 
+    //   image: '📢', 
+    //   link: '/kiosk/psypho/buling/povidomyty', 
+    //   color: 'red' 
+    // },
     { 
       label: 'Зупини булінг', 
       image: '🚫', 
@@ -543,12 +543,12 @@ export const parentsConfig: KioskPageConfig = {
       link: '/kiosk/psypho/parents/chomu-bulyty', 
       color: 'red' 
     },
-    { 
-      label: 'Чи не перевантажена ваша дитина', 
-      image: '⚠️', 
-      link: '/kiosk/psypho/parents/perevantazhenist', 
-      color: 'orange' 
-    },
+    // { 
+    //   label: 'Чи не перевантажена ваша дитина', 
+    //   image: '⚠️', 
+    //   link: '/kiosk/psypho/parents/perevantazhenist', 
+    //   color: 'orange' 
+    // },
     { 
       label: 'Вплив сім\'ї на профілактику булінгу', 
       image: '👨‍👩‍👧‍👦', 
@@ -579,12 +579,12 @@ export const parentsConfig: KioskPageConfig = {
       link: '/kiosk/psypho/parents/agresiia', 
       color: 'orange' 
     },
-    { 
-      label: 'Тест. Чи не перевантажена дитина', 
-      image: '📝', 
-      link: '/kiosk/psypho/parents/test', 
-      color: 'blue' 
-    },
+    // { 
+    //   label: 'Тест. Чи не перевантажена дитина', 
+    //   image: '📝', 
+    //   link: '/kiosk/psypho/parents/test', 
+    //   color: 'blue' 
+    // },
     { 
       label: 'Поради щодо підтримки дитини', 
       image: '🤗', 
