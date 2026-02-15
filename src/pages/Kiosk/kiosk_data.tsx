@@ -48,7 +48,7 @@ export const mainMenuConfig: KioskPageConfig = {
     { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink'}, // Неактивна
     { label: 'Навігація', image: '🧭', link: '/kiosk/navigation', color: 'indigo', disabled: true }, // Неактивна
     { label: 'Оголошення', image: '🔔', link: '/kiosk/announcements', color: 'blue', disabled: true }, // Неактивна
-    { label: 'Зворотний зв\'язок', image: '💬', link: '/kiosk/feedback', color: 'purple' },
+    { label: 'Цікаві факти', image: '✨', link: '/kiosk/facts', color: 'yellow', disabled: false }, // Неактивна
   ]
 };
 
