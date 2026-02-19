@@ -52,7 +52,7 @@ const Index = () => {
   const navigationItems = [
     // { title: "Головна", href: "/", icon: Home },
     { id: 1, title: 'Новини', href: '/news', icon: Newspaper },
-    { id: 1.5, title: 'Оголошення', href: `/page?titlePages=Оголошення&keyPages=${PAGE_TABLE_1}`, icon: Newspaper },
+    { id: 1.5, title: 'Оголошення', href: '/announce', icon: Newspaper },
     { id: 2, title: 'Документи', href: '/documents', icon: FileText },
     {
       id: 3,

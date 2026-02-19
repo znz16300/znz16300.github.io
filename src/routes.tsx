@@ -60,6 +60,7 @@ import { UniversalKiosk } from './pages/Kiosk/UniversalKiosk';
 import { KioskData } from './pages/Kiosk/kiosk-types';
 
 import kioskData from './pages/Kiosk/kulikivka-data.json';
+import Announce from './pages/Announce';
 
 const data: KioskData = kioskData as unknown as KioskData;
 
@@ -217,6 +218,7 @@ export const PublicRoutes = () => (
   <>
     <Route path="/" element={<Index />} />
     <Route path="/news" element={<News />} />
+    <Route path="/announce" element={<Announce />} />
     <Route path="/page" element={<Page />} />
 
     {/* Редіректи на внутрішні сторінки */}

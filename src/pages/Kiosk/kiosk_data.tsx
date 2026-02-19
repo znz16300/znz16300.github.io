@@ -45,7 +45,7 @@ export const mainMenuConfig: KioskPageConfig = {
     { label: 'Наші вчителі', image: '🧑‍🏫', link: '/kiosk/teachers', color: 'orange' },
     { label: 'Досягнення', image: '🏆', link: '/kiosk/achievements', color: 'red', disabled: true }, // Неактивна
     { label: 'Фотоархів', image: '📸', link: '/kiosk/gallery', color: 'teal',}, // Неактивна
-    { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink'}, // Неактивна
+    { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink', disabled: true }, // Неактивна
     { label: 'Навігація', image: '🧭', link: '/kiosk/navigation', color: 'indigo', disabled: true }, // Неактивна
     { label: 'Оголошення', image: '🔔', link: '/kiosk/announcements', color: 'blue', disabled: true }, // Неактивна
     { label: 'Цікаві факти', image: '✨', link: '/kiosk/facts', color: 'yellow', disabled: false }, // Неактивна
