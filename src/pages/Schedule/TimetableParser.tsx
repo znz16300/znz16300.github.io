@@ -263,7 +263,7 @@ export const TimetableParser2: React.FC = () => {
           scheduleData={scheduleData}
           fullSchedule={fullClassesSchedule}
           view="fullClasses"
-          weekType={weekType} schedule={undefined}        />
+          weekType={weekType} schedule={undefined} selectedDay={selectedDay}        />
       );
     }
     
@@ -273,7 +273,7 @@ export const TimetableParser2: React.FC = () => {
           scheduleData={scheduleData}
           fullSchedule={fullTeachersSchedule}
           view="fullTeachers"
-          weekType={weekType} schedule={undefined}        />
+          weekType={weekType} schedule={undefined} selectedDay={selectedDay}        />
       );
     }
     
@@ -283,7 +283,7 @@ export const TimetableParser2: React.FC = () => {
           scheduleData={scheduleData}
           fullSchedule={fullClassroomsSchedule}
           view="fullClassrooms"
-          weekType={weekType} schedule={undefined}        />
+          weekType={weekType} schedule={undefined} selectedDay={selectedDay}        />
       );
     }
     
@@ -291,11 +291,10 @@ export const TimetableParser2: React.FC = () => {
       return (
         <ScheduleTable 
           className={scheduleData.classes.find(cls => cls.id === selectedClass)?.name || ''}
-          scheduleData={scheduleData} 
-          schedule={schedule} 
-          view={view} 
-          weekType={weekType} 
-        />
+          scheduleData={scheduleData}
+          schedule={schedule}
+          view={view}
+          weekType={weekType} selectedDay={selectedDay}        />
       );
     }
     

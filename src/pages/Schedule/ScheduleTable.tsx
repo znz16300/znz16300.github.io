@@ -11,17 +11,18 @@ interface ScheduleTableProps {
   schedule: WeekSchedule;
   view: string;
   weekType: WeekType;
+  selectedDay: string;
 }
 
-export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, scheduleData, schedule, view, weekType }) => {
-  console.log('view--', view);
+export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, scheduleData, schedule, view, weekType, selectedDay }) => {
+  console.log('selectedDay => ', selectedDay);
   
   return (
     <table className="w-full table-fixed">
       <thead className="bg-blue-600 text-white sticky top-0 z-20">
         <tr>
           <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30 w-40">Урок / Час</th>
-          {daysArray.map(day => (
+          {(selectedDay === '11111' ? daysArray : [selectedDay]).map(day => (
             <th key={day} className="px-4 py-3 text-left font-semibold">
               {getDayName(day)}
             </th>
@@ -37,12 +38,10 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, schedul
                 {period.startTime} - {period.endTime}
               </div>
             </td>
-            {daysArray.map(day => (
+            {(selectedDay === '11111' ? daysArray : [selectedDay]).map(day => (
               <td key={`${period.id}-${day}`} className="px-4 py-3 border-b border-gray-200">
                 {schedule[day]?.[period.id]?.map((lesson, lessonIdx) => {
                   // Визначаємо колір фону для картки уроку
-                  console.log('Class--', className);
-                  
                   const bgColor = (view === 'teachers' || view === 'classes') && lesson.classes
                     ? getLessonBackgroundColor(lesson.classes, weekType)
                     : 'bg-blue-50';

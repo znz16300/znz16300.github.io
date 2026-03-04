@@ -4,6 +4,7 @@ import { ScheduleData } from '@/type/scheduledata';
 import { getDayName, daysArray } from './scheduleHelpers';
 import { WeekType, getWeekTypeLabel } from './distDataHelper';
 import { getDistData } from './distData';
+import { setDay } from 'date-fns';
 
 interface SelectionControlsProps {
   view: string;
@@ -42,6 +43,20 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-6">
       <div className="flex flex-wrap gap-4">
+        <select
+            value={selectedDay}
+            onChange={(e) => setSelectedDay(e.target.value)}
+            className={selectClass}
+          >
+            <option key={11111} value={11111}>
+              Всі дні
+              </option>
+            {daysArray.map(day => (
+              <option key={day} value={day}>
+                {getDayName(day)}
+              </option>
+            ))}
+          </select>
         {view === 'classes' ? (
           <><select
             value={selectedClass}
@@ -56,10 +71,12 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
           </select><div className="flex items-center gap-2 text-sm text-gray-600">
             </div></>
         ) : view === 'teachers' ? (
+          
           <select
               value={selectedTeacher}
               onChange={(e) => setSelectedTeacher(e.target.value)}
-              className={selectClass}
+              className=
+              {selectClass}
             >
               {scheduleData.teachers.map(teacher => (
                 <option key={teacher.id} value={teacher.id}>
@@ -67,18 +84,6 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
                 </option>
               ))}
             </select>
-        ) : view === 'all' ? (
-          <select
-            value={selectedDay}
-            onChange={(e) => setSelectedDay(e.target.value)}
-            className={selectClass}
-          >
-            {daysArray.map(day => (
-              <option key={day} value={day}>
-                {getDayName(day)}
-              </option>
-            ))}
-          </select>
         ) :  null}
 
         {showWeekSelector && (
@@ -91,6 +96,16 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
             <option value={0}>{getWeekTypeLabel(0)}</option>
             <option value={1}>{getWeekTypeLabel(1)}</option>
           </select>
+          {/* <select name="dayOfWeek" id="dayOfWeek" 
+            onChange={(e) => setDay(Number(e.target.value) as WeekType)}
+            className={selectClass}>
+            <option value={11111}>Всі дні</option>
+            {daysArray.map(day => (
+              <option key={day} value={day}>
+                {getDayName(day)}
+              </option>
+            ))}
+          </select> */}
           {view === 'classes' && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <span

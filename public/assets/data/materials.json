@@ -100,5 +100,299 @@
     "name": "Актова зала",
     "price": "",
     "image": "/assets/images/rooms/18.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Спортивна зала початкових класів",
+    "price": "",
+    "image": "/assets/images/rooms/013.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Медіатека",
+    "price": "",
+    "image": "/assets/images/rooms/009.jpg"
+  },
+  {
+    "id": 18,
+    "name": "Кабінет української мови та літератури",
+    "price": "",
+    "image": "/assets/images/rooms/001.jpg"
+  },
+  {
+    "id": 19,
+    "name": "Укриття",
+    "price": "",
+    "image": "/assets/images/rooms/044.jpg"
+  },
+  {
+    "id": 20,
+    "name": "Фасад ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/033.JPG"
+  },
+  {
+    "id": 21,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/029.JPG"
+  },
+  {
+    "id": 22,
+    "name": "Тренажерна зала",
+    "price": "",
+    "image": "/assets/images/rooms/021.JPG"
+  },
+  {
+    "id": 23,
+    "name": "Роздягальня спортивної зали",
+    "price": "",
+    "image": "/assets/images/rooms/019.JPG"
+  },
+  {
+    "id": 24,
+    "name": "Кабінет хімії",
+    "price": "",
+    "image": "/assets/images/rooms/012.jpg"
+  },
+  {
+    "id": 25,
+    "name": "Укриття",
+    "price": "",
+    "image": "/assets/images/rooms/008.jpg"
+  },
+  {
+    "id": 26,
+    "name": "Укриття",
+    "price": "",
+    "image": "/assets/images/rooms/043.jpg"
+  },
+  {
+    "id": 27,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/028.JPG"
+  },
+  {
+    "id": 28,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/032.JPG"
+  },
+  {
+    "id": 29,
+    "name": "Коридор спортивної зали",
+    "price": "",
+    "image": "/assets/images/rooms/020.JPG"
+  },
+  {
+    "id": 30,
+    "name": "Коридор третього поверху",
+    "price": "",
+    "image": "/assets/images/rooms/011.jpg"
+  },
+  {
+    "id": 31,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/007.jpg"
+  },
+  {
+    "id": 32,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/042.jpg"
+  },
+  {
+    "id": 33,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/031.JPG"
+  },
+  {
+    "id": 34,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/027.JPG"
+  },
+  {
+    "id": 35,
+    "name": "Спортивна зала",
+    "price": "",
+    "image": "/assets/images/rooms/018.jpg"
+  },
+  {
+    "id": 36,
+    "name": "Лінгафонний кабінет",
+    "price": "",
+    "image": "/assets/images/rooms/010.jpg"
+  },
+  {
+    "id": 37,
+    "name": "Коридор укриття",
+    "price": "",
+    "image": "/assets/images/rooms/006.jpg"
+  },
+  {
+    "id": 38,
+    "name": "Інклюзивно-ресурсна кімната",
+    "price": "",
+    "image": "/assets/images/rooms/041.jpg"
+  },
+  {
+    "id": 39,
+    "name": "Інклюзивно-ресурсна кімната",
+    "price": "",
+    "image": "/assets/images/rooms/039.jpg"
+  },
+  {
+    "id": 40,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/030.JPG"
+  },
+  {
+    "id": 41,
+    "name": "Тренажерна зала",
+    "price": "",
+    "image": "/assets/images/rooms/026.JPG"
+  },
+  {
+    "id": 42,
+    "name": "Рекреація першого поверху",
+    "price": "",
+    "image": "/assets/images/rooms/017.jpg"
+  },
+  {
+    "id": 43,
+    "name": "Кабінет захисту України",
+    "price": "",
+    "image": "/assets/images/rooms/005.jpg"
+  },
+  {
+    "id": 44,
+    "name": "Укриття початкової школи",
+    "price": "",
+    "image": "/assets/images/rooms/048.jpg"
+  },
+  {
+    "id": 45,
+    "name": "Інклюзивно-ресурсна кімната",
+    "price": "",
+    "image": "/assets/images/rooms/040.jpg"
+  },
+  {
+    "id": 46,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/038.jpg"
+  },
+  {
+    "id": 47,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/037.JPG"
+  },
+  {
+    "id": 48,
+    "name": "Спортивна зала початкових класів",
+    "price": "",
+    "image": "/assets/images/rooms/025.JPG"
+  },
+  {
+    "id": 49,
+    "name": "Приміщення початкової школи",
+    "price": "",
+    "image": "/assets/images/rooms/016.jpg"
+  },
+  {
+    "id": 50,
+    "name": "Тренажерна зала в укритті ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/004.jpg"
+  },
+  {
+    "id": 51,
+    "name": "Укриття початкової школи",
+    "price": "",
+    "image": "/assets/images/rooms/047.jpg"
+  },
+  {
+    "id": 52,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/036.JPG"
+  },
+  {
+    "id": 53,
+    "name": "Спортивна зала початкових класів",
+    "price": "",
+    "image": "/assets/images/rooms/024.JPG"
+  },
+  {
+    "id": 54,
+    "name": "Рекреація першого поверху",
+    "price": "",
+    "image": "/assets/images/rooms/015.jpg"
+  },
+  {
+    "id": 55,
+    "name": "Медіатека",
+    "price": "",
+    "image": "/assets/images/rooms/003.jpg"
+  },
+  {
+    "id": 56,
+    "name": "Укриття",
+    "price": "",
+    "image": "/assets/images/rooms/046.jpg"
+  },
+  {
+    "id": 57,
+    "name": "Спортивна зала початкових класів",
+    "price": "",
+    "image": "/assets/images/rooms/050.jpg"
+  },
+  {
+    "id": 58,
+    "name": "Спортивна зала початкових класів",
+    "price": "",
+    "image": "/assets/images/rooms/023.JPG"
+  },
+  {
+    "id": 59,
+    "name": "Кабінет біології",
+    "price": "",
+    "image": "/assets/images/rooms/014.jpg"
+  },
+  {
+    "id": 60,
+    "name": "Укриття",
+    "price": "",
+    "image": "/assets/images/rooms/045.jpg"
+  },
+  {
+    "id": 61,
+    "name": "Територія навколо ліцею",
+    "price": "",
+    "image": "/assets/images/rooms/034.JPG"
+  },
+  {
+    "id": 62,
+    "name": "Спортивна зала початкових класів",
+    "price": "",
+    "image": "/assets/images/rooms/022.JPG"
+  },
+  {
+    "id": 63,
+    "name": "Кабінет фізики",
+    "price": "",
+    "image": "/assets/images/rooms/051.jpg"
+  },
+  {
+    "id": 64,
+    "name": "STEM-лабораторія",
+    "price": "",
+    "image": "/assets/images/rooms/052.jpg"
   }
 ]

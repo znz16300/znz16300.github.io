@@ -2,6 +2,7 @@
 import { LessonInfo, DaySchedule, WeekSchedule } from '@/type/scheduledata';
 
 export const days = [
+  { id: '11111', enName: 'all', name: 'Всі дні' },
   { id: '10000', enName: 'mo', name: 'Понеділок' },
   { id: '01000', enName: 'tu', name: 'Вівторок' },
   { id: '00100', enName: 'we', name: 'Середа' },

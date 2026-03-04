@@ -11,9 +11,10 @@ interface FullScheduleTableProps {
   fullSchedule: Record<string, WeekSchedule>;
   view: 'fullClasses' | 'fullTeachers' | 'fullClassrooms';
   weekType: WeekType;
+  selectedDay: string;
 }
 
-export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleData, schedule, fullSchedule, view, weekType }) => {
+export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleData, schedule, fullSchedule, view, weekType, selectedDay }) => {
   const getItems = () => {
     if (view === 'fullClasses') return scheduleData.classes;
     if (view === 'fullTeachers') return scheduleData.teachers;
@@ -36,7 +37,7 @@ export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleDa
           <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[120px]">
             {getHeaderLabel()}
           </th>
-          {daysArray.map(day => (
+          {(selectedDay === '11111' ? daysArray : [selectedDay]).map(day => (
             scheduleData.periods.map(period => (
               <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
                 <div>{getDayName(day)}</div>
@@ -62,7 +63,7 @@ export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({ scheduleDa
               <td className="px-2 py-2 border-b border-gray-200 sticky left-0 bg-inherit z-10 font-semibold text-gray-800">
                 {item.name}
               </td>
-              {daysArray.map(day => (
+              {(selectedDay === '11111' ? daysArray : [selectedDay]).map(day => (
                 scheduleData.periods.map(period => {
                   // Для класів - фон комірки залежить від класу
                   const cellBgColor = view === 'fullClasses' ? getCellBackgroundColor(item.name, weekType) : '';
