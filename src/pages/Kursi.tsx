@@ -18,7 +18,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { PageItem } from '@/type/pageItem';
-import { ArrowLeft, Calendar, Download, User } from 'lucide-react';
+import { ArrowLeft, Calendar, Download, User, Users2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { DataObject, TrainingItem } from '@/type/kursi';
@@ -33,6 +33,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import getClopot from '@/api/getClopot';
+import MKHeadModal from '@/components/MKHeadModal';
 import Header from '@/components/header';
 import { User as UserAuth } from '@/type/auth';
 
@@ -46,6 +47,8 @@ const Kursi = () => {
   const [loading, setLoading] = useState(true);
   const [topic, setTopic] = useState('all');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [mkModalOpen, setMkModalOpen] = useState(false);
+  const [allItemsForModal, setAllItemsForModal] = useState<DataObject[]>([]);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
   });
@@ -97,6 +100,18 @@ const Kursi = () => {
     }
   };
 
+  // Завантаження всіх курсів для модального вікна МК (незалежно від фільтру)
+  const fetchAllForModal = async (sheetId: string) => {
+    try {
+      const result = await getKursiFromServ(sheetId, 'all');
+      if (result?.data) {
+        setAllItemsForModal(result.data as unknown as DataObject[]);
+      }
+    } catch (error) {
+      console.error('Error fetching all items for modal:', error);
+    }
+  };
+
   // Єдиний ефект для завантаження даних
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -110,6 +125,7 @@ const Kursi = () => {
 
     // Завантажуємо дані
     fetchData(sheetId, topicParam);
+    fetchAllForModal(sheetId);
   }, [location.search]);
 
   const totalPages = Math.ceil(pageItems.length / itemsPerPage);
@@ -143,6 +159,12 @@ const Kursi = () => {
 
   return (
     <>
+      <MKHeadModal
+        open={mkModalOpen}
+        onClose={() => setMkModalOpen(false)}
+        allTeachers={allTeachers}
+        allItems={allItemsForModal}
+      />
       <div className="dark:bg-gray-70 min-h-screen bg-gray-50 dark:bg-gray-600">
         {/* Header */}
         <Header
@@ -150,6 +172,16 @@ const Kursi = () => {
           description={'Перегляд підвищення кваліфікації, формування клопотань'}
           className="bg-emerald-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
         />
+        <div className="mx-auto mt-4 flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 border-blue-700 text-blue-700 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-700"
+            onClick={() => setMkModalOpen(true)}
+          >
+            <Users2 className="h-4 w-4" />
+            Для голів МК
+          </Button>
+        </div>
         {loading ? (
           <p className="py-10 text-center text-gray-500">Завантаження...</p>
         ) : (
