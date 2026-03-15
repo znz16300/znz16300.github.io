@@ -14,7 +14,7 @@ const News = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const newsId = searchParams.get('id');
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
