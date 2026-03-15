@@ -2,7 +2,7 @@ import { Route, Navigate } from 'react-router-dom';
 import { OptionalAuthGuard } from '@/utils/authGuard';
 
 // Імпорти сторінок
-import Index from './pages/Index';
+import Index from './pages/Index/Index';
 import News from './pages/News/News';
 import Documents from './pages/Documents';
 import NotFound from './pages/NotFound';
