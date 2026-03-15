@@ -94,7 +94,7 @@ const Footer = ({ isAuthenticated, user }: FooterProps) => {
         </div>
 
         <div className="mt-8 border-t border-blue-500/50 pt-8 text-center text-gray-200 dark:border-gray-600 dark:text-gray-500">
-          <p>&copy; 2025 Куликівський ліцей. Всі права захищені.</p>
+          <p>&copy; 2026 Куликівський ліцей. Всі права захищені.</p>
         </div>
       </div>
     </footer>
