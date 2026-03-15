@@ -60,7 +60,7 @@ import { UniversalKiosk } from './pages/Kiosk/UniversalKiosk';
 import { KioskData } from './pages/Kiosk/kiosk-types';
 
 import kioskData from './pages/Kiosk/kulikivka-data.json';
-import Announce from './pages/Announce';
+import Announce from './pages/Announce/Announce';
 
 const data: KioskData = kioskData as unknown as KioskData;
 
