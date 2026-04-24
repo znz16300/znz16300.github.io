@@ -205,18 +205,28 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
 }) => {
   const [presets, setPresets] = useState<FilterPreset[]>(() => readPresets(view));
   const [newName, setNewName] = useState('');
+  // rename state: which preset is being renamed + draft value
+  const [renamingName, setRenamingName] = useState<string | null>(null);
+  const [renameDraft, setRenameDraft] = useState('');
+  // confirm delete
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  // import error message
+  const [importError, setImportError] = useState<string | null>(null);
+  const importInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setPresets(readPresets(view));
     setNewName('');
+    setRenamingName(null);
     setConfirmDelete(null);
+    setImportError(null);
   }, [view]);
+
+  // ── Save ──────────────────────────────────────────────────────────────────
 
   const savePreset = () => {
     const name = newName.trim();
     if (!name) return;
-    // empty array = "all selected" sentinel
     const rowIds = currentRowIds.size === allIds.length ? [] : Array.from(currentRowIds);
     const subjects = currentSubjects.size === allSubjectNames.length ? [] : Array.from(currentSubjects);
     const updated = [...presets.filter(p => p.name !== name), { name, rowIds, subjects }];
@@ -225,6 +235,8 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
     setNewName('');
   };
 
+  // ── Delete ────────────────────────────────────────────────────────────────
+
   const deletePreset = (name: string) => {
     const updated = presets.filter(p => p.name !== name);
     setPresets(updated);
@@ -232,14 +244,81 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
     setConfirmDelete(null);
   };
 
+  // ── Rename ────────────────────────────────────────────────────────────────
+
+  const startRename = (name: string) => {
+    setRenamingName(name);
+    setRenameDraft(name);
+    setConfirmDelete(null);
+  };
+
+  const commitRename = () => {
+    const trimmed = renameDraft.trim();
+    if (!trimmed || !renamingName) { setRenamingName(null); return; }
+    const updated = presets.map(p => p.name === renamingName ? { ...p, name: trimmed } : p);
+    setPresets(updated);
+    writePresets(view, updated);
+    setRenamingName(null);
+  };
+
+  // ── Load ──────────────────────────────────────────────────────────────────
+
   const loadPreset = (preset: FilterPreset) => {
     const rowIds = preset.rowIds.length === 0 ? allIds : preset.rowIds;
     const subjects = preset.subjects.length === 0 ? allSubjectNames : preset.subjects;
     onLoad(rowIds, subjects);
   };
 
+  // ── Export ────────────────────────────────────────────────────────────────
+
+  const exportPresets = () => {
+    const json = JSON.stringify(presets, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `schedule-presets-${view}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // ── Import ────────────────────────────────────────────────────────────────
+
+  const handleImportFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const parsed: FilterPreset[] = JSON.parse(ev.target?.result as string);
+        if (!Array.isArray(parsed)) throw new Error();
+        // Validate shape: each item must have name, rowIds, subjects
+        const valid = parsed.every(
+          p => typeof p.name === 'string' && Array.isArray(p.rowIds) && Array.isArray(p.subjects)
+        );
+        if (!valid) throw new Error();
+        // Merge: imported presets override existing ones with same name
+        const merged = [...presets];
+        for (const imp of parsed) {
+          const idx = merged.findIndex(p => p.name === imp.name);
+          if (idx >= 0) { merged[idx] = imp; } else { merged.push(imp); }
+        }
+        setPresets(merged);
+        writePresets(view, merged);
+        setImportError(null);
+      } catch {
+        setImportError('Невірний формат файлу');
+      }
+    };
+    reader.readAsText(file);
+    // reset input so same file can be imported again
+    e.target.value = '';
+  };
+
   return (
-    <div className="flex flex-col overflow-hidden max-h-80">
+    <div className="flex flex-col overflow-hidden max-h-96">
+
+      {/* Save new preset */}
       <div className="px-3 py-2 border-b border-gray-100 bg-gray-50 rounded-t-lg">
         <div className="text-[10px] font-semibold text-gray-500 uppercase mb-1.5">Зберегти поточний фільтр</div>
         <div className="flex gap-1">
@@ -254,43 +333,133 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
           <button
             onClick={savePreset}
             disabled={!newName.trim()}
+            title="Зберегти"
             className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            ✓
-          </button>
+          >✓</button>
         </div>
       </div>
+
+      {/* Preset list */}
       <div className="overflow-y-auto flex-1">
         {presets.length === 0 && (
           <div className="px-3 py-4 text-center text-xs text-gray-400">Немає збережених пресетів</div>
         )}
         {presets.map(preset => (
-          <div key={preset.name} className="flex items-center gap-1 px-3 py-1.5 hover:bg-blue-50 group">
-            <button
-              onClick={() => loadPreset(preset)}
-              className="flex-1 text-left text-xs text-gray-700 hover:text-blue-700 truncate"
-              title={preset.name}
-            >
-              {preset.name}
-            </button>
-            {confirmDelete === preset.name ? (
-              <div className="flex items-center gap-1">
-                <span className="text-[10px] text-gray-400">Видалити?</span>
-                <button onClick={() => deletePreset(preset.name)} className="text-[10px] text-red-500 hover:text-red-700 font-bold">Так</button>
-                <button onClick={() => setConfirmDelete(null)} className="text-[10px] text-gray-400 hover:text-gray-600">Ні</button>
-              </div>
+          <div key={preset.name} className="group px-2 py-1.5 hover:bg-blue-50 flex items-center gap-1 min-h-[30px]">
+
+            {/* Rename inline editor OR name button */}
+            {renamingName === preset.name ? (
+              <input
+                autoFocus
+                type="text"
+                value={renameDraft}
+                onChange={e => setRenameDraft(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') commitRename();
+                  if (e.key === 'Escape') setRenamingName(null);
+                }}
+                onBlur={commitRename}
+                className="flex-1 text-xs border border-blue-400 rounded px-1.5 py-0.5 outline-none"
+              />
             ) : (
               <button
-                onClick={() => setConfirmDelete(preset.name)}
-                className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-400 text-xs transition-opacity"
-                title="Видалити"
-              >✕</button>
+                onClick={() => loadPreset(preset)}
+                className="flex-1 text-left text-xs text-gray-700 hover:text-blue-700 truncate"
+                title={`Завантажити: ${preset.name}`}
+              >
+                {preset.name}
+              </button>
+            )}
+
+            {/* Action buttons – always visible on hover, hidden when rename input is open */}
+            {renamingName !== preset.name && (
+              <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                {/* Rename button */}
+                <button
+                  onClick={() => startRename(preset.name)}
+                  title="Перейменувати"
+                  className="w-5 h-5 flex items-center justify-center rounded text-gray-400 hover:text-blue-600 hover:bg-blue-100 transition-colors"
+                >
+                  {/* pencil icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
+                    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354l-1.086-1.086zM11.189 6.25 9.75 4.81 3.23 11.33a.25.25 0 0 0-.063.108l-.652 2.278 2.278-.652a.25.25 0 0 0 .108-.063L11.19 6.25z"/>
+                  </svg>
+                </button>
+
+                {/* Delete button / confirm */}
+                {confirmDelete === preset.name ? (
+                  <div className="flex items-center gap-0.5 ml-0.5">
+                    <button
+                      onClick={() => deletePreset(preset.name)}
+                      className="text-[10px] text-red-500 hover:text-red-700 font-bold px-1"
+                    >Так</button>
+                    <button
+                      onClick={() => setConfirmDelete(null)}
+                      className="text-[10px] text-gray-400 hover:text-gray-600 px-0.5"
+                    >Ні</button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmDelete(preset.name)}
+                    title="Видалити"
+                    className="w-5 h-5 flex items-center justify-center rounded text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                  >
+                    {/* trash icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
+                      <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"/>
+                    </svg>
+                  </button>
+                )}
+              </div>
             )}
           </div>
         ))}
       </div>
-      <div className="px-3 py-1.5 border-t border-gray-100 bg-gray-50 rounded-b-lg">
-        <span className="text-[10px] text-gray-400">Пресетів: {presets.length}</span>
+
+      {/* Footer: count + export + import */}
+      <div className="px-3 py-1.5 border-t border-gray-100 bg-gray-50 rounded-b-lg flex items-center gap-2">
+        <span className="text-[10px] text-gray-400 flex-1">Пресетів: {presets.length}</span>
+
+        {/* Import error */}
+        {importError && (
+          <span className="text-[10px] text-red-500">{importError}</span>
+        )}
+
+        {/* Import button */}
+        <button
+          onClick={() => importInputRef.current?.click()}
+          title="Імпортувати пресети з файлу"
+          className="flex items-center gap-0.5 text-[10px] text-gray-500 hover:text-blue-600 px-1.5 py-0.5 rounded hover:bg-blue-50 transition-colors"
+        >
+          {/* upload icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
+            <path d="M8.75 1.75a.75.75 0 0 0-1.5 0V7H4.56a.25.25 0 0 0-.177.427l3.44 3.44a.25.25 0 0 0 .354 0l3.44-3.44A.25.25 0 0 0 11.44 7H8.75V1.75Z"/>
+            <path d="M1.75 13.5a.75.75 0 0 0 0 1.5h12.5a.75.75 0 0 0 0-1.5H1.75Z"/>
+          </svg>
+          Імпорт
+        </button>
+        <input
+          ref={importInputRef}
+          type="file"
+          accept=".json,application/json"
+          onChange={handleImportFile}
+          className="hidden"
+        />
+
+        {/* Export button */}
+        <button
+          onClick={exportPresets}
+          disabled={presets.length === 0}
+          title="Експортувати пресети у JSON файл"
+          className="flex items-center gap-0.5 text-[10px] text-gray-500 hover:text-blue-600 px-1.5 py-0.5 rounded hover:bg-blue-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {/* download icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
+            <path d="M7.25 1.75a.75.75 0 0 1 1.5 0V7h2.69a.25.25 0 0 1 .177.427l-3.44 3.44a.25.25 0 0 1-.354 0L4.383 7.427A.25.25 0 0 1 4.56 7h2.69V1.75Z"/>
+            <path d="M1.75 13.5a.75.75 0 0 0 0 1.5h12.5a.75.75 0 0 0 0-1.5H1.75Z"/>
+          </svg>
+          Експорт
+        </button>
       </div>
     </div>
   );
