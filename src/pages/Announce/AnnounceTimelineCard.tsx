@@ -1,5 +1,6 @@
 import { Slider } from '@/components/ui/prevslider';
 import { NewsItem } from '@/type/newsItem';
+import { containsHtml } from '@/lib/utils';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface AnnounceTimelineCardProps {
@@ -19,6 +20,48 @@ const parseDate = (dateStr: string) => {
     return { day: parts[0], month: parts[1], raw: dateStr };
   }
   return { day: '—', month: '—', raw: dateStr };
+};
+
+// Convert HTML content to clean, readable plain text:
+// - inserts whitespace where block-level/line-break tags were, so words
+//   from neighbouring tags don't get glued together
+// - strips remaining tags
+// - decodes common HTML entities (&nbsp;, &amp;, &quot;, ...)
+// - collapses extra whitespace left behind
+const htmlToPlainText = (html: string) => {
+  // Drop tags whose *content* is not meant to be visible text at all
+  // (CSS, JS, document metadata) — removing only the tags themselves
+  // would leak raw CSS/JS into the preview.
+  const withoutNonContent = html.replace(
+    /<\s*(style|script|head)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,
+    ''
+  );
+
+  const withBreaks = withoutNonContent
+    // block-ish tags become a space/newline boundary before we strip them
+    .replace(/<\s*(br|\/p|\/div|\/li|\/h[1-6]|\/tr)\s*\/?>/gi, '\n')
+    .replace(/<\s*(p|div|li|h[1-6]|tr)\b[^>]*>/gi, '\n');
+
+  const withoutTags = withBreaks.replace(/<\/?[^>]+(>|$)/g, '');
+
+  const decoded = withoutTags
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#0?39;|&apos;/gi, "'")
+    .replace(/&mdash;/gi, '—')
+    .replace(/&ndash;/gi, '–')
+    .replace(/&hellip;/gi, '…')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+
+  return decoded
+    .split('\n')
+    .map(line => line.replace(/[ \t]+/g, ' ').trim())
+    .filter(Boolean)
+    .join('\n')
+    .trim();
 };
 
 const monthNames: Record<string, string> = {
@@ -48,7 +91,10 @@ const AnnounceTimelineCard = ({
   const firstImage = item['Фото'].split(/(?:\n|, |,)/)[0];
   const { day, month } = parseDate(item['Позначка часу']);
   const monthLabel = monthNames[month] ?? month;
-  const plainText = item['Текст новини'].replace(/<\/?[^>]+(>|$)/g, '');
+  const isHtml = containsHtml(item['Текст новини']);
+  const plainText = isHtml
+    ? htmlToPlainText(item['Текст новини'])
+    : item['Текст новини'];
 
   return (
     <div
@@ -81,10 +127,16 @@ const AnnounceTimelineCard = ({
             <h2 className="mb-3 text-lg font-bold text-gray-900 dark:text-gray-300">
               {item['Назва новини']}
             </h2>
-            <div
-              className="whitespace-pre-wrap leading-relaxed text-sm text-gray-600 dark:text-gray-400"
-              dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
-            />
+            {isHtml ? (
+              <div
+                className="leading-relaxed text-sm text-gray-600 dark:text-gray-400"
+                dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
+              />
+            ) : (
+              <div className="whitespace-pre-wrap leading-relaxed text-sm text-gray-600 dark:text-gray-400">
+                {item['Текст новини']}
+              </div>
+            )}
             <Slider item={item} />
           </div>
         ) : (
@@ -103,6 +155,7 @@ const AnnounceTimelineCard = ({
               </p>
             </div>
           </div>
+          
         )}
 
         {item['Текст новини'].split('\n').length > 2 && (

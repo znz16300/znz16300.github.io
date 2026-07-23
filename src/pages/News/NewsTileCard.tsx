@@ -1,5 +1,6 @@
 import { Slider } from '@/components/ui/prevslider';
 import { NewsItem } from '@/type/newsItem';
+import { containsHtml } from '@/lib/utils';
 import { Calendar } from 'lucide-react';
 
 interface NewsTileCardProps {
@@ -13,6 +14,7 @@ interface NewsTileCardProps {
 const NewsTileCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }: NewsTileCardProps) => {
   const isExpanded = expandedId === String(item.id);
   const firstImage = item['Фото'].split(/(?:\n|, |,)/)[0];
+  const isHtml = containsHtml(item['Текст новини']);
 
   if (isExpanded) {
     // When expanded, show full article in a wider layout
@@ -36,10 +38,16 @@ const NewsTileCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }
           <h2 className="mb-3 text-xl font-bold text-gray-900 dark:text-gray-300">
             {item['Назва новини']}
           </h2>
-          <div
-            className="mb-4 whitespace-pre-wrap leading-relaxed text-gray-600 dark:text-gray-400"
-            dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
-          />
+          {isHtml ? (
+            <div
+              className="mb-4 leading-relaxed text-gray-600 dark:text-gray-400"
+              dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
+            />
+          ) : (
+            <div className="mb-4 whitespace-pre-wrap leading-relaxed text-gray-600 dark:text-gray-400">
+              {item['Текст новини']}
+            </div>
+          )}
           <Slider item={item} />
           <button
             onClick={e => {

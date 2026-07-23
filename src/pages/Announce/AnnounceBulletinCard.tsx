@@ -1,5 +1,6 @@
 import { Slider } from '@/components/ui/prevslider';
 import { NewsItem } from '@/type/newsItem';
+import { containsHtml } from '@/lib/utils';
 import { Calendar, ChevronDown, ChevronUp, Megaphone } from 'lucide-react';
 
 interface AnnounceBulletinCardProps {
@@ -31,6 +32,7 @@ const AnnounceBulletinCard = ({
   const firstImage = item['Фото'].split(/(?:\n|, |,)/)[0];
   const accentClass = accentColors[index % accentColors.length];
   const plainText = item['Текст новини'].replace(/<\/?[^>]+(>|$)/g, '');
+  const isHtml = containsHtml(item['Текст новини']);
 
   return (
     <article
@@ -70,15 +72,31 @@ const AnnounceBulletinCard = ({
                 alt={item['Назва новини']}
                 className="mb-4 w-full max-h-[400px] rounded-lg object-contain"
               />
-              <div
-                className="whitespace-pre-wrap leading-relaxed text-sm text-gray-600 dark:text-gray-400"
-                dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
-              />
+              {isHtml ? (
+                <div
+                  className="leading-relaxed text-sm text-gray-600 dark:text-gray-400"
+                  dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
+                />
+              ) : (
+                <div className="whitespace-pre-wrap leading-relaxed text-sm text-gray-600 dark:text-gray-400">
+                  {item['Текст новини']}
+                </div>
+              )}
               <Slider item={item} />
             </div>
           ) : (
             <p className="line-clamp-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-              {plainText}
+              
+              {isHtml ? (
+                <div
+                  className="leading-relaxed text-sm text-gray-600 dark:text-gray-400"
+                  dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
+                />
+              ) : (
+                <div className="whitespace-pre-wrap leading-relaxed text-sm text-gray-600 dark:text-gray-400">
+                  {plainText}
+                </div>
+              )}
             </p>
           )}
 

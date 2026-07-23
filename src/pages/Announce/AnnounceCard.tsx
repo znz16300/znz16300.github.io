@@ -1,5 +1,6 @@
 import { Slider } from '@/components/ui/prevslider';
 import { NewsItem } from '@/type/newsItem';
+import { containsHtml } from '@/lib/utils';
 import { Calendar, User } from 'lucide-react';
 
 interface AnnounceCardProps {
@@ -13,6 +14,7 @@ interface AnnounceCardProps {
 const AnnounceCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }: AnnounceCardProps) => {
   const isExpanded = expandedId === String(item.id);
   const firstImage = item['Фото'].split(/(?:\n|, |,)/)[0];
+  const isHtml = containsHtml(item['Текст новини']);
 
   return (
     <article
@@ -47,10 +49,16 @@ const AnnounceCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }
 
         {isExpanded ? (
           <>
-            <div
-              className="mb-4 whitespace-pre-wrap leading-relaxed text-gray-600 transition-all duration-300 dark:text-gray-400"
-              dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
-            />
+            {isHtml ? (
+              <div
+                className="mb-4 leading-relaxed text-gray-600 transition-all duration-300 dark:text-gray-400"
+                dangerouslySetInnerHTML={{ __html: item['Текст новини'] }}
+              />
+            ) : (
+              <div className="mb-4 whitespace-pre-wrap leading-relaxed text-gray-600 transition-all duration-300 dark:text-gray-400">
+                {item['Текст новини']}
+              </div>
+            )}
             <Slider item={item} />
           </>
         ) : (

@@ -5,6 +5,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Перевіряє, чи рядок містить HTML-розмітку (теги).
+// Якщо текст прийшов як звичайний plain text (наприклад, з форми
+// Google Sheets, де перенос рядка — це просто "\n"), функція поверне false,
+// і такий текст потрібно рендерити як звичайний текст з white-space: pre-wrap,
+// щоб "\n" коректно відображались як переноси рядків.
+// Якщо ж текст вже містить HTML-теги (<p>, <br>, <strong> тощо),
+// функція поверне true — такий текст можна безпечно віддати в
+// dangerouslySetInnerHTML без додаткового white-space: pre-wrap,
+// бо переноси рядків там вже виражені тегами.
+export function containsHtml(text: string): boolean {
+  if (!text) return false;
+  return /<[a-z][\s\S]*>/i.test(text);
+}
+
 export function extractDriveFileId(url: string): string {
   if (url.startsWith('https://drive.google.com/open?id=')) {
     return url.split('id=')[1];
