@@ -1,6 +1,7 @@
 export const PAGE_TABLE_1 = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
 export const PAGE_TABLE_2 = '12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4';
-export const ZAMINI_TABLE = '1vWepnObCCI_61Ubt4Dlh6nWBjOUICCCrn8MyG-od9Sg';
+export const ZAMINI_TABLE = '19NXvVwOlczpioqKHtO_kLaFfLKcqpN-knDl-87yC9mo';
+// export const ZAMINI_TABLE = '1vWepnObCCI_61Ubt4Dlh6nWBjOUICCCrn8MyG-od9Sg';
 
 export const SERVER_2 = 'https://schooltools.pythonanywhere.com/';
 export const SERVER = 'https://alexzelenskiy.pythonanywhere.com/';
