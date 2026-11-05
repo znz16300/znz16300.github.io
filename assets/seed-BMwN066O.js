@@ -1,0 +1,1 @@
+const n=a=>{let r=a>>>0;return()=>{r=r+1831565813>>>0;let t=r;return t=Math.imul(t^t>>>15,t|1),t^=t+Math.imul(t^t>>>7,t|61),((t^t>>>14)>>>0)/4294967296}},o=(a,r=Math.random)=>{const t=[...a];for(let e=t.length-1;e>0;e--){const l=Math.floor(r()*(e+1));[t[e],t[l]]=[t[l],t[e]]}return t};export{n as m,o as s};
