@@ -1,0 +1,1 @@
+import{r as s}from"./index-D_zn5Buy.js";function i(a){const t=`kiosk-game-best-${a}`,[o,u]=s.useState(()=>{try{return Number(localStorage.getItem(t))||0}catch{return 0}}),c=s.useCallback(e=>{u(r=>{if(e<=r)return r;try{localStorage.setItem(t,String(e))}catch{}return e})},[t]);return[o,c]}export{i as u};
