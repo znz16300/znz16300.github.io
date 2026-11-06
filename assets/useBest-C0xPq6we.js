@@ -1,0 +1,1 @@
+import{r as a}from"./index-HlKFurWz.js";function i(u){const t=`kiosk-physics-best-${u}`,[o,c]=a.useState(()=>{try{return Number(localStorage.getItem(t))||0}catch{return 0}}),n=a.useCallback(e=>{let r=!1;return c(s=>{if(e<=s)return s;r=!0;try{localStorage.setItem(t,String(e))}catch{}return e}),r},[t]);return[o,n]}export{i as u};
