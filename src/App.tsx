@@ -2,49 +2,35 @@ import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/authContext';
+import { ThemeProvider } from './theme/ThemeProvider';
+import { AppRoutes } from './routes';
 
-// Імпорт маршрутів
-import { 
-  PublicRoutes, 
-  KioskRoutes, 
-  AuthRoutes, 
-  ProtectedRoutes, 
-  NotFoundRoute 
-} from './routes';
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // дані з Google Sheets не змінюються щохвилини
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
-const queryClient = new QueryClient();
-
-const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TooltipProvider>
-          <BrowserRouter>
-            <Routes>
-              {/* Публічні маршрути */}
-              {PublicRoutes()}
-              
-              {/* Маршрути кіоску */}
-              {KioskRoutes()}
-              
-              {/* Авторизаційні маршрути */}
-              {AuthRoutes()}
-              
-              {/* Захищені маршрути */}
-              {ProtectedRoutes()}
-              
-              {/* 404 сторінка */}
-              {NotFoundRoute()}
-            </Routes>
-          </BrowserRouter>
-          <Toaster />
-          <Sonner />
-        </TooltipProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  );
-};
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <ThemeProvider>
+        <AuthProvider>
+          <TooltipProvider>
+            <AppRoutes />
+            <Toaster />
+            <Sonner />
+          </TooltipProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </QueryClientProvider>
+);
 
 export default App;

@@ -20,11 +20,11 @@ export const AuthStatus: React.FC<AuthStatusProps> = ({
   if (!isAuthenticated && !showForGuests) return null;
 
   return (
-    <Alert className={isAuthenticated ? 'border-green-200' : 'border-blue-200'}>
+    <Alert className={isAuthenticated ? 'border-green-200' : 'border-brand-200'}>
       {isAuthenticated ? (
         <CheckCircle className="h-4 w-4 text-green-600" />
       ) : (
-        <User className="h-4 w-4 text-blue-600" />
+        <User className="h-4 w-4 text-brand-600" />
       )}
       <AlertDescription>
         {isAuthenticated ? (

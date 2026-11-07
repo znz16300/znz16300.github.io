@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import { http } from '@/api/http';
 import Header from '@/components/header';
 import {
   Table,
@@ -29,7 +29,7 @@ import {
 } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
 import CustomCalendar from '@/components/ui/customcalendar';
-import { SERVER } from '@/constants';
+import { SERVER, sitedataUrl } from '@/constants';
 
 type ScheduleData = {
   templFile: string;
@@ -70,14 +70,6 @@ const Schedule = () => {
   const [glData, setGlData] = useState<ScheduleData[]>([]);
   const [lessons, setLessons] = useState<LessonData[]>([]);
   const [loader, setLoader] = useState<boolean>(true);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   // Ініціалізація параметрів з URL
   useEffect(() => {
@@ -95,12 +87,12 @@ const Schedule = () => {
     const fetchData = async () => {
       try {
         // Спочатку завантажуємо статичні дані
-        const staticRes = await axios.get(`https://znz16300.github.io/sitedata/data/${KEY}.json`);
+        const staticRes = await http.get(sitedataUrl(KEY));
         setGlData(staticRes.data);
         setLoader(false); // Вимикаємо лоадер після першого завантаження
 
         // Потім завантажуємо актуальні дані з сервера
-        const serverRes = await axios.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
+        const serverRes = await http.get<ScheduleData[]>(`${SERVER}getmultiblock/${KEY}`);
         setGlData(serverRes.data);
       } catch (e) {
         console.error('Помилка завантаження:', e);
@@ -390,7 +382,7 @@ const Schedule = () => {
       <Header
         title="Розклад уроків"
         description="Перегляд розкладу занять для вчителів та класів"
-        className="bg-blue-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
+        className="bg-brand-600 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-brand2-800"
       />
 
       {loader ? (
@@ -403,7 +395,7 @@ const Schedule = () => {
           {/* Фільтри */}
           <div className="mb-8 rounded-xl bg-white p-6 shadow-lg dark:bg-gray-900">
             <h3 className="mb-6 flex items-center text-xl font-bold text-gray-900">
-              <Users className="mr-2 h-6 w-6 text-blue-600" />
+              <Users className="mr-2 h-6 w-6 text-brand-600" />
               Оберіть параметри перегляду
             </h3>
 
@@ -459,13 +451,13 @@ const Schedule = () => {
             </div>
 
             {date && (
-              <div className="mt-4 rounded-lg bg-blue-50 p-3 dark:bg-gray-800">
-                <p className="flex justify-between text-sm font-medium text-blue-700 dark:text-gray-400">
+              <div className="mt-4 rounded-lg bg-brand-50 p-3 dark:bg-gray-800">
+                <p className="flex justify-between text-sm font-medium text-brand-700 dark:text-gray-400">
                   <span>Обрана дата: {formatDate(date)}</span>
 
                   <button
                     onClick={generateDistanceScheduleCSV}
-                    className="ml-4 inline-flex items-center rounded bg-blue-500 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-900"
+                    className="ml-4 inline-flex items-center rounded bg-brand-500 px-3 py-1 text-xs font-semibold text-white hover:bg-brand-700 dark:bg-brand-800 dark:hover:bg-brand-900"
                     title='Завантажити дні дистанційного навчання "csv"'
                   >
                     <Download className="h-3 w-3" />
@@ -479,8 +471,8 @@ const Schedule = () => {
           {/* =======================================================================*/}
           {lessons.length > 0 && (
             <div className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-900">
-              <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-6 py-4 text-white dark:from-gray-800">
-                <h3 className="flex items-center text-xl font-bold dark:text-gray-400">
+              <div className="bg-gradient-to-r from-brand-600 via-brand-700 to-brand-800 px-6 py-4 text-white dark:from-gray-800">
+                <h3 className="flex items-center text-xl font-bold dark:text-gray-100">
                   <GraduationCap className="mr-2 h-6 w-6" />
                   Розклад для: {selectedTeacher || selectedClass}{' '}
                   {getDistanceLearningKlasInfo(selectedClass, date)}
@@ -505,16 +497,16 @@ const Schedule = () => {
                     <TableRow
                       key={index}
                       className={`border hover:bg-gray-50 dark:hover:bg-gray-800 ${
-                        inIntervalTime2(lesson.time) ? 'bg-blue-200' : ''
+                        inIntervalTime2(lesson.time) ? 'bg-brand-200' : ''
                       }`}
                     >
-                      <TableCell className="font-medium text-blue-600">
+                      <TableCell className="font-medium text-brand-600">
                         <div className="flex items-center">
                           <Clock className="mr-2 h-4 w-4" />
                           {lesson.time}
                         </div>
                       </TableCell>
-                      <TableCell className="font-medium text-blue-600 dark:text-blue-900">
+                      <TableCell className="font-medium text-brand-600 dark:text-brand-900">
                         <div className="flex items-center">{index + 1}</div>
                       </TableCell>
 
@@ -548,7 +540,7 @@ const Schedule = () => {
                               ))}
                         </TableCell>
                       )}
-                      <TableCell className="font-medium text-blue-600">
+                      <TableCell className="font-medium text-brand-600">
                         <div className="text-red-600">
                           {lesson.substitute.split(/\/|\|/).map((item: string, index: number) => (
                             <p

@@ -35,6 +35,9 @@ export const getFullTeachersSchedule = (scheduleData: ScheduleData): FullSchedul
         schedule[teacherId][card.days][card.period].push({
           subject: subject?.name || 'Невідомий предмет',
           classes: classes.map(c => c!.name),
+          teachers: lesson.teacherIds
+            .map(tid => findById(scheduleData.teachers, tid)?.name)
+            .filter(Boolean) as string[],
           classrooms: classrooms.map(c => c!.name),
           groups: groups.map(g => g!.name)
         });

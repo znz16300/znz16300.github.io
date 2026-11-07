@@ -35,7 +35,7 @@ const AnnounceViewToggle = ({ viewMode, onChange }: AnnounceViewToggleProps) => 
           title={label}
           className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
             viewMode === mode
-              ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-800 dark:text-blue-400'
+              ? 'bg-white text-brand-600 shadow-sm dark:bg-gray-800 dark:text-brand-400'
               : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
           }`}
         >

@@ -24,14 +24,6 @@ const Announce = () => {
     return (localStorage.getItem('announceViewMode') as AnnounceViewMode) || 'bulletin';
   });
 
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,7 +102,7 @@ const Announce = () => {
           <Header
             title={'Оголошення ліцею'}
             description={'Останні оголошення та важлива інформація'}
-            className="bg-emerald-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
+            className="bg-brand2-600 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-brand2-800"
           />
 
           <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">

@@ -43,7 +43,7 @@ const NewsCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }: Ne
           </div>
         </div>
 
-        <h2 className="mb-3 text-xl font-bold text-gray-900 transition-colors hover:text-blue-600 dark:text-gray-400">
+        <h2 className="mb-3 text-xl font-bold text-gray-900 transition-colors hover:text-brand-600 dark:text-gray-100">
           {item['Назва новини']}
         </h2>
 
@@ -73,7 +73,7 @@ const NewsCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }: Ne
               e.stopPropagation();
               onToggleExpanded(item.id);
             }}
-            className="font-semibold text-blue-600 transition-colors hover:text-blue-700"
+            className="font-semibold text-brand-600 transition-colors hover:text-brand-700"
           >
             {isExpanded ? 'Згорнути ↑' : 'Читати повністю →'}
           </button>

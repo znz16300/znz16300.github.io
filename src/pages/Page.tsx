@@ -24,14 +24,6 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
   const [topic, setTopic] = useState('');
   const [isSearchMode, setIsSearchMode] = useState(false);
 
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   const location = useLocation();
 
@@ -174,11 +166,11 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
       <div className="mb-4 rounded-lg bg-white p-6 shadow transition-shadow hover:shadow-md dark:bg-gray-900">
         <div className="mb-3 flex items-start justify-between">
           <div className="flex-1">
-            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-400">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
               {item['Назва новини'] || item['Назва документу'] || item['Розділ'] || 'Без назви'}
             </h3>
             <div className="mb-3 flex items-center gap-4 text-sm text-gray-500">
-              <span className="rounded-full bg-blue-100 px-2 py-1 text-blue-800 dark:bg-gray-600 dark:text-gray-400">
+              <span className="rounded-full bg-brand-100 px-2 py-1 text-brand-800 dark:bg-gray-600 dark:text-gray-400">
                 {item.chapter}
               </span>
               {item['Позначка часу'] && (
@@ -230,7 +222,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                 /^\.\//,
                 '/'
               )}
-              className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-gray-400"
+              className="inline-flex items-center font-medium text-brand-600 hover:text-brand-800 dark:text-gray-400"
               target="_blank"
             >
               Детальніше →
@@ -239,7 +231,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
             // Тут твій компонент для новин
             <Link
               to={`/news?id=${item.id}`}
-              className="text-blue-600 hover:underline dark:text-gray-400"
+              className="text-brand-600 hover:underline dark:text-gray-400"
             >
               Читати новину →
             </Link>
@@ -247,7 +239,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
             // Тут компонент для сторінок
             <Link
               to={`/page?titlePages=${encodeURIComponent(item.Розділ)}&keyPages=${item['idTable']}`}
-              className="text-blue-600 hover:underline dark:text-gray-400"
+              className="text-brand-600 hover:underline dark:text-gray-400"
             >
               Перейти →
             </Link>
@@ -296,7 +288,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
             <div className="text-sm">{item['Абзац']}</div>
             <ArrowUpRight
               className={`bottom absolute right-0 h-4 w-4 rotate-90 ${item['Кнопка з посиланням']?.startsWith('/page') || item['Кнопка з посиланням']?.startsWith('./page') ? '' : 'hidden'}`}
-              // className="absolute bottom-1 right-1 w-4 h-4 text-red-500 group-hover:text-blue-600 transition"
+              // className="absolute bottom-1 right-1 w-4 h-4 text-red-500 group-hover:text-brand-600 transition"
             />
           </div>
         )}
@@ -313,7 +305,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
           <Header
             title={topic}
             description={isSearchMode ? `Знайдено результатів: ${pageItems.length}` : ''}
-            className="bg-emerald-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
+            className="bg-brand2-600 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-brand2-800"
           />
 
           {isSearchMode ? (
@@ -324,7 +316,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                   <div className="mb-4 text-lg text-gray-500">
                     За вашим запитом нічого не знайдено
                   </div>
-                  <Link to="/" className="font-medium text-blue-600 hover:text-blue-800">
+                  <Link to="/" className="font-medium text-brand-600 hover:text-brand-800">
                     Повернутися на головну
                   </Link>
                 </div>
@@ -348,7 +340,7 @@ const Page = ({ pageItemsData, topicData }: PageProps) => {
                   <Link
                     key={item.id}
                     to={item['Кнопка з посиланням'].replace(/^\.\//, '/')}
-                    className={`text-gray-900 no-underline transition-colors hover:text-blue-600`}
+                    className={`text-gray-900 no-underline transition-colors hover:text-brand-600`}
                   >
                     {article(item)}
                   </Link>

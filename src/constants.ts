@@ -1,3 +1,14 @@
+// Сховище JSON-експортів Google Sheets (репозиторій sitedata)
+export const SITEDATA_URL = 'https://znz16300.github.io/sitedata/data/';
+export const sitedataUrl = (sheetId: string) => `${SITEDATA_URL}${sheetId}.json`;
+
+/** Таблиця новин і оголошень (одна на обидва розділи) */
+export const NEWS_TABLE = '1Dk0WYpOKeRoDATgzMkIkFjUcFwNAG5MRn4W7bEyzd0M';
+export const DOCUMENTS_TABLE = '1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34';
+
+/** Файл з public/ з урахуванням base (працює і на вкладених адресах на кшталт /kiosk/teachers) */
+export const publicUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+
 export const PAGE_TABLE_1 = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
 export const PAGE_TABLE_2 = '12tqoeJpUs1qa9paI7YuMpZ17nynq44-qqmn0zgoEup4';
 export const ZAMINI_TABLE = '19NXvVwOlczpioqKHtO_kLaFfLKcqpN-knDl-87yC9mo';

@@ -1,0 +1,356 @@
+{
+  "_README": "Пам'ятки (images: файли з public/assets/images/kiosk/) і відео (videos: public/assets/videos/kiosk/) психологічної служби. Щоб додати — допишіть об'єкт і покладіть файл у відповідну папку. Кнопку в меню додайте в kiosk_data.tsx.",
+  "images": [
+    {
+      "group": "Загальні",
+      "path": "/kiosk/psypho/kindness/rules",
+      "title": "10 правил доброти",
+      "image": "10-rules.jpg"
+    },
+    {
+      "group": "Загальні",
+      "path": "/kiosk/psypho/service",
+      "title": "Соціально-психологічна служба",
+      "image": "soc-psyph.png"
+    },
+    {
+      "group": "Профілактика насильства",
+      "path": "/kiosk/psypho/profilaktika/domashnye",
+      "title": "Домашнє насильство",
+      "image": "home-violence.png"
+    },
+    {
+      "group": "Профілактика насильства",
+      "path": "/kiosk/psypho/profilaktika/pamiatka",
+      "title": "Пам'ятка для батьків",
+      "image": "memo-for-parents.png"
+    },
+    {
+      "group": "Профілактика насильства",
+      "path": "/kiosk/psypho/profilaktika/porady-batkam",
+      "title": "Поради батькам",
+      "image": "advices.png"
+    },
+    {
+      "group": "Безпечний інтернет",
+      "path": "/kiosk/psypho/internet/pravyla",
+      "title": "Правила інтернет безпеки",
+      "image": "pravyla.jpg"
+    },
+    {
+      "group": "Безпечний інтернет",
+      "path": "/kiosk/psypho/internet/bezpechnyy",
+      "title": "Безпечний інтернет",
+      "image": "bezpechnyy.jpg"
+    },
+    {
+      "group": "Безпечний інтернет",
+      "path": "/kiosk/psypho/internet/dlia-batkiv",
+      "title": "Правила безпечного інтернету для батьків",
+      "image": "dlia-batkiv.jpg"
+    },
+    {
+      "group": "Безпечний інтернет",
+      "path": "/kiosk/psypho/internet/robota-v-merezhi",
+      "title": "Правила безпечної роботи в мережі",
+      "image": "robota-v-merezhi.jpg"
+    },
+    {
+      "group": "Безпечний інтернет",
+      "path": "/kiosk/psypho/internet/dlia-ditey",
+      "title": "Правила безпечного інтернету для дітей",
+      "image": "dlia-ditey.jpg"
+    },
+    {
+      "group": "Гендерна рівність",
+      "path": "/kiosk/psypho/gender/shcho-take",
+      "title": "Що таке гендерна рівність",
+      "image": "shcho-take.jpg"
+    },
+    {
+      "group": "Гендерна рівність",
+      "path": "/kiosk/psypho/gender/pryntsypy",
+      "title": "Принципи гендерної рівності",
+      "image": "pryntsypy.jpg"
+    },
+    {
+      "group": "Конфлікти",
+      "path": "/kiosk/psypho/conflicts/shcho-take",
+      "title": "Що таке конфлікт",
+      "image": "conflict-shcho-take.jpg"
+    },
+    {
+      "group": "Конфлікти",
+      "path": "/kiosk/psypho/conflicts/typy",
+      "title": "Типи конфліктів",
+      "image": "typy.jpg"
+    },
+    {
+      "group": "Конфлікти",
+      "path": "/kiosk/psypho/conflicts/druzi",
+      "title": "Конфлікти з друзями - як зберегти дружбу",
+      "image": "druzi.jpg"
+    },
+    {
+      "group": "Конфлікти",
+      "path": "/kiosk/psypho/conflicts/sposoby",
+      "title": "Способи вирішення конфліктів",
+      "image": "sposoby.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/praktychnyy",
+      "title": "Практичний блок для батьків",
+      "image": "praktychnyy.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/chomu-bulyty",
+      "title": "Чому діти починають булити",
+      "image": "chomu-bulyty.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/perevantazhenist",
+      "title": "Чи не перевантажена ваша дитина",
+      "image": "perevantazhenist.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/vplyv-simi",
+      "title": "Вплив сім'ї на профілактику булінгу",
+      "image": "vplyv-simi.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/pershoklasnyk",
+      "title": "Пам'ятка для батьків першокласника",
+      "image": "pershoklasnyk.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/pidlitky",
+      "title": "Поради батькам підлітків",
+      "image": "pidlitky.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/suitsyd",
+      "title": "Профілактика суїциду",
+      "image": "suitsyd.png"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/agresiia",
+      "title": "Роль сім'ї у формуванні агресії",
+      "image": "agresiia.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/test",
+      "title": "Тест. Чи не перевантажена дитина",
+      "image": "test.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/pidtrymka",
+      "title": "Поради щодо підтримки дитини",
+      "image": "pidtrymka.jpg"
+    },
+    {
+      "group": "Корисне для батьків",
+      "path": "/kiosk/psypho/parents/piatyy-klas",
+      "title": "Пам'ятка для батьків п'ятих класів",
+      "image": "piatyy-klas.jpg"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/zazemlennia",
+      "title": "Техніки заземлення",
+      "image": "zazemlennia.jpg"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/den",
+      "title": "День ментального здоров'я",
+      "image": "den.png"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/pokrashchennia",
+      "title": "Що я можу зробити для покращення",
+      "image": "pokrashchennia.jpg"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/tryvozhist",
+      "title": "Техніки для зняття тривожності",
+      "image": "tryvozhist.jpg"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/rivnovaha",
+      "title": "Як зберегти рівновагу під тиском",
+      "image": "rivnovaha.jpg"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/stress",
+      "title": "Техніки для подолання стресу",
+      "image": "stress.png"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/info",
+      "title": "Ментальне здоров'я",
+      "image": "info.png"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/pamiatka",
+      "title": "Пам'ятка для батьків",
+      "image": "pamiatka.png"
+    },
+    {
+      "group": "Ментальне здоров'я",
+      "path": "/kiosk/psypho/mental/yak-pokrashchyty",
+      "title": "Як покращити ментальне здоров'я",
+      "image": "yak-pokrashchyty.jpg"
+    },
+    {
+      "group": "Номери телефонів",
+      "path": "/kiosk/psypho/phones/hotline-1",
+      "title": "Безкоштовна психологічна допомога для українців",
+      "image": "hotline-1.jpg"
+    },
+    {
+      "group": "Номери телефонів",
+      "path": "/kiosk/psypho/phones/hotline-2",
+      "title": "Гарячі лінії психологічної допомоги",
+      "image": "hotline-2.jpg"
+    },
+    {
+      "group": "Номери телефонів",
+      "path": "/kiosk/psypho/phones/contacts",
+      "title": "Контакти служб підтримки",
+      "image": "hotline-3.jpg"
+    },
+    {
+      "group": "Ти як?",
+      "path": "/kiosk/psypho/tiyak/karta",
+      "title": "Карта \"Ти як\"",
+      "image": "karta.jpg"
+    },
+    {
+      "group": "Ти як?",
+      "path": "/kiosk/psypho/tiyak/skazhy-chesno",
+      "title": "Скажи чесно \"Ти як\"",
+      "image": "skazhy-chesno.png"
+    },
+    {
+      "group": "Ти як?",
+      "path": "/kiosk/psypho/tiyak/emotsii-1",
+      "title": "Емоційний стан 1",
+      "image": "emotsii-1.jpg"
+    },
+    {
+      "group": "Ти як?",
+      "path": "/kiosk/psypho/tiyak/emotsii-2",
+      "title": "Емоційний стан 2",
+      "image": "emotsii-2.jpg"
+    },
+    {
+      "group": "Ти як?",
+      "path": "/kiosk/psypho/tiyak/emotsii-3",
+      "title": "Емоційний стан 3",
+      "image": "emotsii-3.jpg"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/yavyshche",
+      "title": "Явище булінгу в шкільному середовищі",
+      "image": "yavyshche.png"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/rekomendatsii-batkam",
+      "title": "Рекомендації батькам",
+      "image": "rekomendatsii-batkam.png"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/algorytm-pedahohiv",
+      "title": "Алгоритм дій педагогічних працівників",
+      "image": "algorytm-pedahohiv.jpg"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/porady-uchnyam",
+      "title": "Поради учням як боротися з булінгом",
+      "image": "porady-uchnyam.png"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/povidomyty",
+      "title": "Повідомити про булінг",
+      "image": "povidomyty.jpg"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/buling-info",
+      "title": "Зупини булінг",
+      "image": "buling-info.png"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/dopomohty-dytyni",
+      "title": "Як допомогти дитині впоратися",
+      "image": "dopomohty-dytyni.png"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/yak-reahuvaty",
+      "title": "Як реагувати на цькування",
+      "image": "yak-reahuvaty.jpg"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/buklet",
+      "title": "Буклет. Булінг",
+      "image": "buklet.jpg"
+    },
+    {
+      "group": "Булінг",
+      "path": "/kiosk/psypho/buling/porady-psykholoha",
+      "title": "Поради психологічної служби",
+      "image": "porady-psykholoha.png"
+    }
+  ],
+  "videos": [
+    {
+      "path": "/kiosk/psypho/tiyak/vpravy/zlata",
+      "title": "Скажи чесно, ти як_ Злата Огнєвіч",
+      "video": "v1.mp4"
+    },
+    {
+      "path": "/kiosk/psypho/tiyak/vpravy/olha",
+      "title": "Скажи чесно, ти як_ Ольга Бутко",
+      "video": "v2.mp4"
+    },
+    {
+      "path": "/kiosk/psypho/tiyak/vpravy/solomiia",
+      "title": "Скажи чесно, ти як_ Проста вправа для заспокоєння від Соломії Вітвіцької",
+      "video": "v3.mp4"
+    },
+    {
+      "path": "/kiosk/psypho/tiyak/vpravy/roksolana",
+      "title": "Скажи чесно, ти як_ Роксолана Сирота (ROXOLANA)",
+      "video": "v4.mp4"
+    },
+    {
+      "path": "/kiosk/psypho/tiyak/vpravy/oleksandra",
+      "title": "Щоб заспокоїтись у важку мить, забирайте прості вправи від Олександри Заріцької",
+      "video": "v5.mp4"
+    }
+  ]
+}

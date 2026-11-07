@@ -16,7 +16,7 @@ const StatsSection = () => {
               className="animate-scale-in text-center"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="mb-2 text-3xl font-bold text-blue-600 md:text-4xl">
+              <div className="mb-2 text-3xl font-bold text-brand-600 md:text-4xl">
                 {stat.number}
               </div>
               <div className="font-medium text-gray-600">{stat.label}</div>

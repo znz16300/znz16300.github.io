@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Plus, Edit2, Trash2, X, FileText } from 'lucide-react';
-import { xmlData } from './xmlData';
+import { useTimetableXml } from './timetableXml';
 import type { ScheduleData } from '@/type/scheduledata';
 import { parseXMLData } from './xmlParser';
 
@@ -13,6 +13,7 @@ interface AbsentTeacher {
 }
 
 const TeacherAbsenceManager = () => {
+  const { xml: xmlData } = useTimetableXml();
   const [absentTeachers, setAbsentTeachers] = useState<AbsentTeacher[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [scheduleData, setScheduleData] = useState<ScheduleData | null>(null);
@@ -63,14 +64,18 @@ const TeacherAbsenceManager = () => {
       }
     }
 
-    // Завантаження scheduleData через parseXMLData
+  }, []);
+
+  // Завантаження scheduleData через parseXMLData (XML підвантажується з public/data/timetable.xml)
+  useEffect(() => {
+    if (!xmlData) return;
     const data = parseXMLData(xmlData);
     if (data) {
       setScheduleData(data);
     } else {
       console.error('Помилка завантаження розкладу');
     }
-  }, []);
+  }, [xmlData]);
 
   useEffect(() => {
     localStorage.setItem('absentTeachers', JSON.stringify(absentTeachers));
@@ -265,7 +270,7 @@ const TeacherAbsenceManager = () => {
             <select
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="">Оберіть вчителя</option>
               {scheduleData?.teachers.map(teacher => (
@@ -279,28 +284,28 @@ const TeacherAbsenceManager = () => {
               placeholder="Дата з"
               value={formData.dateFrom}
               onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
             <input
               type="date"
               placeholder="Дата по"
               value={formData.dateTo}
               onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
             <input
               type="text"
               placeholder="Причина відсутності"
               value={formData.reason}
               onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
 
           <div className="flex gap-2">
             <button
               onClick={handleAdd}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition"
             >
               {editingId ? (
                 <React.Fragment>
@@ -388,7 +393,7 @@ const TeacherAbsenceManager = () => {
                 type="date"
                 value={replacementDateFrom}
                 onChange={(e) => setReplacementDateFrom(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
             <div>
@@ -399,7 +404,7 @@ const TeacherAbsenceManager = () => {
                 type="date"
                 value={replacementDateTo}
                 onChange={(e) => setReplacementDateTo(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
             <div className="flex flex-col justify-center gap-2">  
@@ -452,7 +457,7 @@ const TeacherAbsenceManager = () => {
               value={replacementList}
               readOnly
               rows={15}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono text-sm"
               placeholder="Натисніть 'Вивести' для генерації списку замін..."
             />
           </div>

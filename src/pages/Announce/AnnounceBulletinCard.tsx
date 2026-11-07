@@ -13,8 +13,8 @@ interface AnnounceBulletinCardProps {
 
 // Rotate accent colors for visual variety
 const accentColors = [
-  'border-l-blue-500',
-  'border-l-emerald-500',
+  'border-l-brand-500',
+  'border-l-brand2-500',
   'border-l-amber-500',
   'border-l-purple-500',
   'border-l-rose-500',
@@ -61,7 +61,7 @@ const AnnounceBulletinCard = ({
             <span>{item['Позначка часу']}</span>
           </div>
 
-          <h2 className="mb-2 text-base font-bold leading-snug text-gray-900 transition-colors hover:text-blue-600 dark:text-gray-300">
+          <h2 className="mb-2 text-base font-bold leading-snug text-gray-900 transition-colors hover:text-brand-600 dark:text-gray-300">
             {item['Назва новини']}
           </h2>
 
@@ -106,7 +106,7 @@ const AnnounceBulletinCard = ({
                 e.stopPropagation();
                 onToggleExpanded(item.id);
               }}
-              className="mt-2 flex items-center gap-1 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
+              className="mt-2 flex items-center gap-1 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700"
             >
               {isExpanded ? (
                 <>

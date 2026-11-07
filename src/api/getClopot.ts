@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { http } from '@/api/http';
 
 import { fullNameToInic, fullNameToParts } from '@/lib/nameUtils';
 import { COURSES_TABLE_COLLS, SERVER_2 } from '@/constants';
@@ -87,11 +87,7 @@ async function getClopot(courses: DataObject[]) {
       }
     }
     try {
-      const response = await axios.post(url, formData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
+      const response = await http.postForm(url, formData);
       const data = response.data;
       document.location.href = `${SERVER_2}test/${data}`;
     } catch (error) {

@@ -31,7 +31,7 @@ export const SelectionControls: React.FC<SelectionControlsProps> = ({
   weekType,
   setWeekType
 }) => {
-  const selectClass = "w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const selectClass = "w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500";
   const showWeekSelector = ['fullClasses', 'fullTeachers', 'teachers', 'classes', 'all', 'fullClassrooms'].includes(view); //!!!
   const [formatEducation, setFormatEducation] = useState<string | null>(null);
   useEffect(() => {

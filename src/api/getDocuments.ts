@@ -1,10 +1,11 @@
+import { sitedataUrl, DOCUMENTS_TABLE } from '@/constants';
 import { RawDocument } from '@/type/rawDocument';
-import axios from 'axios';
+import { http } from '@/api/http';
 
 export async function getDocuments(): Promise<RawDocument[] | null> {
   try {
-    const response = await axios.get(
-      `https://znz16300.github.io/sitedata/data/1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34.json`
+    const response = await http.get(
+      sitedataUrl(DOCUMENTS_TABLE)
     );
     const data = response.data;
     const filtered = Array.isArray(data)

@@ -101,7 +101,7 @@ const PZCreator: React.FC<PZCreatorProps> = ({ keyZamini }) => {
             type="date"
             value={datePzStart}
             onChange={(e) => setDatePzStart(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             disabled={isLoading}
           />
         </div>
@@ -113,7 +113,7 @@ const PZCreator: React.FC<PZCreatorProps> = ({ keyZamini }) => {
             type="date"
             value={datePzFinish}
             onChange={(e) => setDatePzFinish(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             disabled={isLoading}
           />
         </div>
@@ -128,7 +128,7 @@ const PZCreator: React.FC<PZCreatorProps> = ({ keyZamini }) => {
       <button
         onClick={handleCreatePZ}
         disabled={isLoading}
-        className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+        className="flex items-center gap-2 px-6 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         {isLoading ? (
           <React.Fragment>
@@ -155,7 +155,7 @@ const PZCreator: React.FC<PZCreatorProps> = ({ keyZamini }) => {
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 hover:underline"
+                  className="text-brand-600 hover:text-brand-800 hover:underline"
                 >
                   Таблиця #{index + 1}
                 </a>

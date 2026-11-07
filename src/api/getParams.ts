@@ -1,4 +1,5 @@
-import axios from 'axios';
+import { publicUrl } from '@/constants';
+import { http } from '@/api/http';
 
 export const params = {
   GOOGLE_TABLE_USE: true,
@@ -8,8 +9,8 @@ export const params = {
 };
 
 export async function getParams() {
-  const url = './assets/data/params.json';
-  const response = await axios.get(url);
+  const url = publicUrl('assets/data/params.json'); // раніше відносний шлях ламався на вкладених адресах
+  const response = await http.get(url);
   const { data } = response;
   return data;
 }

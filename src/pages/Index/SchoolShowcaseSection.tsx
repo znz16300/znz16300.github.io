@@ -31,8 +31,8 @@ const SchoolShowcaseSection = () => {
             {/* Floating Stats Card */}
             <div className="absolute -bottom-6 -right-6 rounded-xl border border-gray-100 bg-white p-6 shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:border-gray-700 dark:bg-gray-900 dark:shadow-[0_4px_12px_rgba(255,255,255,0.1)]">
               <div className="flex items-center space-x-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
-                  <Award className="h-6 w-6 text-blue-600" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-100">
+                  <Award className="h-6 w-6 text-brand-600" />
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-gray-900 dark:text-gray-400">25+</div>
@@ -45,7 +45,7 @@ const SchoolShowcaseSection = () => {
           {/* Interactive Content */}
           <div className="space-y-8">
             <div>
-              <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-400">
+              <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
                 Наш навчальний заклад
               </h3>
               <p className="mb-6 text-lg leading-relaxed text-gray-600 dark:text-gray-400">
@@ -58,9 +58,9 @@ const SchoolShowcaseSection = () => {
             <div className="grid grid-cols-2 gap-4">
               <Link
                 to={`/page?titlePages=Учні&keyPages=${PAGE_TABLE_1}`}
-                className="cursor-pointer rounded-lg bg-blue-50 p-4 text-center transition-colors hover:bg-blue-100 dark:bg-gray-700"
+                className="cursor-pointer rounded-lg bg-brand-50 p-4 text-center transition-colors hover:bg-brand-100 dark:bg-gray-700"
               >
-                <Users className="mx-auto mb-2 h-8 w-8 text-blue-600" />
+                <Users className="mx-auto mb-2 h-8 w-8 text-brand-600" />
                 <div className="text-2xl font-bold text-green-600">750+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-500">Учнів</div>
               </Link>
@@ -138,7 +138,7 @@ const SchoolShowcaseSection = () => {
             <div className="pt-4">
               <Button
                 asChild
-                className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl dark:from-gray-600 dark:to-gray-700 dark:text-gray-400 dark:hover:from-gray-600 dark:hover:to-gray-700"
+                className="w-full rounded-lg bg-gradient-to-r from-brand-600 to-brand-700 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:from-brand-700 hover:to-brand-800 hover:shadow-xl dark:from-gray-600 dark:to-gray-700 dark:text-gray-400 dark:hover:from-gray-600 dark:hover:to-gray-700"
               >
                 <Link to={`/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`}>
                   Дізнатися про ліцей детальніше

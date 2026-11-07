@@ -1,0 +1,170 @@
+/* ============================================================
+   Базовий шар теми. Не залежить від палітри: усі кольори беруться
+   зі змінних --brand-*, --brand2-*, --neutral-* активної палітри.
+   ============================================================ */
+
+/* ---- Семантичні змінні shadcn/ui (bg-background, text-primary, border-border…) ----
+   Оголошені і на [data-palette], щоб вкладений блок з іншою палітрою (сторінка
+   /theme-preview) перераховував їх від своїх --brand-* / --neutral-*. */
+:root,
+[data-palette] {
+  color-scheme: light;
+  --radius: 0.5rem;
+
+  --background: 255 255 255;
+  --foreground: var(--neutral-900);
+  --card: 255 255 255;
+  --card-foreground: var(--neutral-900);
+  --popover: 255 255 255;
+  --popover-foreground: var(--neutral-900);
+  --primary: var(--brand-600);
+  --primary-foreground: 255 255 255;
+  --secondary: var(--neutral-100);
+  --secondary-foreground: var(--neutral-900);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-500);
+  --accent: var(--brand-50);
+  --accent-foreground: var(--brand-900);
+  --destructive: 220 38 38;
+  --destructive-foreground: 255 255 255;
+  --border: var(--neutral-200);
+  --input: var(--neutral-300);
+  --ring: var(--brand-500);
+}
+
+.dark,
+.dark [data-palette],
+[data-palette].dark {
+  color-scheme: dark;
+
+  /* Не чистий чорний, а глибокий відтінок нейтрального кольору палітри — менше втомлює очі */
+  --background: var(--neutral-950);
+  --foreground: var(--neutral-100);
+  --card: var(--neutral-900);
+  --card-foreground: var(--neutral-100);
+  --popover: var(--neutral-900);
+  --popover-foreground: var(--neutral-100);
+  /* У темній темі бренд світліший, щоб був контраст на темному фоні */
+  --primary: var(--brand-400);
+  --primary-foreground: var(--neutral-950);
+  --secondary: var(--neutral-800);
+  --secondary-foreground: var(--neutral-100);
+  --muted: var(--neutral-800);
+  --muted-foreground: var(--neutral-400);
+  --accent: var(--neutral-800);
+  --accent-foreground: var(--neutral-50);
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: var(--neutral-800);
+  --input: var(--neutral-700);
+  --ring: var(--brand-400);
+}
+
+/* Плавний перехід лише в момент перемикання теми (клас ставить ThemeProvider на ~300 мс) */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    fill 0.25s ease !important;
+}
+
+/* ============================================================
+   АВТОМАТИЧНА ТЕМНА ТЕМА для елементів без власних dark:-класів.
+
+   Багато сторінок (розклад, заміни, реєстрація, галерея…) написані
+   лише зі світлими класами (bg-white, text-gray-800…). Правила нижче
+   підміняють їх у темному режимі, але ТІЛЬКИ якщо в елемента немає
+   свого dark:bg- / dark:text- / dark:border- — тобто ручні налаштування
+   завжди мають пріоритет.
+
+   Щоб вимкнути підміну для блоку (напр. друкована форма), додайте
+   йому клас .keep-light.
+   ============================================================ */
+
+/* --- Фони --- */
+.dark :where(:not(.keep-light, .keep-light *)).bg-white:not([class*='dark:bg-']) {
+  background-color: rgb(var(--neutral-900));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-gray-50, .bg-slate-50, .bg-neutral-50):not([class*='dark:bg-']) {
+  background-color: rgb(var(--neutral-950));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-gray-100, .bg-slate-100, .bg-neutral-100):not([class*='dark:bg-']) {
+  background-color: rgb(var(--neutral-800));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-gray-200, .bg-slate-200, .bg-neutral-200):not([class*='dark:bg-']) {
+  background-color: rgb(var(--neutral-700));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-brand-50, .bg-brand-100):not([class*='dark:bg-']) {
+  background-color: rgb(var(--brand-500) / 0.15);
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-brand2-50, .bg-brand2-100):not([class*='dark:bg-']) {
+  background-color: rgb(var(--brand2-500) / 0.15);
+}
+/* кольорові «плашки» (статуси, легенди) — напівпрозорі, щоб не сліпили */
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-green-50, .bg-green-100):not([class*='dark:bg-']) { background-color: rgb(34 197 94 / 0.15); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-red-50, .bg-red-100):not([class*='dark:bg-']) { background-color: rgb(239 68 68 / 0.15); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-amber-50, .bg-amber-100, .bg-yellow-50, .bg-yellow-100):not([class*='dark:bg-']) { background-color: rgb(245 158 11 / 0.15); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-purple-50, .bg-purple-100, .bg-indigo-50, .bg-indigo-100):not([class*='dark:bg-']) { background-color: rgb(139 92 246 / 0.15); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.bg-orange-50, .bg-orange-100):not([class*='dark:bg-']) { background-color: rgb(249 115 22 / 0.15); }
+
+/* hover-фони */
+.dark :where(:not(.keep-light, .keep-light *)):is(.hover\:bg-gray-50, .hover\:bg-slate-50, .hover\:bg-gray-100, .hover\:bg-slate-100):hover:not([class*='dark:hover:bg-']) {
+  background-color: rgb(var(--neutral-800));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.hover\:bg-gray-200, .hover\:bg-slate-200):hover:not([class*='dark:hover:bg-']) {
+  background-color: rgb(var(--neutral-700));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.hover\:bg-brand-50, .hover\:bg-brand-100):hover:not([class*='dark:hover:bg-']) {
+  background-color: rgb(var(--brand-500) / 0.2);
+}
+
+/* --- Текст --- */
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-black, .text-gray-900, .text-slate-900):not([class*='dark:text-']) {
+  color: rgb(var(--neutral-50));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-gray-800, .text-slate-800, .text-gray-700, .text-slate-700):not([class*='dark:text-']) {
+  color: rgb(var(--neutral-200));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-gray-600, .text-slate-600):not([class*='dark:text-']) {
+  color: rgb(var(--neutral-400));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-brand-700, .text-brand-800, .text-brand-900):not([class*='dark:text-']) {
+  color: rgb(var(--brand-300));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-brand-600):not([class*='dark:text-']) {
+  color: rgb(var(--brand-400));
+}
+
+/* темний кольоровий текст на плашках → світлий відтінок того ж кольору */
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-green-700, .text-green-800, .text-green-900):not([class*='dark:text-']) { color: rgb(134 239 172); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-red-700, .text-red-800, .text-red-900):not([class*='dark:text-']) { color: rgb(252 165 165); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-amber-700, .text-amber-800, .text-amber-900, .text-yellow-700, .text-yellow-800, .text-yellow-900):not([class*='dark:text-']) { color: rgb(252 211 77); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-orange-700, .text-orange-800, .text-orange-900):not([class*='dark:text-']) { color: rgb(253 186 116); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-purple-700, .text-purple-800, .text-indigo-700, .text-indigo-800):not([class*='dark:text-']) { color: rgb(196 181 253); }
+.dark :where(:not(.keep-light, .keep-light *)):is(.text-brand2-700, .text-brand2-800, .text-brand2-900):not([class*='dark:text-']) { color: rgb(var(--brand2-300)); }
+
+/* --- Рамки та роздільники --- */
+.dark :where(:not(.keep-light, .keep-light *)):is(.border-gray-100, .border-gray-200, .border-slate-100, .border-slate-200):not([class*='dark:border-']) {
+  border-color: rgb(var(--neutral-800));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.border-gray-300, .border-slate-300):not([class*='dark:border-']) {
+  border-color: rgb(var(--neutral-700));
+}
+.dark :where(:not(.keep-light, .keep-light *)):is(.divide-gray-100, .divide-gray-200, .divide-slate-200):not([class*='dark:divide-']) > * + * {
+  border-color: rgb(var(--neutral-800));
+}
+
+/* --- Поля форм без класів кольору --- */
+.dark :where(input, select, textarea):where(:not([class*='bg-'])) {
+  background-color: rgb(var(--neutral-900));
+  color: rgb(var(--neutral-100));
+}
+
+/* Фото трохи приглушені, щоб не «світили» на темному фоні */
+.dark img:not(.no-dim) {
+  filter: brightness(0.92);
+}

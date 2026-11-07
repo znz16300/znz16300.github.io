@@ -18,7 +18,7 @@ export const ViewControls: React.FC<ViewControlsProps> = ({
   const buttonClass = (isActive: boolean) =>
     `flex items-center gap-2 px-4 py-2 rounded-lg transition ${
       isActive
-        ? 'bg-blue-600 text-white'
+        ? 'bg-brand-600 text-white'
         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
     }`;
 
@@ -51,7 +51,7 @@ export const ViewControls: React.FC<ViewControlsProps> = ({
         </button>
         {view === 'fullClasses' && (
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg transition bg-blue-600 text-white hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg transition bg-brand-600 text-white hover:bg-brand-700"
             onClick={onExportClasses}
           >
             <Download className="w-4 h-4" /> Експорт розкладу
@@ -59,7 +59,7 @@ export const ViewControls: React.FC<ViewControlsProps> = ({
         )}
         {view === 'fullTeachers' && (
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg transition bg-blue-600 text-white hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg transition bg-brand-600 text-white hover:bg-brand-700"
             onClick={onExportTeachers}
           >
             <Download className="w-4 h-4" /> Експорт розкладу

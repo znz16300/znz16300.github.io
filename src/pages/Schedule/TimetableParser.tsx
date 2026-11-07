@@ -1,7 +1,7 @@
 // TimetableParser.tsx
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'lucide-react';
-import { xmlData } from './xmlData';
+import { useTimetableXml } from './timetableXml';
 import type { ScheduleData } from '@/type/scheduledata';
 import { parseXMLData } from './xmlParser';
 import { getClassSchedule, getTeacherSchedule } from './scheduleGenerators';
@@ -18,6 +18,7 @@ import { Legend } from './Legend';
 import type { WeekType } from './distDataHelper';
 
 export const TimetableParser2: React.FC = () => {
+  const { xml: xmlData } = useTimetableXml();
   const [scheduleData, setScheduleData] = useState<ScheduleData | null>(null);
   const [view, setView] = useState<string>('classes');
   const [selectedClass, setSelectedClass] = useState<string>('');
@@ -82,6 +83,7 @@ export const TimetableParser2: React.FC = () => {
     };
 
   useEffect(() => {
+    if (!xmlData) return;
     const data = parseXMLData(xmlData);
     
     if (data) {
@@ -141,7 +143,7 @@ export const TimetableParser2: React.FC = () => {
     } else {
       setError('Помилка парсингу XML');
     }
-  }, []);
+  }, [xmlData]);
 
   // Обробники зміни налаштувань з автоматичним збереженням
   const handleViewChange = (newView: string) => {

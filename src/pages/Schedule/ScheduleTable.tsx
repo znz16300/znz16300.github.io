@@ -19,9 +19,9 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, schedul
   
   return (
     <table className="w-full table-fixed">
-      <thead className="bg-blue-600 text-white sticky top-0 z-20">
+      <thead className="bg-brand-600 text-white sticky top-0 z-20">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30 w-40">Урок / Час</th>
+          <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-brand-600 z-30 w-40">Урок / Час</th>
           {(selectedDay === '11111' ? daysArray : [selectedDay]).map(day => (
             <th key={day} className="px-4 py-3 text-left font-semibold">
               {getDayName(day)}
@@ -44,7 +44,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, schedul
                   // Визначаємо колір фону для картки уроку
                   const bgColor = (view === 'teachers' || view === 'classes') && lesson.classes
                     ? getLessonBackgroundColor(lesson.classes, weekType)
-                    : 'bg-blue-50';
+                    : 'bg-brand-50';
                   
                   // Визначаємо бейдж для вчителів
                   const distType = view === 'teachers' && lesson.classes
@@ -53,9 +53,9 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({ className, schedul
                   const badge = distType ? getDistTypeBadge(distType) : null;
                   
                   return (
-                    <div key={lessonIdx} className={`mb-2 last:mb-0 p-2 rounded border ${bgColor} ${bgColor !== 'bg-blue-50' ? 'border-current' : 'border-gray-200'}`}>
+                    <div key={lessonIdx} className={`mb-2 last:mb-0 p-2 rounded border ${bgColor} ${bgColor !== 'bg-brand-50' ? 'border-current' : 'border-gray-200'}`}>
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="text-sm font-semibold text-blue-700 flex-1">
+                        <div className="text-sm font-semibold text-brand-700 flex-1">
                           {lesson.subject}
                         </div>
                         {badge && (

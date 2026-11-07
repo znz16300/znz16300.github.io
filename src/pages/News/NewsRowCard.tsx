@@ -46,7 +46,7 @@ const NewsRowCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }:
               </div>
             </div>
 
-            <h2 className="mb-2 text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors dark:text-gray-300 leading-snug">
+            <h2 className="mb-2 text-lg font-bold text-gray-900 hover:text-brand-600 transition-colors dark:text-gray-300 leading-snug">
               {item['Назва новини']}
             </h2>
 
@@ -77,7 +77,7 @@ const NewsRowCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }:
                 e.stopPropagation();
                 onToggleExpanded(item.id);
               }}
-              className="mt-3 self-start text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
+              className="mt-3 self-start text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700"
             >
               {isExpanded ? 'Згорнути ↑' : 'Читати повністю →'}
             </button>

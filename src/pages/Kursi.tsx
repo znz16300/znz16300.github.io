@@ -49,14 +49,6 @@ const Kursi = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [mkModalOpen, setMkModalOpen] = useState(false);
   const [allItemsForModal, setAllItemsForModal] = useState<DataObject[]>([]);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
@@ -170,12 +162,12 @@ const Kursi = () => {
         <Header
           title={topic === 'all' ? 'Всі працівники' : topic}
           description={'Перегляд підвищення кваліфікації, формування клопотань'}
-          className="bg-emerald-600 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
+          className="bg-brand2-600 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-brand2-800"
         />
         <div className="mx-auto mt-4 flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
           <Button
             variant="outline"
-            className="flex items-center gap-2 border-blue-700 text-blue-700 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-700"
+            className="flex items-center gap-2 border-brand-700 text-brand-700 hover:bg-brand-50 dark:border-brand-400 dark:text-brand-400 dark:hover:bg-gray-700"
             onClick={() => setMkModalOpen(true)}
           >
             <Users2 className="h-4 w-4" />
@@ -350,7 +342,7 @@ const Kursi = () => {
                                 </div>
                                 <Button
                                   asChild
-                                  className="flex items-center gap-2 rounded bg-blue-600 px-3 py-2 text-white transition hover:bg-blue-700"
+                                  className="flex items-center gap-2 rounded bg-brand-600 px-3 py-2 text-white transition hover:bg-brand-700"
                                 >
                                   <Link
                                     to={item['Фотокопія сертифікату, свідоцтва тощо']}

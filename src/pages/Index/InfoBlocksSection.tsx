@@ -15,14 +15,14 @@ const infoBlocks = [
     description:
       'Куликівський ліцей - сучасний навчальний заклад, що забезпечує якісну освіту та всебічний розвиток особистості',
     icon: GraduationCap,
-    gradient: 'from-blue-500 to-blue-600',
+    gradient: 'from-brand-500 to-brand-600',
     link: `/page?titlePages=Про%20ліцей&keyPages=${PAGE_TABLE_2}`,
   },
   {
     title: 'Документація',
     description: 'Повний перелік установчих документів, положень та нормативних актів ліцею',
     icon: FileText,
-    gradient: 'from-emerald-500 to-emerald-600',
+    gradient: 'from-brand2-500 to-brand2-600',
     link: '/documents',
   },
   {
@@ -60,7 +60,7 @@ const InfoBlocksSection = () => {
     <section className="bg-gray-50 py-16 dark:bg-gray-700">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
-          <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-400 md:text-4xl">
+          <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100 md:text-4xl">
             Про наш ліцей
           </h3>
           <p className="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-400">
@@ -82,11 +82,11 @@ const InfoBlocksSection = () => {
                 >
                   <block.icon className="h-8 w-8 text-white" />
                 </div>
-                <h4 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-400">
+                <h4 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-brand-600 dark:text-gray-100">
                   {block.title}
                 </h4>
                 <p className="mb-4 leading-relaxed text-gray-600">{block.description}</p>
-                <button className="group flex items-center space-x-2 font-semibold text-blue-600 transition-colors duration-200 hover:text-blue-700 dark:text-gray-400">
+                <button className="group flex items-center space-x-2 font-semibold text-brand-600 transition-colors duration-200 hover:text-brand-700 dark:text-gray-400">
                   <Link to={block.link} className="flex items-center space-x-2">
                     <span>Детальніше</span>
                     <span className="transition-transform group-hover:translate-x-1">→</span>

@@ -13,9 +13,9 @@ interface AllClassesTableProps {
 export const AllClassesTable: React.FC<AllClassesTableProps> = ({ scheduleData, allClassesSchedule, weekType }) => {
   return (
     <table className="w-full">
-      <thead className="bg-blue-600 text-white sticky top-0 z-20">
+      <thead className="bg-brand-600 text-white sticky top-0 z-20">
         <tr>
-          <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30">Урок</th>
+          <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-brand-600 z-30">Урок</th>
           {scheduleData.classes.map(cls => (
             <th key={cls.id} className="px-4 py-3 text-left font-semibold min-w-[200px]">
               {cls.name}
@@ -41,7 +41,7 @@ export const AllClassesTable: React.FC<AllClassesTableProps> = ({ scheduleData, 
                   return (
                     <div key={lessonIdx} className="mb-2 last:mb-0 p-2 bg-white bg-opacity-70 rounded border border-gray-200">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="text-sm font-semibold text-blue-700 flex-1">
+                        <div className="text-sm font-semibold text-brand-700 flex-1">
                           {lesson.subject}
                         </div>
                         {badge && (

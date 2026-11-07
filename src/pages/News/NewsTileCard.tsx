@@ -54,7 +54,7 @@ const NewsTileCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }
               e.stopPropagation();
               onToggleExpanded(item.id);
             }}
-            className="mt-2 font-semibold text-blue-600 transition-colors hover:text-blue-700"
+            className="mt-2 font-semibold text-brand-600 transition-colors hover:text-brand-700"
           >
             Згорнути ↑
           </button>
@@ -82,7 +82,7 @@ const NewsTileCard = ({ item, index, expandedId, onCardClick, onToggleExpanded }
           <Calendar className="h-3 w-3" />
           <span>{item['Позначка часу']}</span>
         </div>
-        <h2 className="text-sm font-bold text-gray-900 line-clamp-2 leading-snug hover:text-blue-600 transition-colors dark:text-gray-300">
+        <h2 className="text-sm font-bold text-gray-900 line-clamp-2 leading-snug hover:text-brand-600 transition-colors dark:text-gray-300">
           {item['Назва новини']}
         </h2>
       </div>

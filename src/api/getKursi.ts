@@ -1,8 +1,8 @@
-import { SERVER_2 } from '@/constants';
+import { SERVER_2, sitedataUrl } from '@/constants';
 import { parseDate } from '@/lib/utils';
 import { DataObject, TrainingItem } from '@/type/kursi';
 import { PageItem } from '@/type/pageItem';
-import axios from 'axios';
+import { http } from '@/api/http';
 
 const tableNews = {
   tableName: '1W6zD4eXSqCFW2iObVuNUyjj_hyS1aPi_tWe7Ce8dxWU',
@@ -34,7 +34,7 @@ export async function getKursiFromServ(
   } else {
     // Якщо ще не в кеші — завантажуємо
     try {
-      const response = await axios.get(
+      const response = await http.get(
         `${SERVER_2}getdata/${idSheet}/${tableNews.sheetName}/A1:Q10000`
         // `${SERVER}getjson/${idSheet}/${tableNews.sheetName}/A1:Q10000`
       );
@@ -75,7 +75,7 @@ export async function getKursi(
   teacher: string
 ): Promise<{ data: PageItem[]; all: string[] } | null> {
   try {
-    const response = await axios.get(`https://znz16300.github.io/sitedata/data/${idSheet}.json`);
+    const response = await http.get(sitedataUrl(idSheet));
     // Фільтруємо елементи за розділом
     const allData = response.data.sort((a: TrainingItem, b: TrainingItem) => {
       const parseDate = (dateStr: string): number => {

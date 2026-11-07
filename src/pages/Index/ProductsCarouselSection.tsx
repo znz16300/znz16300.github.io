@@ -17,7 +17,7 @@ const ProductsCarouselSection = ({ products }: ProductsCarouselSectionProps) => 
 
   return (
     <section className="mb-12 w-full overflow-x-hidden bg-white p-10 py-16 text-center dark:bg-gray-600">
-      <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-400">
+      <h3 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
         Навчальний простір
       </h3>
       <p className="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-400">

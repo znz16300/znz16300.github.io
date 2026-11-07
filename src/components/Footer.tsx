@@ -1,4 +1,4 @@
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { ThemeToggle } from '@/theme/ThemeToggle';
 import { GraduationCap, LogInIcon, LogOutIcon, Mail, MapPin, Phone, UserIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { User } from '@/type/auth';
@@ -11,13 +11,13 @@ interface FooterProps {
 
 const Footer = ({ isAuthenticated, user }: FooterProps) => {
   return (
-    <footer className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-10 text-gray-100 dark:from-gray-600 dark:via-gray-700 dark:to-gray-800 dark:text-gray-400">
+    <footer className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 py-10 text-gray-100 dark:border-t dark:border-gray-800 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950 dark:text-gray-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Brand + Auth */}
           <div>
             <div className="mb-4 flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-600">
                 <GraduationCap className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-xl font-bold">Куликівський ліцей</h3>
@@ -32,20 +32,20 @@ const Footer = ({ isAuthenticated, user }: FooterProps) => {
                 <div className="flex flex-row gap-2">
                   <Link
                     to="/profile"
-                    className="flex items-center gap-1 font-semibold text-white hover:text-blue-200"
+                    className="flex items-center gap-1 font-semibold text-white hover:text-brand-200"
                     title="Особистий кабінет"
                   >
                     <UserIcon className="h-5 w-5" />
                     <span>{user?.name || ''}</span>
                   </Link>
-                  <Link to="/logout" className="font-semibold text-white hover:text-blue-200">
+                  <Link to="/logout" className="font-semibold text-white hover:text-brand-200">
                     <LogOutIcon className="h-5 w-5" />
                   </Link>
                 </div>
               ) : (
                 <Link
                   to="/login"
-                  className="flex items-center gap-2 font-semibold text-white hover:text-blue-200"
+                  className="flex items-center gap-2 font-semibold text-white hover:text-brand-200"
                 >
                   <LogInIcon className="h-5 w-5" />
                   <span>Увійти</span>
@@ -53,7 +53,7 @@ const Footer = ({ isAuthenticated, user }: FooterProps) => {
               )}
             </div>
 
-            <ThemeToggle />
+            <ThemeToggle className="mt-4" />
           </div>
 
           {/* Quick links */}
@@ -93,7 +93,7 @@ const Footer = ({ isAuthenticated, user }: FooterProps) => {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-blue-500/50 pt-8 text-center text-gray-200 dark:border-gray-600 dark:text-gray-500">
+        <div className="mt-8 border-t border-brand-500/50 pt-8 text-center text-gray-200 dark:border-gray-600 dark:text-gray-500">
           <p>&copy; 2026 Куликівський ліцей. Всі права захищені.</p>
         </div>
       </div>

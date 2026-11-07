@@ -113,7 +113,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({ icon, isPartial, title,
         onClick={() => setOpen(p => !p)}
         title={title}
         className={`flex items-center justify-center w-5 h-5 rounded transition-colors
-          ${isPartial ? 'bg-yellow-400 text-blue-900 hover:bg-yellow-300' : 'bg-blue-500 text-white hover:bg-blue-400'}`}
+          ${isPartial ? 'bg-yellow-400 text-brand-900 hover:bg-yellow-300' : 'bg-brand-500 text-white hover:bg-brand-400'}`}
       >
         {icon}
       </button>
@@ -164,19 +164,19 @@ const ChecklistPanel: React.FC<ChecklistPanelProps> = ({ items, selected, onTogg
           checked={allSelected}
           ref={el => { if (el) el.indeterminate = partiallySelected; }}
           onChange={onToggleAll}
-          className="w-3.5 h-3.5 accent-blue-600 cursor-pointer"
+          className="w-3.5 h-3.5 accent-brand-600 cursor-pointer"
         />
         <span className="text-xs font-semibold text-gray-600 flex-1 select-none">{label} ({items.length})</span>
         <span className="text-[10px] text-gray-400">Ctrl+A</span>
       </div>
       <div className="overflow-y-auto flex-1">
         {items.map(item => (
-          <label key={item.id} className="flex items-center gap-2 px-3 py-1.5 hover:bg-blue-50 cursor-pointer select-none">
+          <label key={item.id} className="flex items-center gap-2 px-3 py-1.5 hover:bg-brand-50 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={selected.has(item.id)}
               onChange={() => onToggle(item.id)}
-              className="w-3.5 h-3.5 accent-blue-600 cursor-pointer"
+              className="w-3.5 h-3.5 accent-brand-600 cursor-pointer"
             />
             <span className="text-xs text-gray-700">{item.name}</span>
           </label>
@@ -328,13 +328,13 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
             onChange={e => setNewName(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') savePreset(); }}
             placeholder="Назва пресету…"
-            className="flex-1 text-xs border border-gray-300 rounded px-2 py-1 outline-none focus:border-blue-400"
+            className="flex-1 text-xs border border-gray-300 rounded px-2 py-1 outline-none focus:border-brand-400"
           />
           <button
             onClick={savePreset}
             disabled={!newName.trim()}
             title="Зберегти"
-            className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="text-xs bg-brand-600 text-white px-2 py-1 rounded hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed"
           >✓</button>
         </div>
       </div>
@@ -345,7 +345,7 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
           <div className="px-3 py-4 text-center text-xs text-gray-400">Немає збережених пресетів</div>
         )}
         {presets.map(preset => (
-          <div key={preset.name} className="group px-2 py-1.5 hover:bg-blue-50 flex items-center gap-1 min-h-[30px]">
+          <div key={preset.name} className="group px-2 py-1.5 hover:bg-brand-50 flex items-center gap-1 min-h-[30px]">
 
             {/* Rename inline editor OR name button */}
             {renamingName === preset.name ? (
@@ -359,12 +359,12 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
                   if (e.key === 'Escape') setRenamingName(null);
                 }}
                 onBlur={commitRename}
-                className="flex-1 text-xs border border-blue-400 rounded px-1.5 py-0.5 outline-none"
+                className="flex-1 text-xs border border-brand-400 rounded px-1.5 py-0.5 outline-none"
               />
             ) : (
               <button
                 onClick={() => loadPreset(preset)}
-                className="flex-1 text-left text-xs text-gray-700 hover:text-blue-700 truncate"
+                className="flex-1 text-left text-xs text-gray-700 hover:text-brand-700 truncate"
                 title={`Завантажити: ${preset.name}`}
               >
                 {preset.name}
@@ -378,7 +378,7 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
                 <button
                   onClick={() => startRename(preset.name)}
                   title="Перейменувати"
-                  className="w-5 h-5 flex items-center justify-center rounded text-gray-400 hover:text-blue-600 hover:bg-blue-100 transition-colors"
+                  className="w-5 h-5 flex items-center justify-center rounded text-gray-400 hover:text-brand-600 hover:bg-brand-100 transition-colors"
                 >
                   {/* pencil icon */}
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
@@ -429,7 +429,7 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
         <button
           onClick={() => importInputRef.current?.click()}
           title="Імпортувати пресети з файлу"
-          className="flex items-center gap-0.5 text-[10px] text-gray-500 hover:text-blue-600 px-1.5 py-0.5 rounded hover:bg-blue-50 transition-colors"
+          className="flex items-center gap-0.5 text-[10px] text-gray-500 hover:text-brand-600 px-1.5 py-0.5 rounded hover:bg-brand-50 transition-colors"
         >
           {/* upload icon */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
@@ -451,7 +451,7 @@ const PresetsPanel: React.FC<PresetsPanelProps> = ({
           onClick={exportPresets}
           disabled={presets.length === 0}
           title="Експортувати пресети у JSON файл"
-          className="flex items-center gap-0.5 text-[10px] text-gray-500 hover:text-blue-600 px-1.5 py-0.5 rounded hover:bg-blue-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center gap-0.5 text-[10px] text-gray-500 hover:text-brand-600 px-1.5 py-0.5 rounded hover:bg-brand-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {/* download icon */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3 h-3">
@@ -688,9 +688,9 @@ export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({
 
   return (
     <table className="w-full text-sm min-h-[300px]">
-      <thead className="bg-blue-600 text-white sticky top-0 z-20">
+      <thead className="bg-brand-600 text-white sticky top-0 z-20">
         <tr>
-          <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[120px]">
+          <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-brand-600 z-30 min-w-[120px]">
             <div className="flex items-center gap-1.5">
               <span>{headerLabel}</span>
 
@@ -734,7 +734,7 @@ export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({
 
           {days.map(day => (
             scheduleData.periods.map(period => (
-              <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
+              <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-brand-500">
                 <div>{getDayName(day)}</div>
                 <div className="text-xs">{period.name} урок</div>
               </th>
@@ -780,7 +780,7 @@ export const FullScheduleTable: React.FC<FullScheduleTableProps> = ({
                         return (
                           <div key={lessonIdx} className={`mb-1 last:mb-0 p-1 ${cardBgColor} rounded text-xs border border-gray-200`}>
                             <div className="flex items-center gap-1 mb-0.5">
-                              <div className="font-semibold text-blue-700 flex-1">{lesson.subject}</div>
+                              <div className="font-semibold text-brand-700 flex-1">{lesson.subject}</div>
                               {badge && (
                                 <span className={`px-1 py-0.5 rounded text-[10px] font-bold ${badge.color}`}>
                                   {badge.label}

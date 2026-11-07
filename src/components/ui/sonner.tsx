@@ -1,15 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/theme/ThemeProvider';
 import { Toaster as Sonner, toast } from 'sonner';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
+  const { resolvedMode } = useTheme();
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
+      theme={resolvedMode}
       className="toaster group"
       toastOptions={{
         classNames: {

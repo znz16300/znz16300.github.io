@@ -146,7 +146,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-lg dark:bg-gray-900">
+    <header className="sticky top-0 z-50 bg-white/95 shadow-lg backdrop-blur dark:border-b dark:border-gray-800 dark:bg-gray-900/90 dark:shadow-black/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
@@ -155,10 +155,10 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
               <img src="./assets/icons/logo_black.svg" alt="Логотип" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-gray-400">
+              <h1 className="text-xl font-bold text-gray-900 dark:text-gray-50">
                 Куликівський ліцей
               </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-500">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Якісна освіта для майбутнього
               </p>
             </div>
@@ -174,7 +174,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                     <Link
                       key={item.title}
                       to={item.href}
-                      className="flex items-center space-x-2 rounded-lg px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-700"
+                      className="flex items-center space-x-2 rounded-lg px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-brand-50 hover:text-brand-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                     >
                       <item.icon className="h-4 w-4" />
                       <span className="font-medium">{item.title}</span>
@@ -188,7 +188,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                 ref={searchInputRef}
                 type="text"
                 placeholder="Пошук..."
-                className="w-48 rounded border bg-white px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring dark:bg-gray-800 dark:text-gray-400 dark:focus:border-gray-600"
+                className="w-48 rounded border bg-white px-3 py-2 text-black focus:border-brand-400 focus:outline-none focus:ring dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-brand-500"
                 value={searchValue}
                 onChange={e => setSearchValue(e.target.value)}
                 onKeyUp={handleKeyUp}
@@ -196,7 +196,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
               <button
                 onClick={handleSearchIconClick}
                 title="Пошук"
-                className="flex items-center justify-center rounded-lg p-2 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700"
+                className="flex items-center justify-center rounded-lg p-2 transition-colors duration-200 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-gray-800 dark:hover:text-brand-300"
               >
                 <Search className="h-5 w-5 stroke-gray-800 dark:stroke-gray-400" />
               </button>
@@ -207,7 +207,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                   <Link
                     to="/profile"
                     title="Особистий кабінет"
-                    className="flex items-center gap-1 rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="flex items-center gap-1 rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                   >
                     <UserIcon className="h-5 w-5" />
                     {user?.name && (
@@ -217,7 +217,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                   <Link
                     to="/logout"
                     title="Вийти"
-                    className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                   >
                     <LogOutIcon className="h-5 w-5" />
                   </Link>
@@ -226,7 +226,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                 <Link
                   to="/login"
                   title="Увійти"
-                  className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                  className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                 >
                   <LogInIcon className="h-5 w-5" />
                 </Link>
@@ -245,7 +245,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="animate-fade-in fixed w-full border-t bg-white py-4 dark:bg-gray-900 md:hidden">
+          <div className="animate-fade-in fixed w-full border-t bg-white py-4 dark:border-gray-800 dark:bg-gray-900 md:hidden">
             <nav className="space-y-2">
               {navigationItems
                 .filter(i => i.id < 7)
@@ -253,7 +253,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                   <Link
                     key={item.title}
                     to={item.href}
-                    className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400"
+                    className="flex items-center space-x-3 rounded-lg px-4 py-3 text-gray-700 transition-colors duration-200 hover:bg-brand-50 hover:text-brand-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <item.icon className="h-5 w-5" />
@@ -267,14 +267,14 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                   ref={mobileSearchInputRef}
                   type="text"
                   placeholder="Пошук..."
-                  className="w-full flex-1 rounded border px-3 py-2 text-black focus:border-blue-400 focus:outline-none focus:ring dark:bg-gray-900 dark:text-gray-400 dark:focus:border-gray-900"
+                  className="w-full flex-1 rounded border px-3 py-2 text-black focus:border-brand-400 focus:outline-none focus:ring dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-brand-500"
                   value={searchValue}
                   onChange={e => setSearchValue(e.target.value)}
                   onKeyUp={handleKeyUp}
                 />
                 <button
                   onClick={handleMobileSearchIconClick}
-                  className="rounded-lg p-2 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                  className="rounded-lg p-2 transition-colors hover:bg-brand-50 hover:text-brand-600"
                 >
                   <Search className="h-5 w-5 stroke-gray-800 dark:stroke-gray-400" />
                 </button>
@@ -286,7 +286,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                   <div className="flex items-center gap-3">
                     <Link
                       to="/profile"
-                      className="flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600 dark:text-gray-400"
+                      className="flex items-center gap-2 font-semibold text-gray-700 hover:text-brand-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                     >
                       <UserIcon className="h-5 w-5" />
                       <span>{user?.name || 'Профіль'}</span>
@@ -298,7 +298,7 @@ const Navbar = ({ isAuthenticated, user }: NavbarProps) => {
                 ) : (
                   <Link
                     to="/login"
-                    className="flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600 dark:text-gray-400"
+                    className="flex items-center gap-2 font-semibold text-gray-700 hover:text-brand-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300"
                   >
                     <LogInIcon className="h-5 w-5" />
                     <span>Увійти</span>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Table, FileText, Users, Calendar, Grid, BookOpen, DoorOpen, Download } from 'lucide-react';
-import { xmlData } from './Schedule/xmlData';
+import { useTimetableXml } from './Schedule/timetableXml';
 import { ScheduleData } from '@/type/scheduledata';
 import { getFullName } from './Schedule/teacherData';
 
 export const TimetableParser = () => {
+  const { xml: xmlData } = useTimetableXml();
   const [scheduleData, setScheduleData] = useState(null);
   const [view, setView] = useState('classes');
   const [selectedClass, setSelectedClass] = useState('');
@@ -13,6 +14,7 @@ export const TimetableParser = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!xmlData) return;
     const parseXML = () => {
       try {
         const parser = new DOMParser();
@@ -95,14 +97,13 @@ export const TimetableParser = () => {
     };
 
     const data = parseXML();
-    console.log('data', data);
 
     if (data) {
       setScheduleData(data);
       if (data.classes.length > 0) setSelectedClass(data.classes[0].id);
       if (data.teachers.length > 0) setSelectedTeacher(data.teachers[0].id);
     }
-  }, []);
+  }, [xmlData]);
 
   const getDayName = (dayBinary) => {
     const days = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця"];
@@ -764,7 +765,7 @@ export const TimetableParser = () => {
             <button
               onClick={() => setView('classes')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'classes'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-brand-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
@@ -774,7 +775,7 @@ export const TimetableParser = () => {
             <button
               onClick={() => setView('teachers')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'teachers'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-brand-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
@@ -784,7 +785,7 @@ export const TimetableParser = () => {
             <button
               onClick={() => setView('all')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'all'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-brand-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
@@ -794,7 +795,7 @@ export const TimetableParser = () => {
             <button
               onClick={() => setView('fullClasses')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'fullClasses'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-brand-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
@@ -804,7 +805,7 @@ export const TimetableParser = () => {
             <button
               onClick={() => setView('fullTeachers')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'fullTeachers'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-brand-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
@@ -814,7 +815,7 @@ export const TimetableParser = () => {
             <button
               onClick={() => setView('fullClassrooms')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${view === 'fullClassrooms'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-brand-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
@@ -825,7 +826,7 @@ export const TimetableParser = () => {
             {view === 'fullClasses' ? (
               <button
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition 
-                 bg-blue-600 text-white hover:bg-blue-700`}
+                 bg-brand-600 text-white hover:bg-brand-700`}
                 onClick={() => exportScheduleClasses(scheduleData)}
               >
                 <Download className="w-4 h-4" /> Експорт розкладу
@@ -834,7 +835,7 @@ export const TimetableParser = () => {
             {view === 'fullTeachers' ? (
               <button
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition 
-                 bg-blue-600 text-white hover:bg-blue-700`}
+                 bg-brand-600 text-white hover:bg-brand-700`}
                 onClick={() => exportScheduleTeachers(scheduleData)}
               >
                 <Download className="w-4 h-4" /> Експорт розкладу
@@ -847,7 +848,7 @@ export const TimetableParser = () => {
               <select
                 value={selectedClass}
                 onChange={(e) => setSelectedClass(e.target.value)}
-                className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               >
                 {scheduleData.classes.map(cls => (
                   <option key={cls.id} value={cls.id}>
@@ -859,7 +860,7 @@ export const TimetableParser = () => {
               <select
                 value={selectedTeacher}
                 onChange={(e) => setSelectedTeacher(e.target.value)}
-                className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               >
                 {scheduleData.teachers.map(teacher => (
                   <option key={teacher.id} value={teacher.id}>
@@ -871,7 +872,7 @@ export const TimetableParser = () => {
               <select
                 value={selectedDay}
                 onChange={(e) => setSelectedDay(e.target.value)}
-                className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               >
                 {days.map(day => (
                   <option key={day} value={day}>
@@ -887,9 +888,9 @@ export const TimetableParser = () => {
           <div className="overflow-x-auto max-h-[calc(100vh-250px)] overflow-y-auto">
             {view === 'all' ? (
               <table className="w-full">
-                <thead className="bg-blue-600 text-white sticky top-0 z-20">
+                <thead className="bg-brand-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30">Урок</th>
+                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-brand-600 z-30">Урок</th>
                     {scheduleData.classes.map(cls => (
                       <th key={cls.id} className="px-4 py-3 text-left font-semibold min-w-[200px]">
                         {cls.name}
@@ -909,8 +910,8 @@ export const TimetableParser = () => {
                       {scheduleData.classes.map(cls => (
                         <td key={`${period.id}-${cls.id}`} className="px-4 py-3 border-b border-gray-200 align-top">
                           {allClassesSchedule[cls.id]?.[period.id]?.map((lesson, lessonIdx) => (
-                            <div key={lessonIdx} className="mb-2 last:mb-0 p-2 bg-blue-50 rounded">
-                              <div className="text-sm font-semibold text-blue-700">
+                            <div key={lessonIdx} className="mb-2 last:mb-0 p-2 bg-brand-50 rounded">
+                              <div className="text-sm font-semibold text-brand-700">
                                 {lesson.subject}
                               </div>
                               {lesson.teachers.length > 0 && (
@@ -938,12 +939,12 @@ export const TimetableParser = () => {
               </table>
             ) : view === 'fullClasses' ? (
               <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white sticky top-0 z-20">
+                <thead className="bg-brand-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[120px]">Клас</th>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-brand-600 z-30 min-w-[120px]">Клас</th>
                     {days.map(day => (
                       scheduleData.periods.map(period => (
-                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
+                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-brand-500">
                           <div>{getDayName(day)}</div>
                           <div className="text-xs">{period.name} урок</div>
                         </th>
@@ -961,8 +962,8 @@ export const TimetableParser = () => {
                         scheduleData.periods.map(period => (
                           <td key={`${cls.id}-${day}-${period.id}`} className="px-2 py-2 border-b border-l border-gray-200 align-top">
                             {fullClassesSchedule[cls.id]?.[day]?.[period.id]?.map((lesson, lessonIdx) => (
-                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-blue-50 rounded text-xs">
-                                <div className="font-semibold text-blue-700">
+                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-brand-50 rounded text-xs">
+                                <div className="font-semibold text-brand-700">
                                   {lesson.subject}
                                 </div>
                                 {lesson.teachers.length > 0 && (
@@ -986,12 +987,12 @@ export const TimetableParser = () => {
               </table>
             ) : view === 'fullTeachers' ? (
               <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white sticky top-0 z-20">
+                <thead className="bg-brand-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[150px]">Вчитель</th>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-brand-600 z-30 min-w-[150px]">Вчитель</th>
                     {days.map(day => (
                       scheduleData.periods.map(period => (
-                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
+                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-brand-500">
                           <div>{getDayName(day)}</div>
                           <div className="text-xs">{period.name} урок</div>
                         </th>
@@ -1009,8 +1010,8 @@ export const TimetableParser = () => {
                         scheduleData.periods.map(period => (
                           <td key={`${teacher.id}-${day}-${period.id}`} className="px-2 py-2 border-b border-l border-gray-200 align-top">
                             {fullTeachersSchedule[teacher.id]?.[day]?.[period.id]?.map((lesson, lessonIdx) => (
-                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-blue-50 rounded text-xs">
-                                <div className="font-semibold text-blue-700">
+                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-brand-50 rounded text-xs">
+                                <div className="font-semibold text-brand-700">
                                   {lesson.subject}
                                 </div>
                                 {lesson.classes.length > 0 && (
@@ -1034,12 +1035,12 @@ export const TimetableParser = () => {
               </table>
             ) : view === 'fullClassrooms' ? (
               <table className="w-full text-sm">
-                <thead className="bg-blue-600 text-white sticky top-0 z-20">
+                <thead className="bg-brand-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-blue-600 z-30 min-w-[120px]">Кабінет</th>
+                    <th className="px-2 py-2 text-left font-semibold sticky left-0 bg-brand-600 z-30 min-w-[120px]">Кабінет</th>
                     {days.map(day => (
                       scheduleData.periods.map(period => (
-                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-blue-500">
+                        <th key={`${day}-${period.id}`} className="px-2 py-2 text-center font-semibold min-w-[150px] border-l border-brand-500">
                           <div>{getDayName(day)}</div>
                           <div className="text-xs">{period.name} урок</div>
                         </th>
@@ -1057,8 +1058,8 @@ export const TimetableParser = () => {
                         scheduleData.periods.map(period => (
                           <td key={`${classroom.id}-${day}-${period.id}`} className="px-2 py-2 border-b border-l border-gray-200 align-top">
                             {fullClassroomsSchedule[classroom.id]?.[day]?.[period.id]?.map((lesson, lessonIdx) => (
-                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-blue-50 rounded text-xs">
-                                <div className="font-semibold text-blue-700">
+                              <div key={lessonIdx} className="mb-1 last:mb-0 p-1 bg-brand-50 rounded text-xs">
+                                <div className="font-semibold text-brand-700">
                                   {lesson.subject}
                                 </div>
                                 {lesson.classes.length > 0 && (
@@ -1082,9 +1083,9 @@ export const TimetableParser = () => {
               </table>
             ) : (
               <table className="w-full">
-                <thead className="bg-blue-600 text-white sticky top-0 z-20">
+                <thead className="bg-brand-600 text-white sticky top-0 z-20">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-blue-600 z-30">Урок / Час</th>
+                    <th className="px-4 py-3 text-left font-semibold sticky left-0 bg-brand-600 z-30">Урок / Час</th>
                     {days.map(day => (
                       <th key={day} className="px-4 py-3 text-left font-semibold">
                         {getDayName(day)}
@@ -1104,8 +1105,8 @@ export const TimetableParser = () => {
                       {days.map(day => (
                         <td key={`${period.id}-${day}`} className="px-4 py-3 border-b border-gray-200">
                           {schedule[day]?.[period.id]?.map((lesson, lessonIdx) => (
-                            <div key={lessonIdx} className="mb-2 last:mb-0 p-2 bg-blue-50 rounded">
-                              <div className="text-sm font-semibold text-blue-700">
+                            <div key={lessonIdx} className="mb-2 last:mb-0 p-2 bg-brand-50 rounded">
+                              <div className="text-sm font-semibold text-brand-700">
                                 {lesson.subject}
                               </div>
                               {view === 'classes' ? (

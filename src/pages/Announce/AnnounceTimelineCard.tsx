@@ -103,7 +103,7 @@ const AnnounceTimelineCard = ({
     >
       {/* Timeline column */}
       <div className="flex flex-col items-center">
-        <div className="flex h-12 w-12 flex-shrink-0 flex-col items-center justify-center rounded-xl bg-blue-600 text-white dark:bg-blue-700">
+        <div className="flex h-12 w-12 flex-shrink-0 flex-col items-center justify-center rounded-xl bg-brand-600 text-white dark:bg-brand-700">
           <span className="text-sm font-bold leading-none">{day}</span>
           <span className="text-[10px] leading-none opacity-80">{monthLabel}</span>
         </div>
@@ -147,7 +147,7 @@ const AnnounceTimelineCard = ({
               className="hidden h-16 w-16 flex-shrink-0 rounded-lg object-cover sm:block"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="mb-1 text-sm font-bold leading-snug text-gray-900 hover:text-blue-600 transition-colors dark:text-gray-300">
+              <h2 className="mb-1 text-sm font-bold leading-snug text-gray-900 hover:text-brand-600 transition-colors dark:text-gray-300">
                 {item['Назва новини']}
               </h2>
               <p className="line-clamp-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
@@ -165,7 +165,7 @@ const AnnounceTimelineCard = ({
                 e.stopPropagation();
                 onToggleExpanded(item.id);
               }}
-              className="flex items-center gap-1 text-xs font-semibold text-blue-600 transition-colors hover:text-blue-700"
+              className="flex items-center gap-1 text-xs font-semibold text-brand-600 transition-colors hover:text-brand-700"
             >
               {isExpanded ? (
                 <><ChevronUp className="h-3.5 w-3.5" /> Згорнути</>

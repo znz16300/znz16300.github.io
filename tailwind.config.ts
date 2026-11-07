@@ -1,13 +1,14 @@
 import type { Config } from 'tailwindcss';
+import animate from 'tailwindcss-animate';
+
+/** Колір із CSS-змінної у форматі "R G B" з підтримкою прозорості (bg-brand-500/20) */
+const v = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+const scale = (name: string) => Object.fromEntries(SHADES.map((s) => [s, v(`${name}-${s}`)]));
 
 export default {
   darkMode: ['class'],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-  ],
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
     container: {
@@ -18,50 +19,27 @@ export default {
       },
     },
     extend: {
+      // Усі кольори беруться з CSS-змінних активної палітри (src/theme/palettes/*.css).
+      // gray-* і slate-* теж прив'язані до палітри (--neutral-*), тому існуючі класи
+      // автоматично змінюють відтінок разом з темою.
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
-        },
+        brand: scale('brand'),
+        brand2: scale('brand2'),
+        neutral: scale('neutral'),
+        gray: scale('neutral'),
+        slate: scale('neutral'),
+        border: v('border'),
+        input: v('input'),
+        ring: v('ring'),
+        background: v('background'),
+        foreground: v('foreground'),
+        primary: { DEFAULT: v('primary'), foreground: v('primary-foreground') },
+        secondary: { DEFAULT: v('secondary'), foreground: v('secondary-foreground') },
+        destructive: { DEFAULT: v('destructive'), foreground: v('destructive-foreground') },
+        muted: { DEFAULT: v('muted'), foreground: v('muted-foreground') },
+        accent: { DEFAULT: v('accent'), foreground: v('accent-foreground') },
+        popover: { DEFAULT: v('popover'), foreground: v('popover-foreground') },
+        card: { DEFAULT: v('card'), foreground: v('card-foreground') },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -92,6 +70,5 @@ export default {
       },
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [require('tailwindcss-animate')],
+  plugins: [animate],
 } satisfies Config;

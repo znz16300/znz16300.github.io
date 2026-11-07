@@ -33,14 +33,6 @@ const Documents = () => {
 
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]); // 👈 нове
 
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   const toggleCategory = (categoryName: string) => {
     setExpandedCategories(prev =>
@@ -106,7 +98,7 @@ const Documents = () => {
       <Header
         title={'Документи'}
         description={'Нормативна база та документація ліцею'}
-        className="bg-emerald-600 bg-gradient-to-br from-green-600 via-green-700 to-green-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-emerald-800"
+        className="bg-brand2-600 bg-gradient-to-br from-green-600 via-green-700 to-green-800 py-20 py-8 text-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 dark:text-brand2-800"
       />
 
       <div className="mx-auto max-w-6xl px-4 py-12 dark:bg-gray-700 sm:px-6 lg:px-8">
@@ -124,10 +116,10 @@ const Documents = () => {
                 style={{ animationDelay: `${categoryIndex * 200}ms` }}
               >
                 <div className="mb-6 flex items-center space-x-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-100">
-                    <FolderOpen className="h-6 w-6 text-emerald-600" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand2-100">
+                    <FolderOpen className="h-6 w-6 text-brand2-600" />
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-gray-400">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                     {category.name}
                   </h2>
                 </div>
@@ -144,7 +136,7 @@ const Documents = () => {
                       >
                         <FileText className="h-5 w-5 text-gray-400" />
                         <div>
-                          <h3 className="font-medium text-gray-900 transition-colors group-hover:text-emerald-600 dark:text-gray-400">
+                          <h3 className="font-medium text-gray-900 transition-colors group-hover:text-brand2-600 dark:text-gray-100">
                             {doc.name}
                           </h3>
                           <p className="text-sm text-gray-500">
@@ -159,7 +151,7 @@ const Documents = () => {
                             target="_blank"
                             title="Завантажити"
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 rounded-lg bg-emerald-600 px-4 py-2 text-white transition-colors hover:bg-emerald-700 dark:bg-emerald-700 dark:text-gray-300"
+                            className="flex items-center space-x-2 rounded-lg bg-brand2-600 px-4 py-2 text-white transition-colors hover:bg-brand2-700 dark:bg-brand2-700 dark:text-gray-300"
                           >
                             <Download className="h-4 w-4" />
                             <span>Завантажити</span>
@@ -170,7 +162,7 @@ const Documents = () => {
                         href={doc.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                        className="flex items-center space-x-2 px-4 py-2 bg-brand2-600 text-white rounded-lg hover:bg-brand2-700 transition-colors"
                       >
                         <Download className="w-4 h-4" />
                         <span>Завантажити</span>
@@ -182,7 +174,7 @@ const Documents = () => {
                 {category.documents.length > 3 && (
                   <button
                     onClick={() => toggleCategory(category.name)}
-                    className="text-sm font-medium text-emerald-600 hover:underline"
+                    className="text-sm font-medium text-brand2-600 hover:underline"
                   >
                     {isExpanded ? 'Згорнути ↑' : 'Більше…'}
                   </button>

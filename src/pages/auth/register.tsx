@@ -111,7 +111,7 @@ const Register = () => {
   // Якщо реєстрація успішна, показуємо повідомлення
   if (isSuccess) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-brand-50 to-indigo-100 px-4">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-xl">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <CheckCircle className="h-8 w-8 text-green-600" />
@@ -120,7 +120,7 @@ const Register = () => {
           <p className="mb-6 text-gray-600">{message}</p>
           <button
             onClick={() => (window.location.href = '/login')}
-            className="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-700"
+            className="w-full rounded-lg bg-brand-600 px-4 py-3 font-medium text-white transition-colors hover:bg-brand-700"
           >
             Перейти до вікна входу
           </button>
@@ -130,7 +130,7 @@ const Register = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-brand-50 to-indigo-100 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
         <div className="mb-8 text-center">
           <h2 className="mb-2 text-3xl font-bold text-gray-900">Створити акаунт</h2>
@@ -158,7 +158,7 @@ const Register = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full rounded-lg border py-3 pl-10 pr-4 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full rounded-lg border py-3 pl-10 pr-4 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-brand-500 ${
                   errors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
                 placeholder="Введіть ваше ім'я"
@@ -180,7 +180,7 @@ const Register = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full rounded-lg border py-3 pl-10 pr-4 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full rounded-lg border py-3 pl-10 pr-4 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-brand-500 ${
                   errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
                 placeholder="example@mail.com"
@@ -202,7 +202,7 @@ const Register = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full rounded-lg border py-3 pl-10 pr-12 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full rounded-lg border py-3 pl-10 pr-12 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-brand-500 ${
                   errors.password ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
                 placeholder="Введіть пароль"
@@ -234,7 +234,7 @@ const Register = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className={`w-full rounded-lg border py-3 pl-10 pr-12 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full rounded-lg border py-3 pl-10 pr-12 outline-none transition-colors focus:border-transparent focus:ring-2 focus:ring-brand-500 ${
                   errors.confirmPassword ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
                 placeholder="Повторіть пароль"
@@ -260,7 +260,7 @@ const Register = () => {
             className={`w-full rounded-lg px-4 py-3 font-medium text-white transition-colors ${
               isLoading
                 ? 'cursor-not-allowed bg-gray-400'
-                : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'
+                : 'bg-brand-600 hover:bg-brand-700 active:bg-brand-800'
             }`}
           >
             {isLoading ? (
@@ -278,7 +278,7 @@ const Register = () => {
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Вже маєте акаунт?{' '}
-            <a href="/login" className="font-medium text-blue-600 hover:text-blue-700">
+            <a href="/login" className="font-medium text-brand-600 hover:text-brand-700">
               Увійти
             </a>
           </p>

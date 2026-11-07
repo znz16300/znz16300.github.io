@@ -77,7 +77,7 @@ const HelpPanel = ({ onBack }: { onBack: () => void }) => (
     </Button>
 
     <section>
-      <h3 className="mb-2 font-semibold text-blue-800 dark:text-blue-300">
+      <h3 className="mb-2 font-semibold text-brand-800 dark:text-brand-300">
         Алгоритм формування протоколу
       </h3>
       <ol className="list-decimal space-y-2 pl-5">
@@ -310,14 +310,14 @@ const MKHeadModal = ({ open, onClose, allTeachers, allItems }: MKHeadModalProps)
           className={cn(
             'absolute right-12 top-3.5 flex h-6 w-6 items-center justify-center rounded-full border text-sm font-bold',
             helpOpen
-              ? 'border-blue-700 bg-blue-700 text-white'
-              : 'border-blue-700 text-blue-700 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-700'
+              ? 'border-brand-700 bg-brand-700 text-white'
+              : 'border-brand-700 text-brand-700 hover:bg-brand-50 dark:border-brand-400 dark:text-brand-400 dark:hover:bg-gray-700'
           )}
         >
           ?
         </button>
         <DialogHeader>
-          <DialogTitle className="pr-14 text-lg font-semibold text-blue-800 dark:text-blue-300">
+          <DialogTitle className="pr-14 text-lg font-semibold text-brand-800 dark:text-brand-300">
             Протокол засідання методичної комісії (підвищення кваліфікації)
           </DialogTitle>
         </DialogHeader>
@@ -535,7 +535,7 @@ const MKHeadModal = ({ open, onClose, allTeachers, allItems }: MKHeadModalProps)
                             </span>
                             <button
                               type="button"
-                              className="text-blue-700 hover:underline dark:text-blue-400"
+                              className="text-brand-700 hover:underline dark:text-brand-400"
                               onClick={() =>
                                 setTeacherCourses(
                                   activeTeacher,
@@ -592,7 +592,7 @@ const MKHeadModal = ({ open, onClose, allTeachers, allItems }: MKHeadModalProps)
                             key={name}
                             className={cn(
                               'flex items-center gap-2 px-3 py-1.5 text-sm',
-                              name === activeTeacher && 'bg-blue-50 dark:bg-gray-700'
+                              name === activeTeacher && 'bg-brand-50 dark:bg-gray-700'
                             )}
                           >
                             <span className="min-w-0 flex-1 truncate">{name}</span>
@@ -695,7 +695,7 @@ const MKHeadModal = ({ open, onClose, allTeachers, allItems }: MKHeadModalProps)
                   <Button
                     onClick={() => handleSave(false)}
                     disabled={!addedTeachers.length}
-                    className="gap-2 bg-blue-700 text-white hover:bg-blue-800"
+                    className="gap-2 bg-brand-700 text-white hover:bg-brand-800"
                   >
                     {savedFlash ? <Check className="h-4 w-4" /> : <Save className="h-4 w-4" />}
                     {savedFlash ? 'Збережено' : currentId ? 'Оновити збережений' : 'Зберегти'}
@@ -733,7 +733,7 @@ const MKHeadModal = ({ open, onClose, allTeachers, allItems }: MKHeadModalProps)
                         key={p.id}
                         className={cn(
                           'rounded-md border p-3',
-                          p.id === currentId && 'border-blue-600'
+                          p.id === currentId && 'border-brand-600'
                         )}
                       >
                         <div className="flex flex-wrap items-start justify-between gap-2">

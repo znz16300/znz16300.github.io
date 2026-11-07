@@ -1,9 +1,10 @@
+import { sitedataUrl } from '@/constants';
 import { PageItem } from '@/type/pageItem';
-import axios from 'axios';
+import { http } from '@/api/http';
 
 export async function getPage(idSheet: string, chapter: string): Promise<PageItem[] | null> {
   try {
-    const response = await axios.get(`https://znz16300.github.io/sitedata/data/${idSheet}.json`);
+    const response = await http.get(sitedataUrl(idSheet));
     // Фільтруємо елементи за розділом
     const data =
       chapter !== 'all'

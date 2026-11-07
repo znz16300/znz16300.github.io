@@ -182,7 +182,7 @@ export function drawProjectiles(c: C, w: World, t: number) {
       c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, p.r + 8, 0, 7); c.fill();
     } else {
       c.strokeStyle = '#16a34a'; c.lineWidth = 6; c.lineCap = 'round'; c.beginPath();
-      for (let i = 0; i < 6; i++) { const x = p.x - Math.sign(p.vx) * i * 10; const y = p.y + Math.sin(t * 14 + i) * 5; i ? c.lineTo(x, y) : c.moveTo(x, y); }
+      for (let i = 0; i < 6; i++) { const x = p.x - Math.sign(p.vx) * i * 10; const y = p.y + Math.sin(t * 14 + i) * 5; if (i) c.lineTo(x, y); else c.moveTo(x, y); }
       c.stroke();
       c.fillStyle = '#ec4899'; c.beginPath(); c.arc(p.x, p.y, 7, 0, 7); c.fill();
     }
