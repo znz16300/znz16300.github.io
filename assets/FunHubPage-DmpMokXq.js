@@ -1,0 +1,1 @@
+import{j as i}from"./query-D79SaXcw.js";import{K as e}from"./kiosk-alwZl05m.js";import"./react-DDAncHkv.js";import"./KioskMenuGrid-BWvqToy3.js";const s=({section:o})=>i.jsx(e,{config:{type:"menu",title:o.title,buttons:o.pages.map(t=>({label:t.title,image:t.icon,link:`${o.base}/${t.id}`,color:t.color}))}});export{s as FunHubPage,s as default};

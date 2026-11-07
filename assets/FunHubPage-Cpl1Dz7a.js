@@ -1,1 +1,0 @@
-import{j as e}from"./query-D79SaXcw.js";import{K as i}from"./kiosk-DcR6smT8.js";import"./react-DDAncHkv.js";const r=({section:o})=>e.jsx(i,{config:{type:"menu",title:o.title,buttons:o.pages.map(t=>({label:t.title,image:t.icon,link:`${o.base}/${t.id}`,color:t.color}))}});export{r as FunHubPage,r as default};

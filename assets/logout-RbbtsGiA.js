@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CH8Ma8xl.js","assets/query-D79SaXcw.js","assets/react-DDAncHkv.js","assets/index-Dm2FDZ-q.css"])))=>i.map(i=>d[i]);
+import{_ as e}from"./index-CH8Ma8xl.js";import{j as a}from"./query-D79SaXcw.js";import{f as r,r as s}from"./react-DDAncHkv.js";const f=()=>{const t=r();return s.useEffect(()=>{(async()=>{await(await e(()=>import("./index-CH8Ma8xl.js").then(o=>o.W),__vite__mapDeps([0,1,2,3]))).default.logout(),t("/",{replace:!0})})()},[t]),a.jsx("div",{children:"Сторінка виходу"})};export{f as default};

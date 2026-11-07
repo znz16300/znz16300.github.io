@@ -1,0 +1,1 @@
+import{M as n}from"./index-CH8Ma8xl.js";import{h as c}from"./http-CXoc8B4R.js";const s=10*60*1e3,a=new Map;function u(t){const e=a.get(t);if(e&&Date.now()-e.at<s)return e.request;const r=c.get(n(t)).then(({data:o})=>Array.isArray(o)?o:[]);return a.set(t,{at:Date.now(),request:r}),r.catch(()=>a.delete(t)),r}export{u as l};
