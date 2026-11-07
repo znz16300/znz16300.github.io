@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Route, Navigate } from 'react-router-dom';
 import { OptionalAuthGuard } from '@/utils/authGuard';
 
@@ -56,6 +57,10 @@ import { ZAMINI_TABLE } from './constants';
 import ExternalRedirect from './pages/Kiosk/ExternalRedirect';
 import { ImageViewer } from './pages/Kiosk/ImageViewer';
 import { VideoViewer } from './pages/Kiosk/VideoViewer';
+import { AlbumViewer } from './pages/Kiosk/AlbumViewer';
+import { GamePage, GamesMenuPage } from './games';
+import { PhysicsHubPage, PhysicsPage } from './physics';
+import { funSections, FunHubPage, FunPage } from './fun';
 import { UniversalKiosk } from './pages/Kiosk/UniversalKiosk';
 import { KioskData } from './pages/Kiosk/kiosk-types';
 
@@ -82,7 +87,6 @@ const externalRedirects = [
   { path: '/feedback', url: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header' },
   { path: '/kiosk/education/nmt', url: 'https://zno.osvita.ua/' },
   { path: '/kiosk/education/videos', url: 'https://www.youtube.com/@ukrainian-online-school' },
-  { path: '/kiosk/games', url: 'https://igru.com.ua/' },
   { path: '/kiosk/feedback', url: 'https://docs.google.com/forms/d/e/1FAIpQLSd3fmURo9ooxp05Sm_oYRW_WVplRu7bWmrIqHSsv6TjQ_TzqA/viewform?usp=header' },
 ];
 
@@ -268,6 +272,26 @@ export const KioskRoutes = () => (
         }
       />
     ))}
+
+    {/* Ігри: підменю «Ігри» та сторінка будь-якої гри (див. src/games/README.md) */}
+    <Route path="/kiosk/games/arcade" element={<GamesMenuPage />} />
+    <Route path="/kiosk/games/play/:gameId" element={<GamePage />} />
+
+    {/* Фізика навколо нас: розділ і його сторінки (див. src/physics/README.md) */}
+    <Route path="/kiosk/games/physics" element={<PhysicsHubPage />} />
+    <Route path="/kiosk/games/physics/:pageId" element={<PhysicsPage />} />
+
+    {/* Квіз дня, Загадка тижня, Цікаві факти, Цікава мова, Історія України, Тест настрою, Логічні задачі
+        (див. src/fun/README.md): розділ /kiosk/games/<розділ> і його сторінки /kiosk/games/<розділ>/<id> */}
+    {funSections.map((section) => (
+      <Fragment key={section.id}>
+        <Route path={section.base} element={<FunHubPage section={section} />} />
+        <Route path={`${section.base}/:pageId`} element={<FunPage section={section} />} />
+      </Fragment>
+    ))}
+
+    {/* Альбоми малюнків: /kiosk/album/<папка> (див. public/assets/albums/README.md) */}
+    <Route path="/kiosk/album/:folder" element={<AlbumViewer />} />
 
     {/* Відео для психологічної підтримки */}
     {psychoVideoRoutes.map(({ path, title, video }) => (

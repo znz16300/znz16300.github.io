@@ -45,7 +45,7 @@ export const mainMenuConfig: KioskPageConfig = {
     { label: 'Наші вчителі', image: '🧑‍🏫', link: '/kiosk/teachers', color: 'orange' },
     { label: 'Досягнення', image: '🏆', link: '/kiosk/achievements', color: 'red', disabled: true }, // Неактивна
     { label: 'Фотоархів', image: '📸', link: '/kiosk/gallery', color: 'teal',}, // Неактивна
-    { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink', disabled: true }, // Неактивна
+    { label: 'Ігри та тести', image: '🎮', link: '/kiosk/games', color: 'pink' },
     { label: 'Навігація', image: '🧭', link: '/kiosk/navigation', color: 'indigo', disabled: true }, // Неактивна
     { label: 'Оголошення', image: '🔔', link: '/kiosk/announcements', color: 'blue', disabled: true }, // Неактивна
     { label: 'Цікаві факти', image: '✨', link: '/kiosk/facts', color: 'yellow', disabled: false }, // Неактивна
@@ -80,6 +80,7 @@ export const educationConfig: KioskPageConfig = {
     { label: 'Підготовка до НМТ', image: '📖', link: '/kiosk/education/nmt', color: 'orange' },
     { label: 'Міні-тести', image: '✅', link: '/kiosk/education/tests', color: 'red' , disabled: true },
     { label: 'Навчальні відео', image: '🎬', link: '/kiosk/education/videos', color: 'teal'  },
+    { label: 'Здорове харчування', image: '🥗', link: '/kiosk/album/healthy-food', color: 'green' },
   ]
 };
 
@@ -146,10 +147,12 @@ export const gamesConfig: KioskPageConfig = {
   type: 'menu',
   title: 'Ігри та тести',
   buttons: [
+    { label: 'Ігри', image: '🕹️', link: '/kiosk/games/arcade', color: 'purple' },
     { label: 'Квіз дня', image: '❓', link: '/kiosk/games/quiz', color: 'pink' },
     { label: 'Загадка тижня', image: '🧩', link: '/kiosk/games/riddle', color: 'purple' },
     { label: 'Цікаві факти', image: '💡', link: '/kiosk/games/facts', color: 'blue' },
     { label: 'Фізика навколо нас', image: '⚛️', link: '/kiosk/games/physics', color: 'indigo' },
+    { label: 'Хімія навколо нас', image: '⚗️', link: '/kiosk/games/chemistry', color: 'green' },
     { label: 'Цікава мова', image: '📝', link: '/kiosk/games/language', color: 'orange' },
     { label: 'Історія України', image: '🇺🇦', link: '/kiosk/games/history', color: 'teal' },
     { label: 'Тест настрою', image: '😊', link: '/kiosk/games/mood', color: 'pink' },
