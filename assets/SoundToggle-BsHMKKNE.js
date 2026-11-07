@@ -1,1 +1,0 @@
-import{r as s,j as o}from"./index-HlKFurWz.js";import{i as a,s as r}from"./sound-Dmh8-2pu.js";const n=()=>{const[t,e]=s.useState(a());return o.jsx("button",{onClick:()=>{r(!t),e(!t)},className:"px-3 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-semibold active:scale-95","aria-label":"Звук",children:t?"🔇 Звук вимкнено":"🔊 Звук увімкнено"})};export{n as S};
