@@ -1,0 +1,1 @@
+import{j as t}from"./query-D79SaXcw.js";import{r}from"./react-DDAncHkv.js";const a=({url:e})=>(r.useEffect(()=>{window.location.href=e},[e]),t.jsx("div",{className:"flex items-center justify-center h-screen bg-slate-900",children:t.jsx("div",{className:"text-white text-xl",children:"Перенаправлення..."})}));export{a as default};
